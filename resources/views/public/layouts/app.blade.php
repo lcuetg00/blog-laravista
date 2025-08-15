@@ -14,21 +14,20 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 
-    <style>
-    </style>
-
     @vite('resources/css/public.css')
     @vite('resources/css/carousel.css')
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-black">
-            <div class="container d-flex justify-content-center align-items-center position-relative">
-                <a class="navbar-brand d-flex align-items-center" href="#">
-                    <img class="logo-nav" src="{{ asset('images/laravista-smaller.png') }}">
-                </a>
-                <a class="navbar-brand" href="#">Carousel</a>
+    <header id="header-top" class="bg-primary text-white sticky-top shadow">
+        <nav class="navbar navbar-expand-md navbar-dark bg-black">
+            <div class="container-fluid container-md">
+                <div class="d-flex justify-content-start">
+                    <a class="navbar-brand d-flex align-items-center" href="#">
+                        <img class="logo-nav" src="{{ asset('images/laravista-smaller.png') }}">
+                    </a>
+                </div>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -38,28 +37,34 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
 
-    <body>
-        <div class="container-md container-fluid">
-            @yield('content')
-        </div>
-    </body>
+
+    <div class="container-md container-fluid">
+        @yield('content')
+    </div>
+</body>
 
 
-    <footer class="container-md">
-        <img class="img-fluid" src="{{ asset('images/underConstruction.png') }}"></img>
-        <p class="float-end"><a href="#">Back to top</a></p>
-        <p>&copy; {{ today()->format('Y') }} Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a
-                href="#">Terms</a>
-        </p>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
-        </script>
-    </footer>
+<footer class="container-md">
+    <img class="img-fluid" src="{{ asset('images/underConstruction.png') }}"></img>
+    <p class="float-end"><a href="#">Back to top</a></p>
+    <p>&copy; {{ today()->format('Y') }} Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a
+            href="#">Terms</a>
+    </p>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
+    </script>
+</footer>
 
 </html>
