@@ -1,9 +1,11 @@
 @extends('public.layouts.app')
 
 @section('content')
-    <h1 class="text-center">{{ trans('public.home.title') }}</h1>
-    <div class="d-flex justify-content-center">
-        <p class="text-center" style="max-width: 600px">{{ trans('public.home.description') }}</p>
+    <div class="my-5">
+        <h1 class="text-center mb-3">{{ trans('public.home.title') }}</h1>
+        <div class="d-flex justify-content-center">
+            <p class="text-center" style="max-width: 600px">{{ trans('public.home.description') }}</p>
+        </div>
     </div>
 
     <hr class="featurette-divider">
