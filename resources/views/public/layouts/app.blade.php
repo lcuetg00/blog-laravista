@@ -35,18 +35,15 @@
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">{{ trans('public.menu.home') }}</a>
+                    <a class="nav-link menu-titulo" aria-current="page"
+                        href="#">{{ trans('public.menu.home') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Posts</a>
+                    <a class="nav-link menu-titulo" href="#">{{ trans('public.menu.posts') }}</a>
                 </li>
             </ul>
 
             <div class="col-md-3 d-flex justify-content-end">
-                <div class="mx-1">
-                    <button type="button" class="btn btn-outline-primary me-2">Login</button>
-                </div>
-
                 <div class="mx-1">
                     <button type="button" class="btn btn-primary">
                         <i class="fa-solid fa-house"></i>
@@ -79,20 +76,28 @@
     <div class="container-md container-fluid">
         @yield('content')
     </div>
+
+    <footer class="container-fluid bg-primary shadow p-3 d-flex flex-column justify-content-center align-items-center">
+        <div>
+            <img class="img-fluid footer-image " src="{{ asset('images/underConstruction.png') }}"></img>
+        </div>
+
+        <div>
+            <p class="mt-3">&copy; {{ today()->format('Y') . ' ' }} . &middot; <a
+                    href="#">{{ trans('public.politica_privacidad') }}</a> &middot; <a
+                    href="#">{{ trans('public.terminos_condiciones') }}</a>
+            </p>
+        </div>
+
+        <div>
+
+            <p class="float-end"><a href="#">{{ trans('actions.back_top') }}</a></p>
+        </div>
+
+        @yield('scripts')
+
+        @vite('resources/js/public.js')
+    </footer>
 </body>
-
-
-<footer class="container-md">
-    <img class="img-fluid" src="{{ asset('images/underConstruction.png') }}"></img>
-    <p class="float-end"><a href="#">Back to top</a></p>
-    <p>&copy; {{ today()->format('Y') }} Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a
-            href="#">Terms</a>
-    </p>
-
-    @yield('scripts')
-
-
-    @vite('resources/js/public.js')
-</footer>
 
 </html>

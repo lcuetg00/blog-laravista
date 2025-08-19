@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <hr class="featurette-divider">
+    {{-- <hr class="featurette-divider">
 
     <div class="row featurette">
         <div class="col-md-7 order-md-2">
@@ -69,7 +69,7 @@
             </svg>
 
         </div>
-    </div>
+    </div> --}}
 
     <hr class="featurette-divider">
 @endsection
