@@ -35,19 +35,44 @@
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                    <a class="nav-link active" aria-current="page" href="#">{{ trans('public.menu.home') }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Posts</a>
                 </li>
             </ul>
 
-            <div class="col-md-3 text-end"> <button type="button" class="btn btn-outline-primary me-2">Login</button>
-                <button type="button" class="btn btn-primary">
+            <div class="col-md-3 d-flex justify-content-end">
+                <div class="mx-1">
+                    <button type="button" class="btn btn-outline-primary me-2">Login</button>
+                </div>
 
-                    <i class="fa-solid fa-house"></i>
-                </button>
+                <div class="mx-1">
+                    <button type="button" class="btn btn-primary">
+                        <i class="fa-solid fa-house"></i>
+                    </button>
+                </div>
+
+                <div class="mx-1">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            {{-- // TODO: añadir el que se ha seleccionado, guardándolo en una cookie --}}
+                            <i id="modo-seleccionado" class="fa-solid fa-sun"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item" onclick="changePageMode(1)"><i class="fa-solid fa-sun"></i>
+                                {{ trans('public.modo.luz') }}
+                            </li>
+                            <li class="dropdown-item" onclick="changePageMode(2)"><i class="fa-solid fa-moon"></i>
+                                {{ trans('public.modo.oscuro') }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+
+
         </header>
     </div>
 
@@ -63,9 +88,11 @@
     <p>&copy; {{ today()->format('Y') }} Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a
             href="#">Terms</a>
     </p>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
-    </script>
+
+    @yield('scripts')
+
+
+    @vite('resources/js/public.js')
 </footer>
 
 </html>
