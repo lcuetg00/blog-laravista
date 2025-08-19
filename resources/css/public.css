@@ -1,36 +1,22 @@
 
 :root[data-bs-theme="light"], :root:not([data-bs-theme]) {
-  /* Colores de Bootstrap */
-  --bs-blue: #0d6efd;
-  --bs-indigo: #6610f2;
-  --bs-purple: #6f42c1;
-  --bs-pink: #d63384;
-  --bs-red: #dc3545;
-  --bs-orange: #fd7e14;
-  --bs-yellow: #ffc107;
-  --bs-green: #198754;
-  --bs-teal: #20c997;
-  --bs-cyan: #0dcaf0;
-
-  --bs-white: #fff;
-  --bs-gray: #6c757d;
-  --bs-gray-dark: #343a40;
-
   /* Primary / Secondary */
   --primary: rgb(37, 37, 37);
   --primary-rgb: 37, 37, 37;
 
   --secondary: rgb(0, 173, 181);
   --secondary-rgb: 0, 173, 181;
+
+  --text-color: #5a5a5a;
   
   /* Fondo */
   --bs-light: #dedede;
   --bs-dark: #15181a;
-  /* Fin colores  */
 
   /* Etiquetas de bootstrap */
   --bs-primary: var(--primary);
   --bs-secondary: var(--secondary);
+
   /* Para el texto */
   --bs-primary-rgb: var(--primary-rgb);
   --bs-secondary-rgb: var(--secondary-rgb);
@@ -38,108 +24,130 @@
   /* Color para clases del texto */
   --bs-body-color: var(--primary);  /* Cuerpo */
   --bs-heading-color: var(--primary); /* Encabezados */
-
 }
 
 :root[data-bs-theme="dark"] {
-    /* Modo oscuro */ 
-    --primary: rgb(0, 0, 0);
-    --primary-rgb: 0, 0, 0;
+  /* Modo oscuro */ 
+  --primary: rgb(0, 0, 0);
+  --primary-rgb: 0, 0, 0;
 
-    --secondary: rgb(0, 150, 160); 
-    --secondary-rgb: 0, 150, 160;
+  --secondary: rgb(0, 150, 160); 
+  --secondary-rgb: 0, 150, 160;
 
-    --body-color: rgb(255, 255, 255); 
-    --body-bg: rgb(18, 18, 18);       
+  --text-color: var(--secondary);
 
-
-    /* Etiquetas de bootstrap */
-    --bs-primary: var(--primary);
-    --bs-secondary: var(--secondary);
-
-    /* Para el texto */
-    --bs-primary-rgb: var(--primary-rgb);
-    --bs-secondary-rgb: var(--secondary-rgb);
-
-    /* Color para clases del texto */
-    --bs-body-color: var(--secondary);  /* Cuerpo */
-    --bs-heading-color: var(--secondary); /* Encabezados */
+  --body-color: rgb(255, 255, 255); 
+  --body-bg: rgb(18, 18, 18);       
 
 
-    /* Botones, sobreescrito con important (si no use el de buttons.css) */
+  /* Etiquetas de bootstrap */
+  --bs-primary: var(--primary);
+  --bs-secondary: var(--secondary);
+
+  /* Para el texto */
+  --bs-primary-rgb: var(--primary-rgb);
+  --bs-secondary-rgb: var(--secondary-rgb);
+
+  /* Color para clases del texto */
+  --bs-body-color: var(--secondary);  /* Cuerpo */
+  --bs-heading-color: var(--secondary); /* Encabezados */
   
-    .btn-primary {
-      --bs-btn-color: var(--bs-white);
-      --bs-btn-bg: var(--secondary) ;
-      --bs-btn-border-color: var(--secondary);
-      --bs-btn-hover-color: var(--bs-white);
-      --bs-btn-hover-bg: var(--secondary);
-      --bs-btn-hover-border-color: var(--secondary);
-      --bs-btn-active-color: var(--secondary);
-      --bs-btn-active-bg: var(--secondary);
-      --bs-btn-active-border-color: var(--secondary);
-      --bs-btn-disabled-color: var(--bs-white);
-      --bs-btn-disabled-bg: var(--secondary);
-      --bs-btn-disabled-border-color: var(--secondary);
-    }
+}
 
-    .btn-outline-primary {
-      /* --bs-btn-color: var(--bs-white);
-      --bs-btn-bg: var(--secondary) ;
-      --bs-btn-border-color: var(--secondary);
-      --bs-btn-hover-color: var(--bs-white);
-      --bs-btn-hover-bg: var(--secondary);
-      --bs-btn-hover-border-color: var(--secondary);
-      --bs-btn-active-color: var(--secondary);
-      --bs-btn-active-bg: var(--secondary);
-      --bs-btn-active-border-color: var(--secondary);
-      --bs-btn-disabled-color: var(--bs-white);
-      --bs-btn-disabled-bg: var(--secondary);
-      --bs-btn-disabled-border-color: var(--secondary); */
-    }
-      
-    p {
-      color: var(--secondary);
-    }
-
-    /* Botones */
-
+/* Root que comparten los dos, tanto dark como light */
+:root {
+  body {
+    padding-top: 0 !important;
+    padding-bottom: 3rem;
+    color: var(--text-color);
   }
 
-
-body {
-  padding-top: 0 !important;
-  padding-bottom: 3rem;
-  color: #5a5a5a;
-}
-
-.logo-nav {
-  object-fit: contain;
-  height: 80px !important;
-  width: auto;
-}
-
-.bd-placeholder-img {
-  font-size: 1.125rem;
-  text-anchor: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-
-@media (min-width: 768px) {
-  .bd-placeholder-img-lg {
-    font-size: 3.5rem;
+  .logo-nav {
+    object-fit: contain;
+    height: 80px !important;
+    width: auto;
   }
-}
+
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container-md {
+      --bs-gutter-x: 1.5rem;
+      --bs-gutter-y: 0;
+      width: 100%;
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+
+  .clickable {
+    cursor: pointer;
+  }
+
+  a {
+    color: white;
+  }
+
+  a:hover {
+    color: var(--secondary); 
+  }
+
+  /* Bootstrap dropdown */
+  .dropdown-item:hover,
+  .dropdown-item:focus {
+      color: white;     
+      background-color: var(--secondary); 
+  }
+
+  .dropdown-item.active {
+      color: white;
+      background-color: var(--secondary); 
+  }
+
+  .btn-primary {
+    --bs-btn-color: var(--bs-white);
+    --bs-btn-bg: var(--secondary) ;
+    --bs-btn-border-color: var(--secondary);
+    --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-hover-bg: var(--secondary);
+    --bs-btn-hover-border-color: var(--secondary);
+    --bs-btn-active-color: var(--secondary);
+    --bs-btn-active-bg: var(--secondary);
+    --bs-btn-active-border-color: var(--secondary);
+    --bs-btn-disabled-color: var(--bs-white);
+    --bs-btn-disabled-bg: var(--secondary);
+    --bs-btn-disabled-border-color: var(--secondary);
+  }
+
+  /* .btn-outline-primary { */
+    /* --bs-btn-color: var(--bs-white);
+    --bs-btn-bg: var(--secondary) ;
+    --bs-btn-border-color: var(--secondary);
+    --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-hover-bg: var(--secondary);
+    --bs-btn-hover-border-color: var(--secondary);
+    --bs-btn-active-color: var(--secondary);
+    --bs-btn-active-bg: var(--secondary);
+    --bs-btn-active-border-color: var(--secondary);
+    --bs-btn-disabled-color: var(--bs-white);
+    --bs-btn-disabled-bg: var(--secondary);
+    --bs-btn-disabled-border-color: var(--secondary); */
+  /* } */
 
 
-@media (max-width: 768px) {
-  .container-md {
-    --bs-gutter-x: 1.5rem;
-    --bs-gutter-y: 0;
-    width: 100%;
-    margin-right: auto;
-    margin-left: auto;
+  .dropdown-item {
+    cursor: pointer;
   }
 }
