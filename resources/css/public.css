@@ -100,13 +100,16 @@
     color: white;
   }
 
-  a:hover {
+  a:hover,
+  a:active,
+  a:focus {
     color: var(--secondary); 
   }
 
   /* Bootstrap dropdown */
   .dropdown-item:hover,
-  .dropdown-item:focus {
+  .dropdown-item:focus,
+  .dropdown-item:active {
       color: white;     
       background-color: var(--secondary); 
   }
@@ -159,5 +162,28 @@
 
   .menu-titulo {
     font-size: 140%;
+  }
+
+  .image-home {
+    width: 300px;
+    height: 300px;
+    max-width: 300px;
+    max-height: 300px;
+  }
+  
+  .shadow-xl {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.5) !important;
+  }
+
+  .image-fade {
+    -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 70%);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: cover;
+
+    mask-image: radial-gradient(circle, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 70%);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: cover;
   }
 }
