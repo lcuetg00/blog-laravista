@@ -1,17 +1,45 @@
+/* Swiper CSS */
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+@import 'swiper/css/effect-coverflow';
 
+/* Fuentes */
+/* Bebas Neue - Fuente sans-serif bold para títulos
+   Licencia: SIL Open Font License 1.1
+   Uso: Personal y comercial permitido */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+/* Montserrat - Fuente sans-serif moderna para todo el contenido
+   Licencia: SIL Open Font License 1.1
+   Uso: Personal y comercial permitido */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Colores del modo claro */
 :root[data-bs-theme="light"], :root:not([data-bs-theme]) {
-  /* Primary / Secondary */
-  --primary: rgb(37, 37, 37);
-  --primary-rgb: 37, 37, 37;
+  --primary: rgb(45, 45, 45);
+  --primary-rgb: 45, 45, 45;
 
-  --secondary: rgb(0, 173, 181);
-  --secondary-rgb: 0, 173, 181;
+  --secondary: rgb(139, 92, 246);
+  --secondary-rgb: 139, 92, 246;
 
-  --text-color: #5a5a5a;
-  
+  --secondary-strong: rgb(109, 40, 217);
+  --secondary-strong-rgb: 109, 40, 217;
+
+  --terciary: rgb(234, 28, 28);
+  --terciary-rgb: 234, 28, 28;
+
+  --quaternary: rgb(0, 122, 222);
+  --quaternary-rgb: 0, 122, 222;
+
+  --highlight: rgb(245, 158, 11);
+  --highlight-rgb: 245, 158, 11;
+
+  --text-color: #4a4a4a;
+
   /* Fondo */
-  --bs-light: #dedede;
-  --bs-dark: #15181a;
+  --bs-light: #e8e8e8;
+  --bs-dark: #2d1b4e;
 
   /* Etiquetas de bootstrap */
   --bs-primary: var(--primary);
@@ -21,23 +49,35 @@
   --bs-primary-rgb: var(--primary-rgb);
   --bs-secondary-rgb: var(--secondary-rgb);
 
-  /* Color para clases del texto */
-  --bs-body-color: var(--primary);  /* Cuerpo */
-  --bs-heading-color: var(--primary); /* Encabezados */
+  /* Cuerpo */
+  --bs-body-color: var(--primary);
+  /* Encabezados */
+  --bs-heading-color: var(--primary);
 }
 
 :root[data-bs-theme="dark"] {
-  /* Modo oscuro */ 
-  --primary: rgb(0, 0, 0);
-  --primary-rgb: 0, 0, 0;
+  --primary: rgb(30, 20, 50);
+  --primary-rgb: 30, 20, 50;
 
-  --secondary: rgb(0, 150, 160); 
-  --secondary-rgb: 0, 150, 160;
+  --secondary: rgb(130, 89, 254);
+  --secondary-rgb: 167, 139, 250;
 
-  --text-color: var(--secondary);
+  --secondary-strong: rgb(147, 51, 234);
+  --secondary-strong-rgb: 147, 51, 234;
 
-  --body-color: rgb(255, 255, 255); 
-  --body-bg: rgb(18, 18, 18);       
+  --terciary: rgb(255, 0, 0);
+  --terciary-rgb: 252, 165, 165;
+
+  --quaternary: rgb(0, 98, 255);
+  --quaternary-rgb: 59, 130, 246;
+
+  --highlight: rgb(251, 191, 36);
+  --highlight-rgb: 251, 191, 36;
+
+  --text-color: rgb(167, 139, 250);
+
+  --body-color: rgb(167, 139, 250);
+  --body-bg: rgb(16, 10, 30);       
 
 
   /* Etiquetas de bootstrap */
@@ -48,18 +88,160 @@
   --bs-primary-rgb: var(--primary-rgb);
   --bs-secondary-rgb: var(--secondary-rgb);
 
-  /* Color para clases del texto */
-  --bs-body-color: var(--secondary);  /* Cuerpo */
-  --bs-heading-color: var(--secondary); /* Encabezados */
-  
+  /* Cuerpo */
+  --bs-body-color: var(--secondary);
+  /* Encabezados */
+  --bs-heading-color: var(--secondary);
 }
 
-/* Root que comparten los dos, tanto dark como light */
+/* Root que comparten los dos, tanto modo oscuro como claro */
 :root {
   body {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     color: var(--text-color);
+  }
+
+  /* Ocultar checkbox del menú móvil */
+  .mobile-menu-toggle {
+    display: none;
+  }
+
+  /* Hamburguesa - Solo visible en móvil */
+  .mobile-menu-hamburger {
+    display: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--secondary);
+    border: 3px solid var(--secondary-strong);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: white;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-menu-hamburger:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(var(--secondary-rgb), 0.5);
+  }
+
+  /* Overlay del menú móvil */
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  /* Sidebar del menú móvil */
+  .mobile-menu-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100%;
+    background: var(--primary);
+    z-index: 2000;
+    padding: 2rem 1.5rem;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+  }
+
+  /* Botón de cerrar */
+  .mobile-menu-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--terciary);
+    border: 2px solid var(--terciary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: white;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-menu-close:hover {
+    transform: rotate(90deg) scale(1.1);
+  }
+
+  /* Enlaces del menú móvil */
+  .mobile-menu-links {
+    list-style: none;
+    padding: 0;
+    margin-top: 4rem;
+  }
+
+  .mobile-menu-links li {
+    margin-bottom: 0.5rem;
+  }
+
+  .mobile-menu-links a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: rgba(var(--secondary-rgb), 0.1);
+  }
+
+  .mobile-menu-links a:hover {
+    background: rgba(var(--secondary-rgb), 0.2);
+    transform: translateX(10px);
+    box-shadow: 0 4px 15px rgba(var(--secondary-rgb), 0.3);
+  }
+
+  .mobile-menu-links a i {
+    font-size: 1.2rem;
+    width: 30px;
+    text-align: center;
+  }
+
+  /* Cuando el checkbox está marcado */
+  .mobile-menu-toggle:checked ~ .mobile-menu-overlay {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mobile-menu-toggle:checked ~ .mobile-menu-overlay .mobile-menu-sidebar {
+    transform: translateX(0);
+  }
+
+  /* Desktop menu - Ocultar en móvil */
+  .desktop-menu {
+    display: flex;
+  }
+
+  /* Media query para móvil */
+  @media (max-width: 768px) {
+    .mobile-menu-hamburger {
+      display: flex;
+    }
+
+    .desktop-menu {
+      display: none !important;
+    }
   }
 
   .logo-nav {
@@ -100,12 +282,6 @@
     color: white;
   }
 
-  a:hover,
-  a:active,
-  a:focus {
-    color: var(--secondary); 
-  }
-
   /* Bootstrap dropdown */
   .dropdown-item:hover,
   .dropdown-item:focus,
@@ -134,22 +310,6 @@
     --bs-btn-disabled-border-color: var(--secondary);
   }
 
-  /* .btn-outline-primary { */
-    /* --bs-btn-color: var(--bs-white);
-    --bs-btn-bg: var(--secondary) ;
-    --bs-btn-border-color: var(--secondary);
-    --bs-btn-hover-color: var(--bs-white);
-    --bs-btn-hover-bg: var(--secondary);
-    --bs-btn-hover-border-color: var(--secondary);
-    --bs-btn-active-color: var(--secondary);
-    --bs-btn-active-bg: var(--secondary);
-    --bs-btn-active-border-color: var(--secondary);
-    --bs-btn-disabled-color: var(--bs-white);
-    --bs-btn-disabled-bg: var(--secondary);
-    --bs-btn-disabled-border-color: var(--secondary); */
-  /* } */
-
-
   .dropdown-item {
     cursor: pointer;
   }
@@ -162,6 +322,10 @@
 
   .menu-titulo {
     font-size: 140%;
+  }
+
+  .header-button {
+    border: 3px solid var(--secondary-strong) !important;
   }
 
   .image-home {
@@ -186,4 +350,262 @@
     mask-position: center;
     mask-size: cover;
   }
+
+
+  /* Montserrat como fuente base para todo el contenido */
+  body, p, li, td, th, .text-body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.7;
+    letter-spacing: 0.3px;
+    font-weight: 400;
+  }
+
+  /* Bebas Neue para títulos principales */
+  h1, h2, .menu-titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    line-height: 1.2;
+    letter-spacing: 2px;
+    font-weight: 400;
+  }
+
+  /* Montserrat para subtítulos */
+  h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+
+  /* Hover para títulos */
+  h1:hover, h2:hover {
+    color: var(--secondary);
+    transition: color 0.3s ease;
+  }
+
+  /* Efecto hover para enlaces */
+  a:hover {
+    color: var(--secondary);
+    transform: translateY(-1px);
+    transition: all 0.3s ease;
+  }
+
+  /* Botones  */
+  .btn-primary, .btn {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 12px 32px;
+    border: 2px solid var(--secondary);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .btn-primary:hover, .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-primary:active, .btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Header sticky con efecto scanlines */
+  .sticky-top {
+    position: relative;
+  }
+
+  .sticky-top::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.1) 0px,
+      rgba(0, 0, 0, 0.1) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    pointer-events: none;
+    opacity: 0.3;
+  }
+
+  /* Separadores estilo artístico */
+  hr, .separator {
+    border: none;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--secondary) 50%,
+      transparent 100%
+    );
+    opacity: 0.6;
+    margin: 2rem 0;
+  }
+
+  /* Cards estilo artístico */
+  .card {
+    background: var(--primary) !important;
+    border: 1px solid rgba(var(--secondary-rgb), 0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+  }
+
+  /* Header sin bordes */
+  .bg-primary {
+    background: var(--primary) !important;
+  }
+
+  /* Renderizado suave en imágenes */
+  img {
+    image-rendering: auto;
+  }
+
+  /* Imagen del globo con efecto hover lift */
+  .hover-lift {
+    transition: all 0.4s ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 20px 40px rgba(var(--secondary-rgb), 0.3) !important;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--primary);
+    border-left: 2px solid var(--secondary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--secondary);
+    border: 2px solid var(--primary);
+  }
+
+  /* Animación de entrada para secciones */
+  .container-md > * {
+    animation: fadeInUp 0.6s ease;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Footer sin bordes */
+  /* footer, .footer {
+  } */
+
+  /* Carrousel */
+  .carousel-section {
+    overflow: hidden;
+  }
+
+  .swiper-carousel {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 100px;
+  }
+
+  .swiper-carousel .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 440px;
+    height: 440px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: none;
+    transition: all 0.3s ease;
+  }
+
+  .swiper-carousel .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Estilo activo del slide central */
+  .swiper-carousel .swiper-slide-active {
+    transform: scale(1.05);
+    box-shadow: 0 20px 60px rgba(var(--secondary-rgb), 0.5), 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Botones de navegación personalizados */
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: var(--terciary) !important;
+    background: rgba(var(--primary-rgb), 0.8);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  .swiper-button-next:hover,
+  .swiper-button-prev:hover {
+    background: var(--terciary);
+    color: white !important;
+    transform: scale(1.1);
+  }
+
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    font-size: 14px;
+  }
+
+  /* Paginación personalizada */
+  .swiper-pagination-bullet {
+    background: var(--secondary) !important;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+  }
+
+  .swiper-pagination-bullet-active {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+
+  /* Responsive - Tablet */
+  @media (max-width: 768px) {
+    .swiper-carousel .swiper-slide {
+      width: 340px;
+      height: 340px;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      width: 30px;
+      height: 30px;
+    }
+
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+      font-size: 12px;
+    }
+  }
+
+  /* Responsive - Mobile */
+  @media (max-width: 480px) {
+    .swiper-carousel .swiper-slide {
+      width: 290px;
+      height: 290px;
+    }
+
+    .carousel-section {
+      padding: 2rem 0;
+    }
+  }
+  
+  
 }
