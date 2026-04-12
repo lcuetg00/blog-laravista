@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Fichero sitemap de prueba. Están señaladas recíprocamente los idiomas y sus páginas -->
+  <url>
+    <loc>https://laravel-space.test/en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://laravel-space.test/en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://laravel-space.test/es" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://laravel-space.test/ja" />
+  </url>
+  <url>
+    <loc>https://laravel-space.test/es</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://laravel-space.test/en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://laravel-space.test/es" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://laravel-space.test/ja" />
+  </url>
+  <url>
+    <loc>https://laravel-space.test/ja</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://laravel-space.test/en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://laravel-space.test/es" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://laravel-space.test/ja" />
+  </url>
+  <url>
+    <loc>https://laravel-space.test/en/tecnologias</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://laravel-space.test/en/tecnologias" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://laravel-space.test/es/tecnologias" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://laravel-space.test/ja/tecnologias" />
+  </url>
+  <url>
+    <loc>https://laravel-space.test/es/tecnologias</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://laravel-space.test/en/tecnologias" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://laravel-space.test/es/tecnologias" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://laravel-space.test/ja/tecnologias" />
+  </url>
+  <url>
+    <loc>https://laravel-space.test/ja/tecnologias</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://laravel-space.test/en/tecnologias" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://laravel-space.test/es/tecnologias" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://laravel-space.test/ja/tecnologias" />
+  </url>
+  <url>
+    <loc>https://laravel-space.test/en/proyectos</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://laravel-space.test/en/proyectos" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://laravel-space.test/es/proyectos" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://laravel-space.test/ja/proyectos" />
+  </url>
+  <url>
+    <loc>https://laravel-space.test/es/proyectos</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://laravel-space.test/en/proyectos" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://laravel-space.test/es/proyectos" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://laravel-space.test/ja/proyectos" />
+  </url>
+  <url>
+    <loc>https://laravel-space.test/ja/proyectos</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://laravel-space.test/en/proyectos" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://laravel-space.test/es/proyectos" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://laravel-space.test/ja/proyectos" />
+  </url>
+  <url>
+    <loc>https://laravel-space.test/en/contacto</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://laravel-space.test/en/contacto" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://laravel-space.test/es/contacto" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://laravel-space.test/ja/contacto" />
+  </url>
+  <url>
+    <loc>https://laravel-space.test/es/contacto</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://laravel-space.test/en/contacto" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://laravel-space.test/es/contacto" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://laravel-space.test/ja/contacto" />
+  </url>
+  <url>
+    <loc>https://laravel-space.test/ja/contacto</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://laravel-space.test/en/contacto" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://laravel-space.test/es/contacto" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://laravel-space.test/ja/contacto" />
+  </url>
+</urlset>

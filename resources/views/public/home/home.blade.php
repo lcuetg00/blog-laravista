@@ -1,10 +1,12 @@
 @extends('public.layouts.app')
 
 @section('content')
-    <div class="my-5">
-        <h1 class="text-center mb-3">{{ trans('public.home.title') }}</h1>
-        <div class="d-flex justify-content-center">
-            <p class="text-center" style="max-width: 600px">{{ trans('public.home.description') }}</p>
+    <div class="section-main-hero py-3 mb-3">
+        <div class="container">
+            <h1 class="text-center mb-3">{{ trans('public.home.title') }}</h1>
+            <div class="d-flex justify-content-center">
+                <p class="text-center">{{ trans('public.home.description') }}</p>
+            </div>
         </div>
     </div>
 
@@ -13,25 +15,28 @@
         <div class="swiper swiper-carousel">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <img src="{{ asset('images/laravista.png') }}" alt="{{ trans('public.carousel.slide_1_alt') }}">
+                    <img src="{{ asset('images/laravista.png') }}" alt="{{ trans('public.carousel.slide_1_alt') }}"
+                        loading="lazy">
                 </div>
                 <div class="swiper-slide">
-                    <img src="{{ asset('images/simonlee1.jpg') }}" alt="{{ trans('public.carousel.slide_2_alt') }}">
+                    <img src="{{ asset('images/simonlee1.jpg') }}" alt="{{ trans('public.carousel.slide_2_alt') }}"
+                        loading="lazy">
                 </div>
                 <div class="swiper-slide">
-                    <img src="{{ asset('images/simonlee2.jpg') }}" alt="{{ trans('public.carousel.slide_3_alt') }}">
+                    <img src="{{ asset('images/simonlee2.jpg') }}" alt="{{ trans('public.carousel.slide_3_alt') }}"
+                        loading="lazy">
                 </div>
                 <div class="swiper-slide">
                     <img src="{{ asset('images/david-becker-crs2vlkSe98-unsplash.jpg') }}"
-                        alt="{{ trans('public.carousel.slide_4_alt') }}">
+                        alt="{{ trans('public.carousel.slide_4_alt') }}" loading="lazy">
                 </div>
                 <div class="swiper-slide">
                     <img src="{{ asset('images/johny-goerend-Oz2ZQ2j8We8-unsplash.jpg') }}"
-                        alt="{{ trans('public.carousel.slide_5_alt') }}">
+                        alt="{{ trans('public.carousel.slide_5_alt') }}" loading="lazy">
                 </div>
                 <div class="swiper-slide">
                     <img src="{{ asset('images/pawel-czerwinski-6lQDFGOB1iw-unsplash.jpg') }}"
-                        alt="{{ trans('public.carousel.slide_6_alt') }}">
+                        alt="{{ trans('public.carousel.slide_6_alt') }}" loading="lazy">
                 </div>
             </div>
 
@@ -49,7 +54,7 @@
     <h2 class="text-center mb-3">{{ trans('public.secciones.posts') }}</h2>
 
     <div class="d-flex justify-content-center">
-        <p class="text-center" style="max-width: 600px">{{ trans('public.secciones.posts_descripcion') }}</p>
+        <p class="text-center">{{ trans('public.secciones.posts_descripcion') }}</p>
     </div>
 
     <hr class="featurette-divider">
@@ -65,7 +70,7 @@
         </div>
         <div class="col-md-5 d-flex justify-content-center">
             <img class="image-home shadow-xl image-fade hover-lift" title="{{ trans('public.images.home_globo') }}"
-                src="{{ asset('images/simon-lee-M-6QQXJ8AG4-unsplash.jpg') }}">
+                src="{{ asset('images/simon-lee-M-6QQXJ8AG4-unsplash.jpg') }}" loading="lazy">
         </div>
     </div>
 

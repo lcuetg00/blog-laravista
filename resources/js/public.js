@@ -1,6 +1,30 @@
 // Importar Swiper y módulos necesarios
 import Swiper from 'swiper';
-import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay, EffectCoverflow, FreeMode } from 'swiper/modules';
+
+// Constantes para la cookie del tema
+const THEME_COOKIE_NAME = 'theme';
+const THEME_COOKIE_EXPIRY_DAYS = 3650; // 10 años (duración indefinida)
+
+/**
+ * Obtiene el valor de una cookie por nombre
+ */
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+}
+
+/**
+ * Establece una cookie
+ */
+function setCookie(name, value, days = 365) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = `expires=${date.toUTCString()}`;
+    document.cookie = `${name}=${value};${expires};path=/;SameSite=Lax`;
+}
 
 /**
  * Detecta la preferencia de tema del sistema operativo
@@ -16,7 +40,7 @@ function detectSystemTheme() {
  * Inicializa el tema basándose en la preferencia guardada o del sistema
  */
 function initTheme() {
-    const savedTheme = localStorage.getItem('theme');
+    const savedTheme = getCookie(THEME_COOKIE_NAME);
     const html = document.documentElement;
 
     if (savedTheme) {
@@ -26,6 +50,7 @@ function initTheme() {
         const systemTheme = detectSystemTheme();
         html.setAttribute('data-bs-theme', systemTheme);
         updateThemeIcon(systemTheme);
+        setCookie(THEME_COOKIE_NAME, systemTheme, THEME_COOKIE_EXPIRY_DAYS);
     }
 }
 
@@ -62,7 +87,7 @@ function changePageMode(value) {
         html.setAttribute('data-bs-theme', 'dark');
     }
 
-    localStorage.setItem('theme', theme);
+    setCookie(THEME_COOKIE_NAME, theme, THEME_COOKIE_EXPIRY_DAYS);
     updateThemeIcon(theme);
 }
 
@@ -72,11 +97,12 @@ window.changePageMode = changePageMode;
 // Detectar cambios en la preferencia del sistema
 if (window.matchMedia) {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        const savedTheme = localStorage.getItem('theme');
+        const savedTheme = getCookie(THEME_COOKIE_NAME);
         if (!savedTheme) {
             const newTheme = e.matches ? 'dark' : 'light';
             document.documentElement.setAttribute('data-bs-theme', newTheme);
             updateThemeIcon(newTheme);
+            setCookie(THEME_COOKIE_NAME, newTheme, THEME_COOKIE_EXPIRY_DAYS);
         }
     });
 }
@@ -119,8 +145,82 @@ function initCarousel() {
     });
 }
 
+/**
+ * Inicializa los carruseles de tecnologías con movimiento continuo
+ * DESHABILITADO: Ahora se usa CSS animations puras para evitar saltos en el loop
+ */
+// function initTechCarousels() {
+//     const frontendContainer = document.querySelector('.swiper-frontend');
+//     const herramientasContainer = document.querySelector('.swiper-herramientas');
+
+//     if (frontendContainer) {
+//         new Swiper('.swiper-frontend', {
+//             modules: [Autoplay, FreeMode],
+//             slidesPerView: 'auto',
+//             spaceBetween: 30,
+//             loop: true,
+//             loopedSlides: 6,
+//             speed: 8000,
+//             freeMode: {
+//                 enabled: true,
+//                 momentum: false,
+//             },
+//             autoplay: {
+//                 delay: 0,
+//                 disableOnInteraction: false,
+//                 pauseOnMouseEnter: false,
+//             },
+//             breakpoints: {
+//                 576: {
+//                     spaceBetween: 30,
+//                 },
+//                 768: {
+//                     spaceBetween: 40,
+//                 },
+//                 992: {
+//                     spaceBetween: 50,
+//                 },
+//             },
+//         });
+//     }
+
+//     if (herramientasContainer) {
+//         new Swiper('.swiper-herramientas', {
+//             modules: [Autoplay, FreeMode],
+//             slidesPerView: 'auto',
+//             spaceBetween: 30,
+//             loop: true,
+//             loopedSlides: 6,
+//             speed: 8000,
+//             freeMode: {
+//                 enabled: true,
+//                 momentum: false,
+//             },
+//             autoplay: {
+//                 delay: 0,
+//                 disableOnInteraction: false,
+//                 pauseOnMouseEnter: false,
+//             },
+//             breakpoints: {
+//                 576: {
+//                     spaceBetween: 30,
+//                 },
+//                 768: {
+//                     spaceBetween: 40,
+//                 },
+//                 992: {
+//                     spaceBetween: 50,
+//                 },
+//             },
+//         });
+//     }
+// }
+
 // Inicializar el tema antes de que se cargue la página para evitar parpadeo
 initTheme();
 
-// Inicializar el carrusel cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', initCarousel);
+// Inicializar los carruseles cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    initCarousel();
+    // initTechCarousels(); // Deshabilitado - ahora se usa CSS animations
+});

@@ -1,37 +1,41 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Luis Cueto">
-    <title>{{ config('app.name') }}</title>
+
+    <x-seo-meta :meta="$seo ?? []" />
+
     <link rel="icon" href="{{ asset('images/laravista-smaller.png') }}">
-
-    <!-- Bootstrap core CSS. Dejado de usar, instalado por npm -->
-
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous"> --}}
+    <link rel="sitemap" type="application/xml" href="{{ asset('sitemap.xml') }}" />
 
     {{-- Importo el vite que se genera con lo que tengo instalado (FontAwsome, Bootstrap) --}}
     @vite('resources/js/app.js')
-
 
     {{-- Css público --}}
     @vite('resources/css/public.css')
 </head>
 
 <body>
-    <div class="container-fluid bg-primary sticky-top  shadow">
+    <div class="container-fluid bg-primary sticky-top shadow">
         @include('public.layouts.header')
     </div>
 
-    <div class="container-md container-fluid">
+    {{-- Añadido min-vh-100 para que la página siempre ocupe el 100% y el footer no se suba --}}
+    <div class="container-md container-fluid min-vh-100">
         @yield('content')
     </div>
 
     @include('public.layouts.footer')
+
+    {{-- Botón scroll to top --}}
+    <button id="scroll-to-top"
+        class="btn btn-primary rounded-circle header-button btn-size-45 d-flex align-items-center justify-content-center p-0 position-fixed shadow"
+        style="bottom: 2rem; right: 2rem; z-index: 1000;" type="button" title="{{ trans('public.scroll_to_top') }}"
+        aria-label="{{ trans('public.scroll_to_top') }}" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
 </body>
 
 </html>

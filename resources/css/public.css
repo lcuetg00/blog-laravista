@@ -3,25 +3,30 @@
 @import 'swiper/css/navigation';
 @import 'swiper/css/pagination';
 @import 'swiper/css/effect-coverflow';
+@import './swiper_custom.css';
 
-/* Fuentes */
-/* Bebas Neue - Fuente sans-serif bold para títulos
-   Licencia: SIL Open Font License 1.1
-   Uso: Personal y comercial permitido */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-
-/* Montserrat - Fuente sans-serif moderna para todo el contenido
-   Licencia: SIL Open Font License 1.1
-   Uso: Personal y comercial permitido */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+.swiper-button-prev,
+.swiper-button-next {
+  svg {
+    width: 100%;
+    /* Cambiada la altura máxima */
+    height: 60%;
+    object-fit: contain;
+    transform-origin: center;
+    fill: currentColor;
+    pointer-events: none;
+  }
+}
 
 /* Colores del modo claro */
-:root[data-bs-theme="light"], :root:not([data-bs-theme]) {
+:root[data-bs-theme="light"],
+:root:not([data-bs-theme]) {
   --primary: rgb(45, 45, 45);
   --primary-rgb: 45, 45, 45;
+  --primary-light: rgb(62, 62, 62);
 
-  --secondary: rgb(139, 92, 246);
-  --secondary-rgb: 139, 92, 246;
+  --secondary: rgb(157, 115, 255);
+  --secondary-rgb: 157, 115, 255;
 
   --secondary-strong: rgb(109, 40, 217);
   --secondary-strong-rgb: 109, 40, 217;
@@ -36,6 +41,9 @@
   --highlight-rgb: 245, 158, 11;
 
   --text-color: #4a4a4a;
+  --text-color-btn: #4a4a4a;
+
+  --links: rgb(112, 25, 25);
 
   /* Fondo */
   --bs-light: #e8e8e8;
@@ -51,6 +59,7 @@
 
   /* Cuerpo */
   --bs-body-color: var(--primary);
+
   /* Encabezados */
   --bs-heading-color: var(--primary);
 }
@@ -58,12 +67,15 @@
 :root[data-bs-theme="dark"] {
   --primary: rgb(30, 20, 50);
   --primary-rgb: 30, 20, 50;
+  --primary-light: rgb(74, 50, 121);
 
   --secondary: rgb(130, 89, 254);
-  --secondary-rgb: 167, 139, 250;
-
-  --secondary-strong: rgb(147, 51, 234);
+  --secondary-rgb: 130, 89, 254;
+  --secondary-strong: rgb(134, 35, 227);
   --secondary-strong-rgb: 147, 51, 234;
+  --secondary-rgb: 130, 89, 254;
+  --secondary-light: rgb(218, 178, 255);
+  --secondary-light-rgb: 218, 178, 255;
 
   --terciary: rgb(255, 0, 0);
   --terciary-rgb: 252, 165, 165;
@@ -75,10 +87,12 @@
   --highlight-rgb: 251, 191, 36;
 
   --text-color: rgb(167, 139, 250);
+  --text-color-btn: rgb(255, 255, 255);
+
+  --links: rgb(25, 25, 112);
 
   --body-color: rgb(167, 139, 250);
-  --body-bg: rgb(16, 10, 30);       
-
+  --body-bg: rgb(16, 10, 30);
 
   /* Etiquetas de bootstrap */
   --bs-primary: var(--primary);
@@ -91,7 +105,7 @@
   /* Cuerpo */
   --bs-body-color: var(--secondary);
   /* Encabezados */
-  --bs-heading-color: var(--secondary);
+  --bs-heading-color: var(--secondary-strong);
 }
 
 /* Root que comparten los dos, tanto modo oscuro como claro */
@@ -102,8 +116,8 @@
     color: var(--text-color);
   }
 
-  /* Ocultar checkbox del menú móvil */
-  .mobile-menu-toggle {
+  /* Details del menú móvil */
+  .mobile-menu-details {
     display: none;
   }
 
@@ -121,6 +135,15 @@
     font-size: 1.2rem;
     color: white;
     transition: all 0.3s ease;
+    list-style: none;
+  }
+
+  .mobile-menu-hamburger::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-menu-hamburger::marker {
+    display: none;
   }
 
   .mobile-menu-hamburger:hover {
@@ -150,7 +173,7 @@
     width: 280px;
     height: 100%;
     background: var(--primary);
-    z-index: 2000;
+    z-index: 10000;
     padding: 2rem 1.5rem;
     box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
     transform: translateX(-100%);
@@ -158,38 +181,15 @@
     overflow-y: auto;
   }
 
-  /* Botón de cerrar */
-  .mobile-menu-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--terciary);
-    border: 2px solid var(--terciary);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    color: white;
-    transition: all 0.3s ease;
-  }
-
-  .mobile-menu-close:hover {
-    transform: rotate(90deg) scale(1.1);
-  }
-
   /* Enlaces del menú móvil */
   .mobile-menu-links {
     list-style: none;
     padding: 0;
-    margin-top: 4rem;
+    margin-top: 2rem;
   }
 
   .mobile-menu-links li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
 
   .mobile-menu-links a {
@@ -218,13 +218,13 @@
     text-align: center;
   }
 
-  /* Cuando el checkbox está marcado */
-  .mobile-menu-toggle:checked ~ .mobile-menu-overlay {
+  /* Cuando el menú está abierto (usando details[open]) */
+  .mobile-menu-details[open] .mobile-menu-overlay {
     opacity: 1;
     visibility: visible;
   }
 
-  .mobile-menu-toggle:checked ~ .mobile-menu-overlay .mobile-menu-sidebar {
+  .mobile-menu-details[open] .mobile-menu-sidebar {
     transform: translateX(0);
   }
 
@@ -235,6 +235,10 @@
 
   /* Media query para móvil */
   @media (max-width: 768px) {
+    .mobile-menu-details {
+      display: block;
+    }
+
     .mobile-menu-hamburger {
       display: flex;
     }
@@ -278,36 +282,65 @@
     cursor: pointer;
   }
 
-  a {
-    color: white;
-  }
-
   /* Bootstrap dropdown */
   .dropdown-item:hover,
   .dropdown-item:focus,
   .dropdown-item:active {
-      color: white;     
-      background-color: var(--secondary); 
+    color: white;
+    background-color: var(--secondary);
   }
 
   .dropdown-item.active {
-      color: white;
-      background-color: var(--secondary); 
+    color: white;
+    background-color: var(--secondary);
   }
 
+  /* Cambiados los estilos para todos los botones, unicamente los colores que usan 
+  Utilizado para todos los primary (si se añaden secondary etc, irán aquí) */
   .btn-primary {
     --bs-btn-color: var(--bs-white);
-    --bs-btn-bg: var(--secondary) ;
+    --bs-btn-bg: var(--secondary);
     --bs-btn-border-color: var(--secondary);
     --bs-btn-hover-color: var(--bs-white);
     --bs-btn-hover-bg: var(--secondary);
     --bs-btn-hover-border-color: var(--secondary);
-    --bs-btn-active-color: var(--secondary);
+    --bs-btn-active-color: var(--bs-white);
     --bs-btn-active-bg: var(--secondary);
     --bs-btn-active-border-color: var(--secondary);
     --bs-btn-disabled-color: var(--bs-white);
     --bs-btn-disabled-bg: var(--secondary);
     --bs-btn-disabled-border-color: var(--secondary);
+  }
+
+  .btn-outline-primary {
+    --bs-btn-border-color: var(--secondary);
+    --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-hover-border-color: var(--secondary);
+    --bs-btn-active-bg: var(--secondary);
+    --bs-btn-color: var(--secondary);
+    --bs-btn-border-color: var(--secondary);
+    --bs-btn-hover-bg: var(--secondary-light);
+    color: var(--text-color-btn);
+  }
+
+  /* Mantener apariencia de botones header cuando dropdown está abierto */
+  .header-button:hover,
+  .header-button:focus,
+  .header-button:active,
+  .header-button.show,
+  .show>.header-button.dropdown-toggle {
+    background-color: var(--secondary) !important;
+    border-color: var(--secondary-strong) !important;
+    color: white !important;
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(var(--secondary-rgb), 0.5);
+    transition: all 0.3s ease;
+  }
+
+  /* Evitar cambio visual en foco */
+  .header-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 0.25rem rgba(var(--secondary-rgb), 0.5);
   }
 
   .dropdown-item {
@@ -321,11 +354,16 @@
   }
 
   .menu-titulo {
-    font-size: 140%;
+    font-size: 180%;
   }
 
   .header-button {
     border: 3px solid var(--secondary-strong) !important;
+  }
+
+  .idioma-texto {
+    font-weight: 600;
+    font-size: 0.85rem;
   }
 
   .image-home {
@@ -334,18 +372,18 @@
     max-width: 300px;
     max-height: 300px;
   }
-  
+
   .shadow-xl {
     box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.5) !important;
   }
 
   .image-fade {
-    -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 70%);
+    -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 65%, rgba(0, 0, 0, 0) 70%);
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
     -webkit-mask-size: cover;
 
-    mask-image: radial-gradient(circle, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 70%);
+    mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 65%, rgba(0, 0, 0, 0) 70%);
     mask-repeat: no-repeat;
     mask-position: center;
     mask-size: cover;
@@ -353,7 +391,12 @@
 
 
   /* Montserrat como fuente base para todo el contenido */
-  body, p, li, td, th, .text-body {
+  body,
+  p,
+  li,
+  td,
+  th,
+  .text-body {
     font-family: 'Montserrat', sans-serif;
     line-height: 1.7;
     letter-spacing: 0.3px;
@@ -361,7 +404,9 @@
   }
 
   /* Bebas Neue para títulos principales */
-  h1, h2, .menu-titulo {
+  h1,
+  h2,
+  .menu-titulo {
     font-family: 'Bebas Neue', sans-serif;
     line-height: 1.2;
     letter-spacing: 2px;
@@ -369,27 +414,32 @@
   }
 
   /* Montserrat para subtítulos */
-  h3, h4, h5, h6 {
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 0.5px;
     font-weight: 600;
   }
 
-  /* Hover para títulos */
-  h1:hover, h2:hover {
+  /* Hover para títulos, para que cuando se pase el ratón cambie de color*/
+  h1:hover,
+  h2:hover {
     color: var(--secondary);
     transition: color 0.3s ease;
   }
 
   /* Efecto hover para enlaces */
   a:hover {
-    color: var(--secondary);
+    color: var(--links);
     transform: translateY(-1px);
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
   }
 
   /* Botones  */
-  .btn-primary, .btn {
+  .btn-primary,
+  .btn {
     font-family: 'Montserrat', sans-serif;
     font-size: 0.9rem;
     font-weight: 600;
@@ -401,21 +451,19 @@
     letter-spacing: 1.5px;
   }
 
-  .btn-primary:hover, .btn:hover {
+  .btn-primary:hover,
+  .btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
   }
 
-  .btn-primary:active, .btn:active {
+  .btn-primary:active,
+  .btn:active {
     transform: translateY(-1px);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   }
 
   /* Header sticky con efecto scanlines */
-  .sticky-top {
-    position: relative;
-  }
-
   .sticky-top::before {
     content: '';
     position: absolute;
@@ -423,34 +471,30 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.1) 0px,
-      rgba(0, 0, 0, 0.1) 1px,
-      transparent 1px,
-      transparent 2px
-    );
+    background: repeating-linear-gradient(0deg,
+        rgba(0, 0, 0, 0.1) 0px,
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 2px);
     pointer-events: none;
     opacity: 0.3;
+    z-index: -1;
   }
 
-  /* Separadores estilo artístico */
-  hr, .separator {
+  hr,
+  .separator {
     border: none;
     height: 2px;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      var(--secondary) 50%,
-      transparent 100%
-    );
+    background: linear-gradient(90deg,
+        transparent 0%,
+        var(--secondary) 50%,
+        transparent 100%);
     opacity: 0.6;
     margin: 2rem 0;
   }
 
-  /* Cards estilo artístico */
   .card {
-    background: var(--primary) !important;
+    background: var(--primary-light) !important;
     border: 1px solid rgba(var(--secondary-rgb), 0.3);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
     border-radius: 8px;
@@ -487,7 +531,7 @@
   }
 
   /* Animación de entrada para secciones */
-  .container-md > * {
+  .container-md>* {
     animation: fadeInUp 0.6s ease;
   }
 
@@ -496,116 +540,105 @@
       opacity: 0;
       transform: translateY(20px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
 
-  /* Footer sin bordes */
-  /* footer, .footer {
-  } */
+  /* Animación para que floten lo que sea necesario */
+  @keyframes float {
 
-  /* Carrousel */
-  .carousel-section {
-    overflow: hidden;
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
   }
 
-  .swiper-carousel {
-    width: 100%;
-    padding-top: 50px;
-    padding-bottom: 100px;
-  }
-
-  .swiper-carousel .swiper-slide {
-    background-position: center;
-    background-size: cover;
-    width: 440px;
-    height: 440px;
+  /* Hero Secciones */
+  .section-main-hero {
+    position: relative;
+    background: linear-gradient(135deg, rgba(var(--secondary-rgb), 0.03) 0%, rgba(var(--secondary-rgb), 0.08) 100%);
     border-radius: 20px;
+  }
+
+  .section-main-hero i {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Fin Secciones Hero */
+
+  /* Cards */
+  .contact-card {
+    background: var(--bs-light);
+    border-radius: 20px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     overflow: hidden;
-    box-shadow: none;
+    position: relative;
+  }
+
+  .contact-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--secondary), var(--secondary-strong));
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+
+  .contact-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .contact-card:hover {
+    transform: translateY(-15px) scale(1.03);
+    box-shadow: 0 20px 60px rgba(var(--secondary-rgb), 0.3), 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Para que los iconos de la parte de contacto giren ligeramente al poner el ratón encima */
+  .contact-icon-wrapper {
+    transition: all 0.4s ease;
+  }
+
+  .contact-card:hover .contact-icon-wrapper {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .contact-link {
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
   }
 
-  .swiper-carousel .swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  /* Project Card */
+  .project-card {
+    background: var(--bs-light);
+    border-radius: 25px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
   }
 
-  /* Estilo activo del slide central */
-  .swiper-carousel .swiper-slide-active {
-    transform: scale(1.05);
-    box-shadow: 0 20px 60px rgba(var(--secondary-rgb), 0.5), 0 10px 30px rgba(0, 0, 0, 0.3);
+  .project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 60px rgba(var(--secondary-rgb), 0.35), 0 15px 35px rgba(0, 0, 0, 0.2);
   }
 
-  /* Botones de navegación personalizados */
-  .swiper-button-next,
-  .swiper-button-prev {
-    color: var(--terciary) !important;
-    background: rgba(var(--primary-rgb), 0.8);
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
+  /* Utilizado para los botones del header y el de scroll top */
+  .btn-size-45 {
+    width: 45px;
+    height: 45px;
   }
 
-  .swiper-button-next:hover,
-  .swiper-button-prev:hover {
-    background: var(--terciary);
-    color: white !important;
-    transform: scale(1.1);
+  .tabla-encabezado {
+    font-size: 1.3rem;
+    text-align: center;
   }
-
-  .swiper-button-next::after,
-  .swiper-button-prev::after {
-    font-size: 14px;
-  }
-
-  /* Paginación personalizada */
-  .swiper-pagination-bullet {
-    background: var(--secondary) !important;
-    opacity: 0.5;
-    transition: all 0.3s ease;
-  }
-
-  .swiper-pagination-bullet-active {
-    opacity: 1;
-    transform: scale(1.3);
-  }
-
-  /* Responsive - Tablet */
-  @media (max-width: 768px) {
-    .swiper-carousel .swiper-slide {
-      width: 340px;
-      height: 340px;
-    }
-
-    .swiper-button-next,
-    .swiper-button-prev {
-      width: 30px;
-      height: 30px;
-    }
-
-    .swiper-button-next::after,
-    .swiper-button-prev::after {
-      font-size: 12px;
-    }
-  }
-
-  /* Responsive - Mobile */
-  @media (max-width: 480px) {
-    .swiper-carousel .swiper-slide {
-      width: 290px;
-      height: 290px;
-    }
-
-    .carousel-section {
-      padding: 2rem 0;
-    }
-  }
-  
-  
 }

@@ -11,7 +11,12 @@ class HomeController extends Controller
      */
     public function index(): Renderable
     {
-        return view('home');
+        $seo = [
+            'title' => trans('public.home.title'),
+            'description' => trans('public.home.description'),
+        ];
+
+        return view('public.home.home', compact('seo'));
     }
 
     /**
@@ -19,7 +24,7 @@ class HomeController extends Controller
      */
     public function credits(): Renderable
     {
-        return view('credits');
+        return view('public.home.credits');
     }
 
     /**
@@ -27,7 +32,12 @@ class HomeController extends Controller
      */
     public function tecnologias(): Renderable
     {
-        return view('tecnologias');
+        $seo = [
+            'title' => trans('public.tecnologias.titulo'),
+            'description' => trans('public.tecnologias.descripcion'),
+        ];
+
+        return view('public.home.tecnologias', compact('seo'));
     }
 
     /**
@@ -35,7 +45,12 @@ class HomeController extends Controller
      */
     public function proyectos(): Renderable
     {
-        return view('proyectos');
+        $seo = [
+            'title' => trans('public.proyectos.titulo'),
+            'description' => trans('public.proyectos.descripcion'),
+        ];
+
+        return view('public.home.proyectos', compact('seo'));
     }
 
     /**
@@ -43,6 +58,11 @@ class HomeController extends Controller
      */
     public function contacto(): Renderable
     {
-        return view('contacto');
+        $seo = [
+            'title' => trans('public.contacto.titulo'),
+            'description' => trans('public.contacto.descripcion'),
+        ];
+
+        return view('public.home.contacto', compact('seo'));
     }
 }

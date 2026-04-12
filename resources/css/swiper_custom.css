@@ -1,0 +1,272 @@
+/* Custom CSS para Swiper */
+.carousel-section {
+  overflow: hidden;
+}
+
+.swiper-carousel {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 100px;
+}
+
+.swiper-carousel .swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 440px;
+  height: 440px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: none;
+  transition: all 0.3s ease;
+}
+
+.swiper-carousel .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Estilo activo del slide central */
+.swiper-carousel .swiper-slide-active {
+  transform: scale(1.05);
+  box-shadow: 0 20px 60px rgba(var(--secondary-rgb), 0.5), 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Botones de navegación personalizados */
+.swiper-button-next,
+.swiper-button-prev {
+  color: var(--terciary) !important;
+  background: rgba(var(--primary-rgb), 0.8);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: var(--terciary);
+  color: white !important;
+  /* transform: scale(1.1); */
+}
+
+/* .swiper-button-next::after,
+  .swiper-button-prev::after {
+    font-size: 14px;
+  } */
+
+/* Paginación personalizada */
+.swiper-pagination-bullet {
+  background: var(--secondary) !important;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  transform: scale(1.3);
+}
+
+/* Responsive - Tablet */
+@media (max-width: 768px) {
+  .swiper-carousel .swiper-slide {
+    width: 340px;
+    height: 340px;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    width: 30px;
+    height: 30px;
+  }
+
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    font-size: 12px;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 480px) {
+  .swiper-carousel .swiper-slide {
+    width: 290px;
+    height: 290px;
+  }
+
+  .carousel-section {
+    padding: 2rem 0;
+  }
+}
+
+.swiper-frontend,
+.swiper-herramientas {
+  width: 100%;
+  padding: 40px 0;
+  overflow: hidden;
+}
+
+.swiper-frontend .swiper-wrapper,
+.swiper-herramientas .swiper-wrapper {
+  align-items: center;
+  transition-timing-function: linear !important;
+}
+
+.swiper-frontend .swiper-slide,
+.swiper-herramientas .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
+  width: 200px;
+}
+
+.swiper-frontend .swiper-slide>div,
+.swiper-herramientas .swiper-slide>div {
+  width: 100%;
+  padding: 20px;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.swiper-frontend .swiper-slide:hover>div,
+.swiper-herramientas .swiper-slide:hover>div {
+  background: rgba(var(--secondary-rgb), 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(var(--secondary-rgb), 0.2);
+}
+
+.swiper-frontend .swiper-slide h5,
+.swiper-herramientas .swiper-slide h5 {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Responsive para el carrousel */
+@media (max-width: 768px) {
+
+  .swiper-frontend .swiper-slide,
+  .swiper-herramientas .swiper-slide {
+    width: 180px;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .swiper-frontend .swiper-slide,
+  .swiper-herramientas .swiper-slide {
+    min-height: 120px;
+    width: 160px;
+  }
+
+  .swiper-frontend .swiper-slide i,
+  .swiper-herramientas .swiper-slide i {
+    font-size: 3rem !important;
+  }
+
+  .swiper-frontend .swiper-slide h5,
+  .swiper-herramientas .swiper-slide h5 {
+    font-size: 1rem;
+  }
+}
+
+/* Carrusel infinito con CSS animations */
+.tech-carousel-container {
+  width: 100%;
+  overflow: hidden;
+  padding: 40px 0;
+}
+
+.tech-carousel-track {
+  display: flex;
+  gap: 30px;
+  width: max-content;
+  animation: scroll-left 40s linear infinite;
+}
+
+.tech-carousel-reverse {
+  animation: scroll-right 40s linear infinite;
+}
+
+/* Keyframes para movimiento de izquierda a derecha */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Keyframes para movimiento de derecha a izquierda */
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.tech-item {
+  flex-shrink: 0;
+  width: 200px;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tech-item>div {
+  width: 100%;
+  padding: 20px;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.tech-carousel-track:hover {
+  animation-play-state: paused;
+}
+
+.tech-item:hover>div {
+  background: rgba(var(--secondary-rgb), 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(var(--secondary-rgb), 0.2);
+}
+
+.tech-item h5 {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Responsive para carruseles de tecnologías con CSS */
+@media (max-width: 768px) {
+  .tech-item {
+    width: 180px;
+  }
+
+  .tech-carousel-track {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .tech-item {
+    width: 160px;
+    min-height: 120px;
+  }
+
+  .tech-carousel-track {
+    gap: 15px;
+  }
+
+  .tech-item i {
+    font-size: 3rem !important;
+  }
+
+  .tech-item h5 {
+    font-size: 1rem;
+  }
+}
