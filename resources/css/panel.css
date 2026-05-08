@@ -1,0 +1,334 @@
+/* Colores del modo claro */
+:root[data-bs-theme="light"],
+:root:not([data-bs-theme]) {
+  --primary: rgb(45, 45, 45);
+  --primary-rgb: 45, 45, 45;
+  --primary-light: rgb(62, 62, 62);
+
+  --secondary: rgb(157, 115, 255);
+  --secondary-rgb: 157, 115, 255;
+
+  --secondary-strong: rgb(109, 40, 217);
+  --secondary-strong-rgb: 109, 40, 217;
+
+  --terciary: rgb(234, 28, 28);
+  --terciary-rgb: 234, 28, 28;
+
+  --quaternary: rgb(0, 122, 222);
+  --quaternary-rgb: 0, 122, 222;
+
+  --highlight: rgb(245, 158, 11);
+  --highlight-rgb: 245, 158, 11;
+
+  --text-color: #4a4a4a;
+  --text-color-btn: #4a4a4a;
+
+  --links: rgb(112, 25, 25);
+
+  /* Fondo */
+  --bs-light: #e8e8e8;
+  --bs-dark: #2d1b4e;
+
+  /* Etiquetas de bootstrap */
+  --bs-primary: var(--primary);
+  --bs-secondary: var(--secondary);
+
+  /* Para el texto */
+  --bs-primary-rgb: var(--primary-rgb);
+  --bs-secondary-rgb: var(--secondary-rgb);
+
+  /* Cuerpo */
+  --bs-body-color: var(--primary);
+
+  /* Encabezados */
+  --bs-heading-color: var(--primary);
+}
+
+/* Colores del modo oscuro */
+:root[data-bs-theme="dark"] {
+  --primary: rgb(30, 20, 50);
+  --primary-rgb: 30, 20, 50;
+  --primary-light: rgb(74, 50, 121);
+
+  --secondary: rgb(130, 89, 254);
+  --secondary-rgb: 130, 89, 254;
+  --secondary-strong: rgb(134, 35, 227);
+  --secondary-strong-rgb: 147, 51, 234;
+  --secondary-light: rgb(218, 178, 255);
+  --secondary-light-rgb: 218, 178, 255;
+
+  --terciary: rgb(255, 0, 0);
+  --terciary-rgb: 252, 165, 165;
+
+  --quaternary: rgb(0, 98, 255);
+  --quaternary-rgb: 59, 130, 246;
+
+  --highlight: rgb(251, 191, 36);
+  --highlight-rgb: 251, 191, 36;
+
+  --text-color: rgb(167, 139, 250);
+  --text-color-btn: rgb(255, 255, 255);
+
+  --links: rgb(25, 25, 112);
+
+  --body-color: rgb(167, 139, 250);
+  --body-bg: rgb(16, 10, 30);
+
+  /* Etiquetas de bootstrap */
+  --bs-primary: var(--primary);
+  --bs-secondary: var(--secondary);
+
+  /* Para el texto */
+  --bs-primary-rgb: var(--primary-rgb);
+  --bs-secondary-rgb: var(--secondary-rgb);
+
+  /* Cuerpo */
+  --bs-body-color: var(--secondary);
+
+  /* Encabezados */
+  --bs-heading-color: var(--secondary-strong);
+}
+
+/* Compartido entre ambos modos */
+:root {
+  body {
+    padding-top: 0 !important;
+    padding-bottom: 60px !important;
+    color: var(--text-color);
+  }
+
+  /* Header con fondo primary */
+  .bg-primary {
+    background: var(--primary) !important;
+  }
+
+  /* Botón primary usando colores del proyecto */
+  .btn-primary {
+    --bs-btn-color: var(--bs-white);
+    --bs-btn-bg: var(--secondary);
+    --bs-btn-border-color: var(--secondary);
+    --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-hover-bg: var(--secondary);
+    --bs-btn-hover-border-color: var(--secondary);
+    --bs-btn-active-color: var(--bs-white);
+    --bs-btn-active-bg: var(--secondary);
+    --bs-btn-active-border-color: var(--secondary);
+    --bs-btn-disabled-color: var(--bs-white);
+    --bs-btn-disabled-bg: var(--secondary);
+    --bs-btn-disabled-border-color: var(--secondary);
+  }
+
+  /* Botones con el borde del proyecto */
+  .header-button {
+    border: 3px solid var(--secondary-strong) !important;
+  }
+
+  /* Mantener apariencia de botones header cuando dropdown está abierto */
+  .header-button:hover,
+  .header-button:focus,
+  .header-button:active,
+  .header-button.show,
+  .show > .header-button.dropdown-toggle {
+    background-color: var(--secondary) !important;
+    border-color: var(--secondary-strong) !important;
+    color: white !important;
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(var(--secondary-rgb), 0.5);
+    transition: all 0.3s ease;
+  }
+
+  .header-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 0.25rem rgba(var(--secondary-rgb), 0.5);
+  }
+
+  /* Botón de 45x45px circular */
+  .btn-size-45 {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+  }
+
+  /* Dropdown items con colores del proyecto */
+  .dropdown-item:hover,
+  .dropdown-item:focus,
+  .dropdown-item:active {
+    color: white;
+    background-color: var(--secondary);
+  }
+
+  .dropdown-item.active {
+    color: white;
+    background-color: var(--secondary);
+  }
+
+  .dropdown-item {
+    cursor: pointer;
+  }
+
+  /* Tipografía */
+  body,
+  p,
+  li,
+  td,
+  th {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.7;
+    letter-spacing: 0.3px;
+    font-weight: 400;
+  }
+
+  h1,
+  h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    line-height: 1.2;
+    letter-spacing: 2px;
+    font-weight: 400;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+
+  h1:hover,
+  h2:hover {
+    color: var(--secondary);
+    transition: color 0.3s ease;
+  }
+
+  a:hover {
+    color: var(--links);
+    transition: all 0.3s ease;
+  }
+
+  /* Efecto scanlines en el header */
+  .sticky-top::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(0deg,
+        rgba(0, 0, 0, 0.1) 0px,
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 2px);
+    pointer-events: none;
+    opacity: 0.3;
+    z-index: -1;
+  }
+
+  hr,
+  .separator {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        var(--secondary) 50%,
+        transparent 100%);
+    opacity: 0.6;
+    margin: 2rem 0;
+  }
+
+  /* Scrollbar personalizada */
+  ::-webkit-scrollbar-track {
+    background: var(--primary);
+    border-left: 2px solid var(--secondary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--secondary);
+    border: 2px solid var(--primary);
+  }
+
+  /* ===========================
+     SIDEBAR DEL PANEL
+     =========================== */
+
+  .sidebar {
+    min-height: 100vh;
+  }
+
+  @media (min-width: 768px) {
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+  }
+
+  .sidebar .nav-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-color);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+  }
+
+  .sidebar .nav-link:hover {
+    color: var(--secondary);
+    background: rgba(var(--secondary-rgb), 0.1);
+    transform: translateX(4px);
+  }
+
+  .sidebar .nav-link.active {
+    color: var(--secondary);
+    background: rgba(var(--secondary-rgb), 0.12);
+  }
+
+  .sidebar .nav-link i {
+    width: 1.2rem;
+    text-align: center;
+  }
+
+  .sidebar-heading {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.6;
+    color: var(--text-color);
+  }
+
+  /* Logout como botón con apariencia de nav-link */
+  .sidebar-logout-btn {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-color);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .sidebar-logout-btn:hover {
+    color: var(--terciary);
+    background: rgba(var(--terciary-rgb), 0.1);
+    transform: translateX(4px);
+  }
+
+  /* ===========================
+     NOMBRE DE USUARIO EN HEADER
+     =========================== */
+
+  .panel-user-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: white;
+    opacity: 0.85;
+  }
+}
