@@ -46,7 +46,7 @@
                 <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
                     <img class="logo-nav" title="{{ config('app.name') }}"
                         alt="{{ trans('public.images.logo_principal') }}"
-                        src="{{ asset('images/laravistaLogo.png') }}">
+                        src="{{ asset('images/laravistaLogoSmaller.png') }}">
                 </a>
             </div>
         </div>
