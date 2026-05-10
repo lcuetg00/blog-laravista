@@ -12,6 +12,9 @@ class GenerateSitemap extends Command
 
     protected $description = 'Genera sitemap.xml para todos los idiomas disponibles';
 
+    /**
+     * Genera el archivo sitemap.xml y lo guarda en la carpeta public.
+     */
     public function handle(): int
     {
         $this->info('Generando sitemap.xml');
@@ -25,6 +28,9 @@ class GenerateSitemap extends Command
         return Command::SUCCESS;
     }
 
+    /**
+     * Construye el contenido XML del sitemap con todas las rutas e idiomas disponibles.
+     */
     protected function generateSitemapXml(): string
     {
         $baseUrl = config('app.url');

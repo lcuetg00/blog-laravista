@@ -4,6 +4,9 @@ namespace App\Helpers;
 
 class SeoHelper
 {
+    /**
+     * Genera un array con los metadatos SEO (título, descripción, imagen, URL, etc.) para una página.
+     */
     public static function generateMeta(
         ?string $title = null,
         ?string $description = null,
