@@ -1,6 +1,3 @@
-@use('Mcamara\LaravelLocalization\Facades\LaravelLocalization')
-@use('App\Enums\ThemeEnum')
-
 <header id="header-top">
     <div class="container-md d-flex flex-wrap align-items-center justify-content-between py-3 mb-4">
 
@@ -72,49 +69,27 @@
 
         {{-- Se alinea al final y con el flex-grow toma todo el espacio que pueda ocupar --}}
         <div class="d-flex justify-content-end flex-grow-1 gap-2">
-            <div class="mx-1">
-                <div class="dropdown">
-                    <button
-                        class="btn btn-primary rounded-circle header-button btn-size-45 d-flex align-items-center justify-content-center p-0"
-                        type="button" data-bs-toggle="dropdown" aria-expanded="false"
-                        title="{{ trans('public.idioma.selector') }}">
-                        <span id="idioma-seleccionado" class="idioma-texto">{{ strtoupper(app()->getLocale()) }}</span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                            @if (app()->getLocale() !== $localeCode)
-                                <li>
-                                    <a class="dropdown-item"
-                                        href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                        <span>{{ $properties['native'] }}</span>
-                                    </a>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
+            @auth
+                <div class="mx-1">
+                    <div class="dropdown">
+                        <button
+                            class="btn btn-primary rounded-circle header-button btn-size-45 d-flex align-items-center justify-content-center p-0"
+                            type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                            title="{{ trans('public.usuario.selector') }}">
+                            <i class="fa-solid fa-user" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('panel.index') }}">
+                                    {{ trans('public.usuario.panel') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            @endauth
 
-            <div class="mx-1">
-                <div class="dropdown">
-                    <button
-                        class="btn btn-primary rounded-circle header-button btn-size-45 d-flex align-items-center justify-content-center p-0"
-                        type="button" data-bs-toggle="dropdown" aria-expanded="false"
-                        title="{{ trans('public.modo.selector') }}">
-                        <i id="modo-seleccionado" class="fa-solid fa-sun"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-item" onclick="changePageMode({{ ThemeEnum::LUZ->value }})">
-                            <i class="fa-solid fa-sun"></i>
-                            <span>{{ trans('public.modo.luz') }}</span>
-                        </li>
-                        <li class="dropdown-item" onclick="changePageMode({{ ThemeEnum::OSCURO->value }})">
-                            <i class="fa-solid fa-moon"></i>
-                            <span>{{ trans('public.modo.oscuro') }}</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            @include('public.partials.selectores_header')
         </div>
     </div>
 </header>

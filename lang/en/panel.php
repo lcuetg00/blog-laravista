@@ -12,6 +12,8 @@ return [
     'dashboard' => 'Dashboard',
     'sign_out' => 'Sign out',
     'settings' => 'Settings',
+    'usuario_selector' => 'User menu',
+    'inicio_publico' => 'Public home',
     'theme_selector' => 'Toggle theme',
     'theme_light' => 'Light',
     'theme_dark' => 'Dark',

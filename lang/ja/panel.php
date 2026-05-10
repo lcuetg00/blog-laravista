@@ -12,6 +12,8 @@ return [
     'dashboard' => 'ダッシュボード',
     'sign_out' => 'サインアウト',
     'settings' => '設定',
+    'usuario_selector' => 'ユーザーメニュー',
+    'inicio_publico' => 'パブリックホーム',
     'theme_selector' => 'テーマ切替',
     'theme_light' => 'ライト',
     'theme_dark' => 'ダーク',

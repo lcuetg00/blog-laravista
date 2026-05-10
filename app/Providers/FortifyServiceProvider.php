@@ -17,12 +17,18 @@ use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
 {
+    /**
+     * Registra los servicios de Fortify, desactiva sus rutas por defecto y personaliza la respuesta de login.
+     */
     public function register(): void
     {
         Fortify::ignoreRoutes();
 
-        $this->app->singleton(LoginResponse::class, fn () => new class implements LoginResponse
+        $this->app->singleton(LoginResponse::class, fn() => new class implements LoginResponse
         {
+            /**
+             * Redirige al panel tras un login exitoso.
+             */
             public function toResponse($request): RedirectResponse
             {
                 return redirect()->route('panel.index');
@@ -30,6 +36,9 @@ class FortifyServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * Configura las acciones de Fortify, la vista de login y el rate limiter.
+     */
     public function boot(): void
     {
         Fortify::createUsersUsing(CreateNewUser::class);
@@ -37,10 +46,11 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
-        Fortify::loginView(fn () => view('auth.login'));
+        Fortify::loginView(fn() => view('auth.login'));
 
+        // Throttle de 5 intentos por minuto (por nombre de usuario o ip)
         RateLimiter::for('login', function (Request $request) {
-            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
+            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())) . '|' . $request->ip());
 
             return Limit::perMinute(5)->by($throttleKey);
         });

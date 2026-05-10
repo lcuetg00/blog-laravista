@@ -128,7 +128,7 @@
   .header-button:focus,
   .header-button:active,
   .header-button.show,
-  .show > .header-button.dropdown-toggle {
+  .show>.header-button.dropdown-toggle {
     background-color: var(--secondary) !important;
     border-color: var(--secondary-strong) !important;
     color: white !important;
@@ -251,16 +251,21 @@
      SIDEBAR DEL PANEL
      =========================== */
 
-  .sidebar {
-    min-height: 100vh;
-  }
-
   @media (min-width: 768px) {
     .sidebar {
       position: sticky;
       top: 0;
+      min-height: 100vh;
       height: 100vh;
       overflow-y: auto;
+    }
+  }
+
+  /* Evita el flash del sidebar abierto en móvil antes de que cargue Bootstrap */
+  @media (max-width: 768px) {
+    .offcanvas-md:not(.show) {
+      visibility: hidden;
+      transform: translateX(-100%);
     }
   }
 
@@ -330,5 +335,24 @@
     font-weight: 600;
     color: white;
     opacity: 0.85;
+  }
+
+  .login-card {
+    max-width: 500px;
+  }
+
+  .logo-header {
+    width: 70px;
+    height: 80px;
+  }
+
+  .header-brand {
+    max-width: 25%;
+  }
+
+  @media (min-width: 992px) {
+    .header-brand {
+      max-width: 16.66667%;
+    }
   }
 }

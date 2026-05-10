@@ -2,17 +2,21 @@
 
 namespace App\Providers;
 
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Vincula el LoginRequest de Fortify al propio para personalizar la validación.
      */
     public function register(): void
     {
-        //
+        $this->app->bind(
+            \Laravel\Fortify\Http\Requests\LoginRequest::class,
+            LoginRequest::class
+        );
     }
 
     /**

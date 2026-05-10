@@ -12,6 +12,8 @@ return [
     'dashboard' => 'Panel',
     'sign_out' => 'Cerrar sesión',
     'settings' => 'Ajustes',
+    'usuario_selector' => 'Menú de usuario',
+    'inicio_publico' => 'Inicio público',
     'theme_selector' => 'Cambiar tema',
     'theme_light' => 'Claro',
     'theme_dark' => 'Oscuro',
