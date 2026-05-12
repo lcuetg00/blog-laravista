@@ -2,42 +2,50 @@
     <div class="container-md d-flex flex-wrap align-items-center justify-content-between py-3 mb-4">
 
         <div class="d-flex align-items-center gap-2">
-            <details class="mobile-menu-details d-md-none">
-                <summary class="mobile-menu-hamburger" aria-label="Menú">
-                    <i class="fa-solid fa-bars"></i>
-                </summary>
+            <div class="mobile-menu d-md-none">
+                <input type="checkbox" id="mobile-menu-toggle" class="mobile-menu-toggle" hidden>
 
-                <div class="mobile-menu-overlay">
-                    <nav class="mobile-menu-sidebar">
-                        <ul class="mobile-menu-links">
-                            <li>
-                                <a href="{{ route('home') }}" style="color: var(--terciary);">
-                                    <i class="fa-solid fa-home"></i>
-                                    {{ trans('public.menu.home') }}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('tecnologias') }}" style="color: var(--quaternary);">
-                                    <i class="fa-solid fa-code"></i>
-                                    {{ trans('public.menu.tecnologias') }}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('proyectos') }}" style="color: var(--terciary);">
-                                    <i class="fa-solid fa-briefcase"></i>
-                                    {{ trans('public.menu.proyectos') }}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('contacto') }}" style="color: var(--quaternary);">
-                                    <i class="fa-solid fa-envelope"></i>
-                                    {{ trans('public.menu.contacto') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </details>
+                <label for="mobile-menu-toggle" class="mobile-menu-hamburger"
+                    aria-label="{{ trans('public.menu.abrir') }}" role="button" tabindex="0">
+                    <i class="fa-solid fa-bars" aria-hidden="true"></i>
+                </label>
+
+                <label for="mobile-menu-toggle" class="mobile-menu-overlay" aria-hidden="true"></label>
+
+                <nav class="mobile-menu-sidebar" aria-label="{{ trans('public.menu.movil') }}">
+                    <label for="mobile-menu-toggle" class="mobile-menu-close"
+                        aria-label="{{ trans('public.menu.cerrar') }}" role="button" tabindex="0">
+                        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                    </label>
+
+                    <ul class="mobile-menu-links">
+                        <li>
+                            <a href="{{ route('home') }}" style="color: var(--terciary);">
+                                <i class="fa-solid fa-home"></i>
+                                {{ trans('public.menu.home') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('tecnologias') }}" style="color: var(--quaternary);">
+                                <i class="fa-solid fa-code"></i>
+                                {{ trans('public.menu.tecnologias') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('proyectos') }}" style="color: var(--terciary);">
+                                <i class="fa-solid fa-briefcase"></i>
+                                {{ trans('public.menu.proyectos') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('contacto') }}" style="color: var(--quaternary);">
+                                <i class="fa-solid fa-envelope"></i>
+                                {{ trans('public.menu.contacto') }}
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
 
             <div class="mb-2 mb-md-0">
                 <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">

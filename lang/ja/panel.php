@@ -20,4 +20,5 @@ return [
     'toggle_sidebar' => 'サイドバーを開閉',
     'sidebar_nav' => 'パネルナビゲーション',
     'close' => '閉じる',
+    'version' => 'バージョン',
 ];

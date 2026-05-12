@@ -20,4 +20,5 @@ return [
     'toggle_sidebar' => 'Mostrar/ocultar menú',
     'sidebar_nav' => 'Navegación del panel',
     'close' => 'Cerrar',
+    'version' => 'Versión',
 ];

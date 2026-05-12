@@ -116,8 +116,8 @@
     color: var(--text-color);
   }
 
-  /* Details del menú móvil */
-  .mobile-menu-details {
+  /* Contenedor del menú móvil */
+  .mobile-menu {
     display: none;
   }
 
@@ -135,20 +135,39 @@
     font-size: 1.2rem;
     color: white;
     transition: all 0.3s ease;
-    list-style: none;
   }
 
-  .mobile-menu-hamburger::-webkit-details-marker {
-    display: none;
-  }
-
-  .mobile-menu-hamburger::marker {
-    display: none;
-  }
-
-  .mobile-menu-hamburger:hover {
+  .mobile-menu-hamburger:hover,
+  .mobile-menu-hamburger:focus-visible {
     transform: scale(1.1);
     box-shadow: 0 4px 15px rgba(var(--secondary-rgb), 0.5);
+    outline: none;
+  }
+
+  /* Botón para cerrar el sidebar móvil */
+  .mobile-menu-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--terciary);
+    background: rgba(var(--secondary-rgb), 0.1);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-menu-close:hover,
+  .mobile-menu-close:focus-visible {
+    transform: rotate(90deg) scale(1.1);
+    background: rgba(var(--secondary-rgb), 0.3);
+    box-shadow: 0 4px 15px rgba(var(--secondary-rgb), 0.5);
+    outline: none;
   }
 
   /* Overlay del menú móvil */
@@ -185,7 +204,7 @@
   .mobile-menu-links {
     list-style: none;
     padding: 0;
-    margin-top: 2rem;
+    margin-top: 3.5rem;
   }
 
   .mobile-menu-links li {
@@ -218,13 +237,13 @@
     text-align: center;
   }
 
-  /* Cuando el menú está abierto (usando details[open]) */
-  .mobile-menu-details[open] .mobile-menu-overlay {
+  /* Cuando el menú está abierto (checkbox marcado) */
+  .mobile-menu-toggle:checked ~ .mobile-menu-overlay {
     opacity: 1;
     visibility: visible;
   }
 
-  .mobile-menu-details[open] .mobile-menu-sidebar {
+  .mobile-menu-toggle:checked ~ .mobile-menu-sidebar {
     transform: translateX(0);
   }
 
@@ -235,7 +254,7 @@
 
   /* Media query para móvil */
   @media (max-width: 768px) {
-    .mobile-menu-details {
+    .mobile-menu {
       display: block;
     }
 
