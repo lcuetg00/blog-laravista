@@ -21,4 +21,5 @@ return [
     'sidebar_nav' => 'Panel navigation',
     'close' => 'Close',
     'version' => 'Version',
+    'menu' => 'Main menu',
 ];

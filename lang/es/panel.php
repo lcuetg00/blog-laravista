@@ -21,4 +21,5 @@ return [
     'sidebar_nav' => 'Navegación del panel',
     'close' => 'Cerrar',
     'version' => 'Versión',
+    'menu' => 'Menú principal',
 ];

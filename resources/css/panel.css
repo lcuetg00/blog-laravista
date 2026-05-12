@@ -261,12 +261,36 @@
     }
   }
 
-  /* Evita el flash del sidebar abierto en móvil antes de que cargue Bootstrap */
+  /* Oculta totalmente el sidebar en móvil cuando no está abierto, evitando
+     animaciones residuales al cruzar el breakpoint y el flash inicial */
   @media (max-width: 768px) {
     .offcanvas-md:not(.show) {
-      visibility: hidden;
-      transform: translateX(-100%);
+      display: none;
     }
+  }
+
+  /* Botón para cerrar el sidebar en móvil */
+  .sidebar-close {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--terciary);
+    background: rgba(var(--secondary-rgb), 0.1);
+    border: none;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+  }
+
+  .sidebar-close:hover,
+  .sidebar-close:focus-visible {
+    transform: rotate(90deg) scale(1.1);
+    background: rgba(var(--secondary-rgb), 0.3);
+    box-shadow: 0 4px 15px rgba(var(--secondary-rgb), 0.5);
+    outline: none;
   }
 
   .sidebar .nav-link {

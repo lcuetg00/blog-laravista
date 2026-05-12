@@ -21,4 +21,5 @@ return [
     'sidebar_nav' => 'パネルナビゲーション',
     'close' => '閉じる',
     'version' => 'バージョン',
+    'menu' => 'メインメニュー',
 ];

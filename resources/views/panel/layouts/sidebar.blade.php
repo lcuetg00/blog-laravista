@@ -6,15 +6,19 @@
          aria-labelledby="sidebarMenuLabel">
 
         <div class="offcanvas-header border-bottom">
-            <a href="{{ route('panel.index') }}" class="d-flex align-items-center" id="sidebarMenuLabel">
-                <img class="logo-nav logo-header" src="{{ asset('images/laravistaLogoSmaller.png') }}"
-                    alt="{{ config('app.name') }}" title="{{ config('app.name') }}">
-            </a>
+            <div class="d-flex align-items-center gap-2 w-100" id="sidebarMenuLabel">
+                <a href="{{ route('panel.index') }}" class="d-flex align-items-center">
+                    <img class="logo-nav logo-header" src="{{ asset('images/laravistaLogoSmaller.png') }}"
+                        alt="{{ config('app.name') }}" title="{{ config('app.name') }}">
+                </a>
+                <h1 class="sidebar-menu-title mb-0 flex-grow-1 text-center">{{ trans('panel.menu') }}</h1>
+            </div>
             <button type="button"
-                    class="btn-close"
+                    class="btn btn-primary sidebar-close"
                     data-bs-dismiss="offcanvas"
                     data-bs-target="#sidebarMenu"
                     aria-label="{{ trans('panel.close') }}">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
             </button>
         </div>
 
