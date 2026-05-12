@@ -42,6 +42,10 @@
 
   /* Encabezados */
   --bs-heading-color: var(--primary);
+
+  /* Barra del breadcrumb */
+  --breadcrumb-bar-bg: rgba(0, 0, 0, 0.04);
+  --breadcrumb-bar-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 /* Colores del modo oscuro */
@@ -87,6 +91,10 @@
 
   /* Encabezados */
   --bs-heading-color: var(--secondary-strong);
+
+  /* Barra del breadcrumb */
+  --breadcrumb-bar-bg: rgba(255, 255, 255, 0.04);
+  --breadcrumb-bar-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.08), 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Compartido entre ambos modos */
@@ -359,6 +367,28 @@
     font-weight: 600;
     color: white;
     opacity: 0.85;
+  }
+
+  /* Barra del breadcrumb con fondo grisáceo y sombra suave */
+  .breadcrumb-bar {
+    background: var(--breadcrumb-bar-bg);
+    box-shadow: var(--breadcrumb-bar-shadow);
+  }
+
+  /* Quitado el padding bottom que se hace */
+  .breadcrumb {
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  /* Breadcrumb del panel */
+  .breadcrumb-item,
+  .breadcrumb-item a {
+    color: var(--secondary-strong);
+  }
+
+  .breadcrumb-item.active {
+    color: var(--secondary-strong);
   }
 
   .login-card {

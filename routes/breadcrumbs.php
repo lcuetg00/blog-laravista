@@ -10,5 +10,5 @@ use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
 // Home
 Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
-    $trail->push('Panel', route('home'));
+    $trail->push(trans('breadcrumbs.home'), route('home'));
 });

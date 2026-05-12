@@ -11,6 +11,6 @@ class PanelController extends Controller
      */
     public function index(): View
     {
-        return view('panel.layout.index');
+        return view('panel.dashboard.index');
     }
 }
