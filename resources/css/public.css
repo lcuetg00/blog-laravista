@@ -422,6 +422,15 @@
     font-weight: 400;
   }
 
+  /* Escalado del tamaño de texto para títulos y párrafos */
+  h1 { font-size: 280%; }
+  h2 { font-size: 230%; }
+  h3 { font-size: 190%; }
+  h4 { font-size: 160%; }
+  h5 { font-size: 135%; }
+  h6 { font-size: 120%; }
+  p  { font-size: 115%; }
+
   /* Bebas Neue para títulos principales */
   h1,
   h2,
