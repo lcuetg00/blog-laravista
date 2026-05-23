@@ -192,6 +192,12 @@
     cursor: pointer;
   }
 
+  /* Reducir el espacio del separador del dropdown */
+  .dropdown-divider {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+
   /* Tipografía */
   body,
   p,
