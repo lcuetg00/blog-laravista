@@ -21,5 +21,7 @@ return [
     'sidebar_nav' => 'パネルナビゲーション',
     'close' => '閉じる',
     'version' => 'バージョン',
-    'menu' => 'メインメニュー',
+    'menu' => 'セクション',
+    'collapse_sidebar' => 'サイドバーを折りたたむ',
+    'expand_sidebar' => 'サイドバーを展開する',
 ];

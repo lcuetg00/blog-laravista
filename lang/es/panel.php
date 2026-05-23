@@ -21,5 +21,7 @@ return [
     'sidebar_nav' => 'Navegación del panel',
     'close' => 'Cerrar',
     'version' => 'Versión',
-    'menu' => 'Menú principal',
+    'menu' => 'Secciones',
+    'collapse_sidebar' => 'Contraer menú lateral',
+    'expand_sidebar' => 'Expandir menú lateral',
 ];

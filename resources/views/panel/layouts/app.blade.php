@@ -15,7 +15,7 @@
 
 <body>
     {{-- Header sticky --}}
-    <div class="container-fluid bg-primary sticky-top shadow">
+    <div class="header-panel container-fluid bg-primary sticky-top shadow">
         @include('panel.layouts.header')
     </div>
 
@@ -26,7 +26,7 @@
             @include('panel.layouts.sidebar')
 
             {{-- Contenido principal --}}
-            <main class="col-md-9 col-lg-10">
+            <main class="col-12 col-md-10 panel-main">
                 <div class="py-3 px-4 fw-bold breadcrumb-bar">
                     @yield('breadcrumbs')
                 </div>

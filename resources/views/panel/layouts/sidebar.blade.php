@@ -1,35 +1,34 @@
-<nav class="sidebar border-end col-md-3 col-lg-2 p-0 bg-body-tertiary"
-     aria-label="{{ trans('panel.sidebar_nav') }}">
-    <div class="offcanvas-md offcanvas-start bg-body-tertiary"
-         tabindex="-1"
-         id="sidebarMenu"
-         aria-labelledby="sidebarMenuLabel">
+<nav class="sidebar border-end shadow col-12 col-md-2 p-0" aria-label="{{ trans('panel.sidebar_nav') }}">
+    <div class="offcanvas-md offcanvas-start" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
 
         <div class="offcanvas-header border-bottom">
             <div class="d-flex align-items-center gap-2 w-100" id="sidebarMenuLabel">
-                <a href="{{ route('panel.index') }}" class="d-flex align-items-center">
-                    <img class="logo-nav logo-header" src="{{ asset('images/laravistaLogoSmaller.png') }}"
-                        alt="{{ config('app.name') }}" title="{{ config('app.name') }}">
-                </a>
-                <h1 class="sidebar-menu-title mb-0 flex-grow-1 text-center">{{ trans('panel.menu') }}</h1>
+                <span class="sidebar-menu-title flex-grow-1">{{ trans('panel.menu') }}</span>
+
+                {{-- Botón para colapsar/expandir el sidebar (solo escritorio) --}}
+                <button type="button" class="sidebar-collapse-btn d-none d-md-inline-flex" id="sidebarCollapseBtn"
+                    aria-controls="sidebarMenu" aria-expanded="true" aria-label="{{ trans('panel.collapse_sidebar') }}"
+                    data-label-collapse="{{ trans('panel.collapse_sidebar') }}"
+                    data-label-expand="{{ trans('panel.expand_sidebar') }}">
+                    <i class="fa-solid fa-angles-left" aria-hidden="true"></i>
+                </button>
             </div>
-            <button type="button"
-                    class="btn btn-primary sidebar-close"
-                    data-bs-dismiss="offcanvas"
-                    data-bs-target="#sidebarMenu"
-                    aria-label="{{ trans('panel.close') }}">
+            <button type="button" class="btn btn-primary sidebar-close d-md-none" data-bs-dismiss="offcanvas"
+                data-bs-target="#sidebarMenu" aria-label="{{ trans('panel.close') }}">
                 <i class="fa-solid fa-xmark" aria-hidden="true"></i>
             </button>
         </div>
 
-        <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+        <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3">
             <ul class="nav flex-column px-2 pt-2">
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2 {{ request()->routeIs('panel.index') ? 'active' : '' }}"
-                       aria-current="{{ request()->routeIs('panel.index') ? 'page' : 'false' }}"
-                       href="{{ route('panel.index') }}">
+                    <a class="nav-link sidebar-option popup-sidebar d-flex align-items-center gap-2 {{ request()->routeIs('panel.index') ? 'active' : '' }}"
+                        aria-current="{{ request()->routeIs('panel.index') ? 'page' : 'false' }}"
+                        href="{{ route('panel.index') }}"
+                        aria-label="{{ trans('panel.dashboard') }}"
+                        data-popup-sidebar="{{ trans('panel.dashboard') }}">
                         <i class="fa-solid fa-house-chimney" aria-hidden="true"></i>
-                        {{ trans('panel.dashboard') }}
+                        <span class="sidebar-label">{{ trans('panel.dashboard') }}</span>
                     </a>
                 </li>
             </ul>
@@ -38,19 +37,12 @@
 
             <ul class="nav flex-column px-2 pb-2 mb-auto">
                 <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2" href="#">
+                    <a class="nav-link sidebar-option popup-sidebar d-flex align-items-center gap-2" href="#"
+                        aria-label="{{ trans('panel.settings') }}"
+                        data-popup-sidebar="{{ trans('panel.settings') }}">
                         <i class="fa-solid fa-gear" aria-hidden="true"></i>
-                        {{ trans('panel.settings') }}
+                        <span class="sidebar-label">{{ trans('panel.settings') }}</span>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="sidebar-logout-btn">
-                            <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
-                            {{ trans('panel.sign_out') }}
-                        </button>
-                    </form>
                 </li>
             </ul>
         </div>

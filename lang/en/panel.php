@@ -21,5 +21,7 @@ return [
     'sidebar_nav' => 'Panel navigation',
     'close' => 'Close',
     'version' => 'Version',
-    'menu' => 'Main menu',
+    'menu' => 'Sections',
+    'collapse_sidebar' => 'Collapse sidebar',
+    'expand_sidebar' => 'Expand sidebar',
 ];

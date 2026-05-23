@@ -45,6 +45,17 @@
                                     {{ trans('panel.inicio_publico') }}
                                 </a>
                             </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">
+                                        {{ trans('panel.sign_out') }}
+                                    </button>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 </div>

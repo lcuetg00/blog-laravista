@@ -43,9 +43,12 @@
   /* Encabezados */
   --bs-heading-color: var(--primary);
 
-  /* Barra del breadcrumb */
-  --breadcrumb-bar-bg: rgba(0, 0, 0, 0.04);
-  --breadcrumb-bar-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.05);
+  /* Color del texto del popup del sidebar */
+  --popup-color: rgb(157, 115, 255);
+
+  /* Color de fondo del popup del sidebar */
+  --popup-bg: rgb(45, 45, 45);
+
 }
 
 /* Colores del modo oscuro */
@@ -92,13 +95,22 @@
   /* Encabezados */
   --bs-heading-color: var(--secondary-strong);
 
-  /* Barra del breadcrumb */
-  --breadcrumb-bar-bg: rgba(255, 255, 255, 0.04);
-  --breadcrumb-bar-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.08), 0 2px 4px rgba(0, 0, 0, 0.3);
+  /* Color del texto del popup del sidebar */
+  --popup-color: rgb(218, 178, 255);
+
+  /* Color de fondo del popup del sidebar */
+  --popup-bg: rgb(16, 10, 30);
+
 }
 
 /* Compartido entre ambos modos */
 :root {
+  /* Altura común para la cabecera del sidebar (escritorio) y la barra del breadcrumb */
+  --panel-bar-height: 3.5rem;
+
+  /* Tamaño de texto compartido entre el título del menú del sidebar y el breadcrumb */
+  --panel-title-size: 1.25rem;
+
   body {
     padding-top: 0 !important;
     padding-bottom: 60px !important;
@@ -108,6 +120,12 @@
   /* Header con fondo primary */
   .bg-primary {
     background: var(--primary) !important;
+  }
+
+  /* Header sticky y footer fijo deben quedar por encima del sidebar (z-index: 2000) y de su popup (2001) */
+  .header-panel,
+  .footer-panel {
+    z-index: 2100;
   }
 
   /* Botón primary usando colores del proyecto */
@@ -255,27 +273,7 @@
     border: 2px solid var(--primary);
   }
 
-  /* ===========================
-     SIDEBAR DEL PANEL
-     =========================== */
-
-  @media (min-width: 768px) {
-    .sidebar {
-      position: sticky;
-      top: 0;
-      min-height: 100vh;
-      height: 100vh;
-      overflow-y: auto;
-    }
-  }
-
-  /* Oculta totalmente el sidebar en móvil cuando no está abierto, evitando
-     animaciones residuales al cruzar el breakpoint y el flash inicial */
-  @media (max-width: 768px) {
-    .offcanvas-md:not(.show) {
-      display: none;
-    }
-  }
+  /* Sidebar del panel */
 
   /* Botón para cerrar el sidebar en móvil */
   .sidebar-close {
@@ -302,7 +300,6 @@
   }
 
   .sidebar .nav-link {
-    font-size: 0.875rem;
     font-weight: 500;
     color: var(--text-color);
     border-radius: 6px;
@@ -321,8 +318,11 @@
     background: rgba(var(--secondary-rgb), 0.12);
   }
 
+  /* Iconos del sidebar con ancho fijo para que el texto arranque siempre en la misma posición */
   .sidebar .nav-link i {
-    width: 1.2rem;
+    display: inline-block;
+    width: 1.5rem;
+    flex-shrink: 0;
     text-align: center;
   }
 
@@ -334,45 +334,13 @@
     color: var(--text-color);
   }
 
-  /* Logout como botón con apariencia de nav-link */
-  .sidebar-logout-btn {
-    background: none;
-    border: none;
-    width: 100%;
-    text-align: left;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--text-color);
-    border-radius: 6px;
-    transition: all 0.3s ease;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
+  /* Barra del breadcrumb */
+  .breadcrumb-bar {
+    height: var(--panel-bar-height);
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-  }
-
-  .sidebar-logout-btn:hover {
-    color: var(--terciary);
-    background: rgba(var(--terciary-rgb), 0.1);
-    transform: translateX(4px);
-  }
-
-  /* ===========================
-     NOMBRE DE USUARIO EN HEADER
-     =========================== */
-
-  .panel-user-name {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: white;
-    opacity: 0.85;
-  }
-
-  /* Barra del breadcrumb con fondo grisáceo y sombra suave */
-  .breadcrumb-bar {
-    background: var(--breadcrumb-bar-bg);
-    box-shadow: var(--breadcrumb-bar-shadow);
   }
 
   /* Quitado el padding bottom que se hace */
@@ -381,7 +349,11 @@
     margin-bottom: 0;
   }
 
-  /* Breadcrumb del panel */
+  /* Breadcrumb del panel: mismo tamaño que el título del menú del sidebar */
+  .breadcrumb {
+    font-size: var(--panel-title-size);
+  }
+
   .breadcrumb-item,
   .breadcrumb-item a {
     color: var(--secondary-strong);
@@ -400,13 +372,158 @@
     height: 80px;
   }
 
-  .header-brand {
-    max-width: 25%;
+  /* Texto e icono de las opciones del sidebar */
+  .sidebar-option {
+    font-size: 1.1em;
   }
 
-  @media (min-width: 992px) {
-    .header-brand {
-      max-width: 16.66667%;
+  /* Título de la cabecera del sidebar reducido para que quepa el botón */
+  .sidebar-menu-title {
+    font-size: var(--panel-title-size);
+    letter-spacing: 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--secondary-strong);
+  }
+
+  /* Botón circular para colapsar/expandir el sidebar */
+  .sidebar-collapse-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--secondary-strong);
+    background: rgba(var(--secondary-rgb), 0.1);
+    border: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
+
+  .sidebar-collapse-btn:hover,
+  .sidebar-collapse-btn:focus-visible {
+    background: rgba(var(--secondary-rgb), 0.25);
+    box-shadow: 0 4px 15px rgba(var(--secondary-rgb), 0.4);
+    outline: none;
+  }
+
+  /* Escritorio (≥768px): sidebar sticky, cabecera visible, modo colapsado y popup-sidebar */
+  @media (min-width: 768px) {
+    .sidebar {
+      position: sticky;
+      top: 0;
+      min-height: 100vh;
+      z-index: 2000;
+    }
+
+    .sidebar-option {
+      font-size: 1.em;
+    }
+
+    /* Cabecera del sidebar visible en escritorio (Bootstrap la oculta en md+); el X de cierre interno solo se ve en móvil */
+    .sidebar .offcanvas-md .offcanvas-header {
+      display: flex;
+      align-items: center;
+      height: var(--panel-bar-height);
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    /* Sidebar colapsado: franja con solo iconos */
+    body.sidebar-collapsed .sidebar {
+      flex: 0 0 64px;
+      max-width: 64px;
+      width: 64px;
+    }
+
+    /* El main ocupa el espacio liberado */
+    body.sidebar-collapsed .panel-main {
+      flex: 0 0 calc(100% - 64px);
+      max-width: calc(100% - 64px);
+    }
+
+    /* Ocultar todos los textos del sidebar cuando está colapsado */
+    body.sidebar-collapsed .sidebar .sidebar-label,
+    body.sidebar-collapsed .sidebar .sidebar-menu-title,
+    body.sidebar-collapsed .sidebar .logo-header {
+      display: none;
+    }
+
+    /* Centrar iconos en sus filas */
+    body.sidebar-collapsed .sidebar .nav-link {
+      justify-content: center;
+      padding: 0.6rem 0;
+    }
+
+    /* Sin desplazamiento horizontal en hover (no hay sitio) */
+    body.sidebar-collapsed .sidebar .nav-link:hover {
+      transform: none;
+    }
+
+    /* Centrar la cabecera del sidebar para que el botón quede en el medio */
+    body.sidebar-collapsed .sidebar .offcanvas-header {
+      justify-content: center;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    body.sidebar-collapsed .sidebar #sidebarMenuLabel {
+      justify-content: center !important;
+      gap: 0 !important;
+    }
+
+    /* Popup-sidebar: tooltip CSS-only en hover/focus, solo en escritorio; texto desde data-popup-sidebar */
+    .popup-sidebar {
+      position: relative;
+    }
+
+    .popup-sidebar::after {
+      content: attr(data-popup-sidebar);
+      position: absolute;
+      top: 50%;
+      left: calc(100% + 8px);
+      transform: translateY(-50%) translateX(-4px);
+      background: var(--popup-bg);
+      color: var(--popup-color);
+      padding: 0.35rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.2s ease;
+      z-index: 2000;
+    }
+
+    .popup-sidebar:hover,
+    .popup-sidebar:focus-visible {
+      z-index: 2001;
+    }
+
+    .popup-sidebar:hover::after,
+    .popup-sidebar:focus-visible::after {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+    }
+
+    /* Silenciado en el sidebar expandido: el label del enlace ya es visible al lado del icono */
+    body:not(.sidebar-collapsed) .sidebar .popup-sidebar:hover::after,
+    body:not(.sidebar-collapsed) .sidebar .popup-sidebar:focus-visible::after {
+      opacity: 0;
+    }
+  }
+
+  /* Móvil (≤768px): el <nav> desaparece como caja (su hijo offcanvas-md sigue renderizándose en posición fija) y se oculta cuando no está abierto */
+  @media (max-width: 768px) {
+    .sidebar {
+      display: contents;
+    }
+
+    .offcanvas-md:not(.show) {
+      display: none;
     }
   }
 }
