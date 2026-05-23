@@ -2,7 +2,7 @@
 
 namespace App\Actions\Fortify;
 
-use App\Models\User;
+use App\Models\Usuario;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -18,17 +18,19 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      *
      * @throws ValidationException
      */
-    public function update(User $user, array $input): void
+    public function update(Usuario $user, array $input): void
     {
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
+            'nombre' => ['required', 'string', 'max:70'],
+            'primer_apellido' => ['required', 'string', 'max:70'],
+            'segundo_apellido' => ['nullable', 'string', 'max:70'],
 
             'email' => [
                 'required',
                 'string',
                 'email',
                 'max:255',
-                Rule::unique('users')->ignore($user->id),
+                Rule::unique('usuarios')->ignore($user->id),
             ],
         ])->validateWithBag('updateProfileInformation');
 
@@ -37,7 +39,9 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             $this->updateVerifiedUser($user, $input);
         } else {
             $user->forceFill([
-                'name' => $input['name'],
+                'nombre' => $input['nombre'],
+                'primer_apellido' => $input['primer_apellido'],
+                'segundo_apellido' => $input['segundo_apellido'] ?? null,
                 'email' => $input['email'],
             ])->save();
         }
@@ -48,10 +52,12 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      *
      * @param  array<string, string>  $input
      */
-    protected function updateVerifiedUser(User $user, array $input): void
+    protected function updateVerifiedUser(Usuario $user, array $input): void
     {
         $user->forceFill([
-            'name' => $input['name'],
+            'nombre' => $input['nombre'],
+            'primer_apellido' => $input['primer_apellido'],
+            'segundo_apellido' => $input['segundo_apellido'] ?? null,
             'email' => $input['email'],
             'email_verified_at' => null,
         ])->save();

@@ -2,18 +2,20 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Usuario;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class UserSeeder extends Seeder
+class UsuarioSeeder extends Seeder
 {
     public function run(): void
     {
-        User::firstOrCreate(
+        Usuario::firstOrCreate(
             ['email' => 'admin@laravelspace.test'],
             [
-                'name' => 'Admin',
+                'nombre' => 'Admin',
+                'primer_apellido' => 'Admin',
+                'segundo_apellido' => null,
                 'password' => Hash::make('password'),
                 'email_verified_at' => now(),
             ]
