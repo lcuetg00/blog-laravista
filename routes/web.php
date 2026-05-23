@@ -23,8 +23,8 @@ Route::group([
 
     // Authentication routes (Fortify)
     Route::middleware('guest')->group(function () {
-        Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-        Route::post('/login', [AuthenticatedSessionController::class, 'store'])->middleware('throttle:login');
+        Route::get('/administracion-login', [AuthenticatedSessionController::class, 'create'])->name('login');
+        Route::post('/administracion-login', [AuthenticatedSessionController::class, 'store'])->middleware('throttle:login');
 
         if (Features::enabled(Features::registration())) {
             Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
