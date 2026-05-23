@@ -17,7 +17,7 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         $permisos = [
-            'acceso-panel' => [
+            'acceso_panel' => [
                 'descripcion' => 'Permite el acceso al panel de administración',
             ],
         ];
