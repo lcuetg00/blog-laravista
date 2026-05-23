@@ -17,6 +17,7 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
+        // Definimos los atributos adicionales de cada rol indexados por el nombre del enum
         $roles = [
             RoleEnum::SUPERADMIN->name => [
                 'descripcion' => 'Superadministrador con acceso total a la aplicación',
@@ -29,6 +30,7 @@ class RoleSeeder extends Seeder
             ],
         ];
 
+        // Recorremos los casos del enum para crear o actualizar cada rol forzando su id al valor del enum
         foreach (RoleEnum::cases() as $role) {
             Role::updateOrCreate(
                 ['id' => $role->value],
@@ -47,10 +49,12 @@ class RoleSeeder extends Seeder
          * no tiene permisos asignados) se le asignan todos los permisos. En
          * ejecuciones posteriores se respeta la configuración manual del rol.
          */
-        $admin = Role::find(RoleEnum::ADMIN->value);
+        // Buscamos el rol ADMIN por id
+        $admin = Role::query()->find(RoleEnum::ADMIN->value);
 
+        // Si existe y aún no tiene permisos asignados, le sincronizamos todos los del guard web
         if ($admin && $admin->permissions()->count() === 0) {
-            $admin->syncPermissions(Permission::where('guard_name', 'web')->get());
+            $admin->syncPermissions(Permission::query()->where('guard_name', 'web')->get());
         }
     }
 }

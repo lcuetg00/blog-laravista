@@ -16,12 +16,14 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
+        // Definimos la lista de permisos deseados con sus atributos
         $permisos = [
             'acceso_panel' => [
                 'descripcion' => 'Permite el acceso al panel de administración',
             ],
         ];
 
+        // Recorremos cada permiso y lo creamos o actualizamos según exista en la base de datos
         foreach ($permisos as $nombre => $atributos) {
             Permission::updateOrCreate(
                 ['name' => $nombre, 'guard_name' => 'web'],
@@ -29,11 +31,13 @@ class PermissionSeeder extends Seeder
             );
         }
 
+        // Eliminamos de la base de datos los permisos que ya no estén declarados en el array
         Permission::query()
             ->where('guard_name', 'web')
             ->whereNotIn('name', array_keys($permisos))
             ->delete();
 
+        // Limpiamos la caché de permisos de Spatie para que los cambios surtan efecto inmediatamente
         app(PermissionRegistrar::class)->forgetCachedPermissions();
     }
 }
