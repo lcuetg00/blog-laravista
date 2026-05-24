@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PanelController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
@@ -14,28 +15,39 @@ Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
 ], function () {
-    // Public routes
-    Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/credits', [HomeController::class, 'credits'])->name('credits');
-    Route::get('/tecnologias', [HomeController::class, 'tecnologias'])->name('tecnologias');
-    Route::get('/proyectos', [HomeController::class, 'proyectos'])->name('proyectos');
-    Route::get('/contacto', [HomeController::class, 'contacto'])->name('contacto');
+    // Rutas públicas
+    Route::controller(HomeController::class)->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::get('/credits', 'credits')->name('credits');
+        Route::get('/tecnologias', 'tecnologias')->name('tecnologias');
+        Route::get('/proyectos', 'proyectos')->name('proyectos');
+        Route::get('/contacto', 'contacto')->name('contacto');
+    });
 
-    // Authentication routes (Fortify)
+    // Rutas de autenticación (Fortify)
     Route::middleware('guest')->group(function () {
-        Route::get('/administracion-login', [AuthenticatedSessionController::class, 'create'])->name('login');
-        Route::post('/administracion-login', [AuthenticatedSessionController::class, 'store'])->middleware('throttle:login');
+        Route::controller(AuthenticatedSessionController::class)->group(function () {
+            Route::get('/administracion-login', 'create')->name('login');
+            Route::post('/administracion-login', 'store')->middleware('throttle:login');
+        });
 
         if (Features::enabled(Features::registration())) {
-            Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
-            Route::post('/register', [RegisteredUserController::class, 'store']);
+            Route::controller(RegisteredUserController::class)->group(function () {
+                Route::get('/register', 'create')->name('register');
+                Route::post('/register', 'store');
+            });
         }
 
         if (Features::enabled(Features::resetPasswords())) {
-            Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
-            Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
-            Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
-            Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('password.update');
+            Route::controller(PasswordResetLinkController::class)->group(function () {
+                Route::get('/forgot-password', 'create')->name('password.request');
+                Route::post('/forgot-password', 'store')->name('password.email');
+            });
+
+            Route::controller(NewPasswordController::class)->group(function () {
+                Route::get('/reset-password/{token}', 'create')->name('password.reset');
+                Route::post('/reset-password', 'store')->name('password.update');
+            });
         }
     });
 
@@ -43,8 +55,16 @@ Route::group([
         ->middleware('auth')
         ->name('logout');
 
-    // Panel routes
-    Route::middleware('auth')->group(function () {
-        Route::get('/panel', [PanelController::class, 'index'])->name('panel.index');
+    // Rutas del panel
+    Route::middleware('auth')->prefix('panel')->name('panel.')->group(function () {
+        Route::get('/', [PanelController::class, 'index'])->name('index');
+
+        // CRUDs. Las urls con parámetros se resuelven por el ulid
+        Route::resource('usuarios', UsuarioController::class)->except('show');
+
+        // Restore: acción extra; withTrashed() permite resolver el binding aunque el usuario esté soft-deleted
+        Route::post('usuarios/{usuario}/restore', [UsuarioController::class, 'restore'])
+            ->withTrashed()
+            ->name('usuarios.restore');
     });
 });
