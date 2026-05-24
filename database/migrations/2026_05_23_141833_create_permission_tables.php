@@ -24,7 +24,9 @@ return new class extends Migration
          * See `docs/prerequisites.md` for suggested lengths on 'name' and 'guard_name' if "1071 Specified key was too long" errors are encountered.
          */
         Schema::create($tableNames['permissions'], static function (Blueprint $table) {
-            $table->id(); // permission id
+            // Usamos int autoincrement en vez de bigIncrements: esta tabla no va a tener
+            // nunca los suficientes registros como para justificar un BIGINT.
+            $table->increments('id');
             $table->string('name');
             $table->string('guard_name');
             $table->timestamps();
@@ -36,7 +38,9 @@ return new class extends Migration
          * See `docs/prerequisites.md` for suggested lengths on 'name' and 'guard_name' if "1071 Specified key was too long" errors are encountered.
          */
         Schema::create($tableNames['roles'], static function (Blueprint $table) use ($teams, $columnNames) {
-            $table->id(); // role id
+            // Usamos int autoincrement en vez de bigIncrements: esta tabla no va a tener
+            // nunca los suficientes registros como para justificar un BIGINT.
+            $table->increments('id');
             if ($teams || config('permission.testing')) { // permission.testing is a fix for sqlite testing
                 $table->unsignedBigInteger($columnNames['team_foreign_key'])->nullable();
                 $table->index($columnNames['team_foreign_key'], 'roles_team_foreign_key_index');
@@ -52,7 +56,8 @@ return new class extends Migration
         });
 
         Schema::create($tableNames['model_has_permissions'], static function (Blueprint $table) use ($tableNames, $columnNames, $pivotPermission, $teams) {
-            $table->unsignedBigInteger($pivotPermission);
+            // FK al id de permissions (unsignedInteger porque la PK de permissions es int autoincrement)
+            $table->unsignedInteger($pivotPermission);
 
             $table->string('model_type');
             $table->unsignedBigInteger($columnNames['model_morph_key']);
@@ -75,7 +80,8 @@ return new class extends Migration
         });
 
         Schema::create($tableNames['model_has_roles'], static function (Blueprint $table) use ($tableNames, $columnNames, $pivotRole, $teams) {
-            $table->unsignedBigInteger($pivotRole);
+            // FK al id de roles (unsignedInteger porque la PK de roles es int autoincrement)
+            $table->unsignedInteger($pivotRole);
 
             $table->string('model_type');
             $table->unsignedBigInteger($columnNames['model_morph_key']);
@@ -98,8 +104,9 @@ return new class extends Migration
         });
 
         Schema::create($tableNames['role_has_permissions'], static function (Blueprint $table) use ($tableNames, $pivotRole, $pivotPermission) {
-            $table->unsignedBigInteger($pivotPermission);
-            $table->unsignedBigInteger($pivotRole);
+            // FKs a permissions.id y roles.id (unsignedInteger porque ambas PKs son int autoincrement)
+            $table->unsignedInteger($pivotPermission);
+            $table->unsignedInteger($pivotRole);
 
             $table->foreign($pivotPermission)
                 ->references('id') // permission id

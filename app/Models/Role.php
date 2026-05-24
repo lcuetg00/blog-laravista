@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasPublicUlid;
 use Spatie\Permission\Models\Role as SpatieRole;
 
 /**
@@ -9,5 +10,5 @@ use Spatie\Permission\Models\Role as SpatieRole;
  */
 class Role extends SpatieRole
 {
-    //
+    use HasPublicUlid;
 }
