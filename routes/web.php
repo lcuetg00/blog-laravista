@@ -18,7 +18,7 @@ Route::group([
     // Rutas públicas
     Route::controller(HomeController::class)->group(function () {
         Route::get('/', 'index')->name('home');
-        Route::get('/credits', 'credits')->name('credits');
+        Route::get('/creditos', 'creditos')->name('creditos');
         Route::get('/tecnologias', 'tecnologias')->name('tecnologias');
         Route::get('/proyectos', 'proyectos')->name('proyectos');
         Route::get('/contacto', 'contacto')->name('contacto');

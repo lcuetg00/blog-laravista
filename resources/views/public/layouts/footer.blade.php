@@ -3,7 +3,7 @@
         <p class="mt-3">&copy; {{ today()->format('Y') . ' ' . config('app.name') }} <a
                 href="#">{{ trans('public.footer.politica_privacidad') }}</a> &middot; <a
                 href="#">{{ trans('public.footer.terminos_condiciones') }}</a> &middot; <a
-                href="{{ route('credits') }}">{{ trans('public.footer.creditos') }}</a>
+                href="{{ route('creditos') }}">{{ trans('public.footer.creditos') }}</a>
         </p>
     </div>
 

@@ -22,9 +22,9 @@ class HomeController extends Controller
     /**
      * Devuelve la página de créditos
      */
-    public function credits(): Renderable
+    public function creditos(): Renderable
     {
-        return view('public.home.credits');
+        return view('public.home.creditos');
     }
 
     /**
