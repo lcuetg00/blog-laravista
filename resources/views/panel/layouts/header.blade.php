@@ -17,7 +17,7 @@
                 <button
                     class="btn btn-primary rounded-circle header-button btn-size-45 d-flex align-items-center justify-content-center p-0 d-md-none"
                     type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu"
-                    aria-expanded="false" aria-label="{{ trans('panel.toggle_sidebar') }}">
+                    aria-expanded="false" aria-label="{{ trans('panel.header.toggle_sidebar') }}">
                     <i class="fa-solid fa-bars" aria-hidden="true"></i>
                 </button>
             @endauth
@@ -36,13 +36,13 @@
                         <button
                             class="btn btn-primary rounded-circle header-button btn-size-45 d-flex align-items-center justify-content-center p-0"
                             type="button" data-bs-toggle="dropdown" aria-expanded="false"
-                            title="{{ trans('panel.usuario_selector') }}">
+                            title="{{ trans('panel.header.usuario_selector') }}">
                             <i class="fa-solid fa-user" aria-hidden="true"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li>
                                 <a class="dropdown-item" href="{{ route('home') }}">
-                                    {{ trans('panel.inicio_publico') }}
+                                    {{ trans('panel.header.inicio_publico') }}
                                 </a>
                             </li>
                             <li>
@@ -52,7 +52,7 @@
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit" class="dropdown-item">
-                                        {{ trans('panel.sign_out') }}
+                                        {{ trans('actions.sign_out') }}
                                     </button>
                                 </form>
                             </li>

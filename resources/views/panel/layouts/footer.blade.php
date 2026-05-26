@@ -5,7 +5,7 @@
         &copy; {{ today()->format('Y') }} {{ config('app.name') }}
     </p>
     <p class="mb-0 text-white-50 small">
-        {{ trans('panel.version') }}: {{ config('app.version') }}
+        {{ trans('panel.footer.version') }}: {{ config('app.version') }}
     </p>
 
     @yield('scripts')

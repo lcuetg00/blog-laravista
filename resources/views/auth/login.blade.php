@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ trans('panel.login') }}</title>
+    <title>{{ trans('login.title') }}</title>
 
     {{-- Bootstrap + FontAwesome --}}
     @vite('resources/js/app.js')
@@ -27,7 +27,7 @@
 
             <div class="card shadow-sm">
                 <div class="card-body p-4 p-md-5">
-                    <h2 class="h5 fw-semibold mb-4 text-center">{{ trans('panel.login') }}</h2>
+                    <h2 class="h5 fw-semibold mb-4 text-center">{{ trans('login.title') }}</h2>
 
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -39,7 +39,7 @@
                         @csrf
 
                         <div class="mb-3">
-                            <label for="email" class="form-label">{{ trans('panel.email') }}</label>
+                            <label for="email" class="form-label">{{ trans('fields.input.email') }}</label>
                             <input type="email"
                                 class="form-control @if ($errors->has('email') || $errors->has('password')) is-invalid @endif" id="email"
                                 name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="password" class="form-label">{{ trans('panel.password') }}</label>
+                            <label for="password" class="form-label">{{ trans('fields.input.password') }}</label>
                             <input type="password"
                                 class="form-control @if ($errors->has('email') || $errors->has('password')) is-invalid @endif" id="password"
                                 name="password" required autocomplete="current-password"
@@ -62,19 +62,19 @@
 
                         <div class="mb-4 form-check">
                             <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                            <label class="form-check-label" for="remember">{{ trans('panel.remember_me') }}</label>
+                            <label class="form-check-label" for="remember">{{ trans('login.remember_me') }}</label>
                         </div>
 
                         <div class="d-grid mb-3">
                             <button type="submit" class="btn btn-primary">
-                                {{ trans('panel.sign_in') }}
+                                {{ trans('actions.sign_in') }}
                             </button>
                         </div>
 
                         @if (Route::has('password.request'))
                             <div class="text-center">
                                 <a href="{{ route('password.request') }}" class="small text-decoration-none">
-                                    {{ trans('panel.forgot_password') }}
+                                    {{ trans('actions.forgot_password') }}
                                 </a>
                             </div>
                         @endif

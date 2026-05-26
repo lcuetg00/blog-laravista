@@ -11,10 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Orden importante: permisos y roles primero, porque UsuarioSeeder
+        // necesita que el rol SUPERADMIN exista para asignárselo al admin.
         $this->call([
-            UsuarioSeeder::class,
             PermissionSeeder::class,
             RoleSeeder::class,
+            UsuarioSeeder::class,
         ]);
     }
 }

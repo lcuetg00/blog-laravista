@@ -233,6 +233,14 @@
     transition: color 0.3s ease;
   }
 
+  .table thead th {
+    transition: color 0.3s ease;
+  }
+
+  .table thead th:hover {
+    color: var(--secondary-strong);
+  }
+
   a:hover {
     color: var(--links);
     transition: all 0.3s ease;
@@ -363,6 +371,11 @@
   .breadcrumb-item,
   .breadcrumb-item a {
     color: var(--secondary-strong);
+  }
+
+  /* Quitamos el subrayado de los enlaces del breadcrumb */
+  .breadcrumb-item a {
+    text-decoration: none;
   }
 
   .breadcrumb-item.active {

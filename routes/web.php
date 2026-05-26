@@ -61,8 +61,6 @@ Route::group([
 
         // CRUDs. Las urls con parámetros se resuelven por el ulid
         Route::resource('usuarios', UsuarioController::class)->except('show');
-
-        // Restore: acción extra; withTrashed() permite resolver el binding aunque el usuario esté soft-deleted
         Route::post('usuarios/{usuario}/restore', [UsuarioController::class, 'restore'])
             ->withTrashed()
             ->name('usuarios.restore');

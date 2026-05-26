@@ -15,8 +15,8 @@ class LoginRequest extends FortifyLoginRequest
     public function attributes(): array
     {
         return [
-            Fortify::username() => trans('panel.email'),
-            'password'          => trans('panel.password'),
+            Fortify::username() => trans('fields.input.email'),
+            'password' => trans('fields.input.password'),
         ];
     }
 }

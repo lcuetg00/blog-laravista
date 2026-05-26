@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', trans('panel.dashboard')) — {{ config('app.name') }}</title>
+    <title>@yield('title', trans('sidebar.dashboard')) — {{ config('app.name') }}</title>
 
     {{-- Bootstrap + FontAwesome --}}
     @vite('resources/js/app.js')

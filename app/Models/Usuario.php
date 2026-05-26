@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\ChoiceEnum;
 use App\Traits\HasPublicUlid;
 use Database\Factories\UsuarioFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 #[Table('usuarios')]
 #[Hidden(['password', 'remember_token'])]
@@ -19,7 +21,10 @@ use Illuminate\Notifications\Notifiable;
 class Usuario extends Authenticatable
 {
     /** @use HasFactory<UsuarioFactory> */
-    use HasFactory, HasPublicUlid, Notifiable, SoftDeletes;
+    use HasFactory, HasPublicUlid, HasRoles, Notifiable, SoftDeletes;
+
+    // Usado por trans_choice en mensajes con :modelo
+    public const ChoiceEnum CHOICE = ChoiceEnum::MASCULINO;
 
     /**
      * Get the attributes that should be cast.

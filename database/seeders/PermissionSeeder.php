@@ -21,6 +21,23 @@ class PermissionSeeder extends Seeder
             'acceso_panel' => [
                 'descripcion' => 'Permite el acceso al panel de administración',
             ],
+            /** Usuarios */
+            'usuarios_listado' => [
+                'descripcion' => 'Permite ver el listado de usuarios en el panel',
+            ],
+            'usuarios_crear' => [
+                'descripcion' => 'Permite crear nuevos usuarios desde el panel',
+            ],
+            'usuarios_editar' => [
+                'descripcion' => 'Permite editar los datos de los usuarios desde el panel',
+            ],
+            'usuarios_eliminar' => [
+                'descripcion' => 'Permite eliminar (soft delete) usuarios desde el panel',
+            ],
+            'usuarios_restaurar' => [
+                'descripcion' => 'Permite restaurar usuarios previamente eliminados desde el panel',
+            ],
+        /** Fin usuarios */
         ];
 
         // Recorremos cada permiso y lo creamos o actualizamos según exista en la base de datos
