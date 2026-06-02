@@ -8,6 +8,7 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -40,6 +41,16 @@ class AppServiceProvider extends ServiceProvider
          */
         Gate::before(function ($user, $ability) {
             return RoleHelper::tieneRolSuperadmin($user) ? true : null;
+        });
+
+        /**
+         * Reglas por defecto para las contraseñas (se aplican en cualquier FormRequest que use Password::defaults()).
+         */
+        Password::defaults(function () {
+            return Password::min(8)
+                ->mixedCase()
+                ->numbers()
+                ->symbols();
         });
     }
 }

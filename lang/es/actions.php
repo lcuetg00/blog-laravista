@@ -11,9 +11,21 @@ return [
     'sign_in' => 'Entrar',
     'sign_out' => 'Cerrar sesión',
     'forgot_password' => '¿Olvidaste tu contraseña?',
+    'show_password' => 'Mostrar contraseña',
+    'hide_password' => 'Ocultar contraseña',
 
     // CRUD - botones
     'create' => 'Crear',
+    'edit' => 'Editar',
+    'show' => 'Ver',
+    'delete' => 'Eliminar',
+    'save' => 'Guardar',
+    'accept' => 'Aceptar',
+    'cancel' => 'Cancelar',
+
+    // Modal de confirmación de borrado genérico
+    'delete_confirm_title' => '¿Desea borrar este registro?',
+    'delete_confirm_description' => 'Se eliminará el registro',
 
     // Mensajes flash genéricos con género gramatical ({1}=Masculino, {2}=Femenino)
     'created' => '{1} :modelo creado correctamente.|{2} :modelo creada correctamente.',

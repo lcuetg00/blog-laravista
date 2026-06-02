@@ -1,0 +1,74 @@
+/* Colores del modo oscuro */
+:root[data-bs-theme="dark"] {
+  --primary: rgb(30, 20, 50);
+  --primary-rgb: 30, 20, 50;
+  --primary-light: rgb(74, 50, 121);
+
+  --secondary: rgb(130, 89, 254);
+  --secondary-rgb: 130, 89, 254;
+  --secondary-strong: rgb(134, 35, 227);
+  --secondary-strong-rgb: 147, 51, 234;
+  --secondary-light: rgb(218, 178, 255);
+  --secondary-light-rgb: 218, 178, 255;
+
+  --terciary: rgb(255, 0, 0);
+  --terciary-rgb: 255, 0, 0;
+
+  --quaternary: rgb(0, 98, 255);
+  --quaternary-rgb: 0, 98, 255;
+
+  --highlight: rgb(251, 191, 36);
+  --highlight-rgb: 251, 191, 36;
+
+  --yellow: rgb(250, 204, 21);
+  --yellow-rgb: 250, 204, 21;
+
+  --green: rgb(74, 222, 128);
+  --green-rgb: 74, 222, 128;
+
+  --red: rgb(239, 68, 68);
+  --red-rgb: 239, 68, 68;
+
+  --blue: rgb(59, 130, 246);
+  --blue-rgb: 59, 130, 246;
+
+  --text-color: rgb(167, 139, 250);
+  --text-color-btn: rgb(255, 255, 255);
+
+  --links: rgb(25, 25, 112);
+
+  --body-color: rgb(167, 139, 250);
+
+  /* Etiquetas de bootstrap */
+  --bs-primary: var(--primary);
+  --bs-secondary: var(--secondary);
+
+  /* Para el texto */
+  --bs-primary-rgb: var(--primary-rgb);
+  --bs-secondary-rgb: var(--secondary-rgb);
+
+  /* Cuerpo */
+  --bs-body-color: var(--secondary);
+
+  /* Encabezados */
+  --bs-heading-color: var(--secondary-strong);
+
+  /* Color del texto del popup del sidebar */
+  --popup-color: rgb(218, 178, 255);
+
+  /* Color de fondo del popup del sidebar */
+  --popup-bg: rgb(16, 10, 30);
+
+  /* Variables específicas de los inputs del formulario (lavanda clara para que destaquen sobre el fondo oscuro) */
+  --input-label: var(--secondary-light);
+  --input-label-focus: rgb(255, 255, 255);
+  --input-color: rgb(255, 255, 255);
+  --input-border: rgba(var(--secondary-light-rgb), 0.3);
+  --input-bg: rgba(var(--secondary-light-rgb), 0.04);
+  --input-shadow-inset: rgba(0, 0, 0, 0.25);
+  --input-placeholder: rgba(var(--secondary-light-rgb), 0.4);
+  --input-focus-bg: rgba(var(--secondary-rgb), 0.15);
+  --input-hover-bg: rgba(var(--secondary-rgb), 0.18);
+  --input-hover-border: rgba(var(--secondary-light-rgb), 0.6);
+  --input-btn-color: var(--secondary-light);
+}

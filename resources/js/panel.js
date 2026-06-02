@@ -1,4 +1,8 @@
-/* globals Chart */
+import Alpine from 'alpinejs';
+
+// Exponemos Alpine en window para poder depurarlo desde la consola y arrancamos su loop
+window.Alpine = Alpine;
+Alpine.start();
 
 // Constantes para la cookie del tema (igual que public.js)
 const THEME_COOKIE_NAME = 'theme';
@@ -85,33 +89,6 @@ if (window.matchMedia) {
     });
 }
 
-// Inicializar gráfico del dashboard si existe el canvas
-function initDashboardChart() {
-    const ctx = document.getElementById('myChart');
-    if (!ctx || typeof Chart === 'undefined') return;
-
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-            datasets: [{
-                data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-                lineTension: 0,
-                backgroundColor: 'transparent',
-                borderColor: '#007bff',
-                borderWidth: 4,
-                pointBackgroundColor: '#007bff',
-            }],
-        },
-        options: {
-            plugins: {
-                legend: { display: false },
-                tooltip: { boxPadding: 3 },
-            },
-        },
-    });
-}
-
 // Sidebar del panel: colapsar/expandir en escritorio con persistencia en cookie
 const SIDEBAR_DESKTOP_MQ = window.matchMedia('(min-width: 768px)');
 
@@ -165,8 +142,21 @@ function initSidebar() {
     });
 }
 
+// Inicializa todos los toasts del DOM y los muestra al cargar la página
+function initToasts() {
+    if (typeof bootstrap === 'undefined' || !bootstrap.Toast) {
+        return;
+    }
+
+    const toastEls = document.querySelectorAll('.toast');
+    toastEls.forEach((el) => {
+        const toast = bootstrap.Toast.getOrCreateInstance(el);
+        toast.show();
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
-    initDashboardChart();
     initSidebar();
+    initToasts();
 });

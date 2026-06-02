@@ -21,7 +21,7 @@
 
         <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3">
             <ul class="nav flex-column px-2 pt-2">
-                <li class="nav-item">
+                <li class="nav-item mb-2">
                     <a class="nav-link sidebar-option popup-sidebar d-flex align-items-center gap-2 {{ request()->routeIs('panel.index') ? 'active' : '' }}"
                         aria-current="{{ request()->routeIs('panel.index') ? 'page' : 'false' }}"
                         href="{{ route('panel.index') }}"
@@ -33,7 +33,7 @@
                 </li>
 
                 @can('usuarios_listado')
-                    <li class="nav-item">
+                    <li class="nav-item mb-2">
                         <a class="nav-link sidebar-option popup-sidebar d-flex align-items-center gap-2 {{ request()->routeIs('panel.usuarios.*') ? 'active' : '' }}"
                             aria-current="{{ request()->routeIs('panel.usuarios.*') ? 'page' : 'false' }}"
                             href="{{ route('panel.usuarios.index') }}"
@@ -49,7 +49,7 @@
             <hr class="my-2 mx-2">
 
             <ul class="nav flex-column px-2 pb-2 mb-auto">
-                <li class="nav-item">
+                <li class="nav-item mb-2">
                     <a class="nav-link sidebar-option popup-sidebar d-flex align-items-center gap-2" href="#"
                         aria-label="{{ trans('sidebar.settings') }}"
                         data-popup-sidebar="{{ trans('sidebar.settings') }}">

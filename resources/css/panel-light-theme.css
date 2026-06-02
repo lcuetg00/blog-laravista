@@ -1,0 +1,76 @@
+/* Colores del modo claro */
+:root[data-bs-theme="light"],
+:root:not([data-bs-theme]) {
+  --primary: rgb(45, 45, 45);
+  --primary-rgb: 45, 45, 45;
+  --primary-light: rgb(62, 62, 62);
+
+  --secondary: rgb(157, 115, 255);
+  --secondary-rgb: 157, 115, 255;
+
+  --secondary-strong: rgb(109, 40, 217);
+  --secondary-strong-rgb: 109, 40, 217;
+
+  --terciary: rgb(234, 28, 28);
+  --terciary-rgb: 234, 28, 28;
+
+  --quaternary: rgb(0, 122, 222);
+  --quaternary-rgb: 0, 122, 222;
+
+  --highlight: rgb(245, 158, 11);
+  --highlight-rgb: 245, 158, 11;
+
+  --yellow: rgb(234, 179, 8);
+  --yellow-rgb: 234, 179, 8;
+
+  --green: rgb(34, 197, 94);
+  --green-rgb: 34, 197, 94;
+
+  --red: rgb(239, 68, 68);
+  --red-rgb: 239, 68, 68;
+
+  --blue: rgb(59, 130, 246);
+  --blue-rgb: 59, 130, 246;
+
+  --text-color: #4a4a4a;
+  --text-color-btn: #4a4a4a;
+
+  --links: rgb(112, 25, 25);
+
+  /* Fondo */
+  --bs-light: #e8e8e8;
+  --bs-dark: #2d1b4e;
+
+  /* Etiquetas de bootstrap */
+  --bs-primary: var(--primary);
+  --bs-secondary: var(--secondary);
+
+  /* Para el texto */
+  --bs-primary-rgb: var(--primary-rgb);
+  --bs-secondary-rgb: var(--secondary-rgb);
+
+  /* Cuerpo */
+  --bs-body-color: var(--primary);
+
+  /* Encabezados */
+  --bs-heading-color: var(--primary);
+
+  /* Color del texto del popup del sidebar */
+  --popup-color: rgb(0, 0, 0);
+
+  /* Color de fondo del popup del sidebar */
+  --popup-bg: rgb(255, 255, 255);
+
+  /* Variables específicas de los inputs del formulario */
+  --input-label: var(--primary);
+  --input-label-focus: var(--secondary-strong);
+  --input-color: var(--primary);
+  --input-border: rgba(var(--primary-rgb), 0.12);
+  --input-bg: rgba(var(--primary-rgb), 0.02);
+  --input-shadow-inset: rgba(var(--primary-rgb), 0.04);
+  --input-placeholder: rgba(var(--primary-rgb), 0.4);
+  --input-focus-bg: #fff;
+  --input-hover-bg: rgba(var(--secondary-rgb), 0.04);
+  --input-hover-border: rgba(var(--secondary-rgb), 0.5);
+  --input-btn-color: var(--secondary-strong);
+}

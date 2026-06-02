@@ -22,7 +22,7 @@
                 </button>
             @endauth
 
-            <a class="text-white text-decoration-none fs-5 fw-semibold"
+            <a class="text-white fs-5 fw-semibold"
                 href="{{ auth()->check() ? route('panel.index') : route('home') }}">
                 {{ config('app.name') }}
             </a>

@@ -17,3 +17,21 @@ Breadcrumbs::for('panel.usuarios.index', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push(trans('fields.usuarios.titulo'), route('panel.usuarios.index'));
 });
+
+// Inicio > Usuarios > Ver
+Breadcrumbs::for('panel.usuarios.show', function (BreadcrumbTrail $trail, $usuario) {
+    $trail->parent('panel.usuarios.index');
+    $trail->push($usuario->nombre_completo, route('panel.usuarios.show', $usuario));
+});
+
+// Inicio > Usuarios > Crear
+Breadcrumbs::for('panel.usuarios.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('panel.usuarios.index');
+    $trail->push(trans('actions.create'), route('panel.usuarios.create'));
+});
+
+// Inicio > Usuarios > [Nombre completo] > Editar
+Breadcrumbs::for('panel.usuarios.edit', function (BreadcrumbTrail $trail, $usuario) {
+    $trail->parent('panel.usuarios.show', $usuario);
+    $trail->push(trans('actions.edit'), route('panel.usuarios.edit', $usuario));
+});

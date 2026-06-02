@@ -84,6 +84,17 @@ class UsuarioController extends Controller implements HasMiddleware
     }
 
     /**
+     * Muestra la ficha de detalle de un usuario, resuelto por su ulid público.
+     */
+    #[Middleware('can:usuarios_ver')]
+    public function show(Usuario $usuario): View
+    {
+        return view('panel.usuarios.show', [
+            'usuario' => $usuario,
+        ]);
+    }
+
+    /**
      * Muestra el formulario de edición de un usuario, resuelto por su ulid público.
      */
     #[Middleware('can:usuarios_editar')]

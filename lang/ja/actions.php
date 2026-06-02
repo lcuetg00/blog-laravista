@@ -11,9 +11,21 @@ return [
     'sign_in' => 'サインイン',
     'sign_out' => 'サインアウト',
     'forgot_password' => 'パスワードをお忘れですか？',
+    'show_password' => 'パスワードを表示',
+    'hide_password' => 'パスワードを非表示',
 
     // CRUD - ボタン
     'create' => '作成',
+    'edit' => '編集',
+    'show' => '表示',
+    'delete' => '削除',
+    'save' => '保存',
+    'accept' => '承諾',
+    'cancel' => 'キャンセル',
+
+    // 汎用の削除確認モーダル
+    'delete_confirm_title' => 'このレコードを削除しますか？',
+    'delete_confirm_description' => 'レコードが削除されます',
 
     // フラッシュメッセージ（日本語は性別による変化がないため、両バリアントは同一）
     'created' => '{1} :modelo を作成しました。|{2} :modelo を作成しました。',

@@ -60,7 +60,7 @@ Route::group([
         Route::get('/', [PanelController::class, 'index'])->name('index');
 
         // CRUDs. Las urls con parámetros se resuelven por el ulid
-        Route::resource('usuarios', UsuarioController::class)->except('show');
+        Route::resource('usuarios', UsuarioController::class);
         Route::post('usuarios/{usuario}/restore', [UsuarioController::class, 'restore'])
             ->withTrashed()
             ->name('usuarios.restore');

@@ -25,7 +25,7 @@
                 <h1 class="h3 fw-bold">{{ config('app.name') }}</h1>
             </div>
 
-            <div class="card shadow-sm">
+            <div class="card shadow">
                 <div class="card-body p-4 p-md-5">
                     <h2 class="h5 fw-semibold mb-4 text-center">{{ trans('login.title') }}</h2>
 
@@ -39,25 +39,22 @@
                         @csrf
 
                         <div class="mb-3">
-                            <label for="email" class="form-label">{{ trans('fields.input.email') }}</label>
-                            <input type="email"
-                                class="form-control @if ($errors->has('email') || $errors->has('password')) is-invalid @endif" id="email"
-                                name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
-                                aria-describedby="@error('email') email-error @enderror">
-                            @error('email')
-                                <div id="email-error" class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                            <x-input name="email"
+                                type="email"
+                                :label="trans('fields.input.email')"
+                                maxlength="255"
+                                autocomplete="email"
+                                autofocus
+                                required
+                                :invalid="$errors->has('email') || $errors->has('password')" />
                         </div>
 
                         <div class="mb-3">
-                            <label for="password" class="form-label">{{ trans('fields.input.password') }}</label>
-                            <input type="password"
-                                class="form-control @if ($errors->has('email') || $errors->has('password')) is-invalid @endif" id="password"
-                                name="password" required autocomplete="current-password"
-                                aria-describedby="@error('password') password-error @enderror">
-                            @error('password')
-                                <div id="password-error" class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                            <x-password-input name="password"
+                                :label="trans('fields.input.password')"
+                                autocomplete="current-password"
+                                required
+                                :invalid="$errors->has('email') || $errors->has('password')" />
                         </div>
 
                         <div class="mb-4 form-check">
@@ -73,7 +70,7 @@
 
                         @if (Route::has('password.request'))
                             <div class="text-center">
-                                <a href="{{ route('password.request') }}" class="small text-decoration-none">
+                                <a href="{{ route('password.request') }}" class="small">
                                     {{ trans('actions.forgot_password') }}
                                 </a>
                             </div>

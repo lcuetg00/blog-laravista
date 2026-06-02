@@ -25,6 +25,9 @@ class PermissionSeeder extends Seeder
             'usuarios_listado' => [
                 'descripcion' => 'Permite ver el listado de usuarios en el panel',
             ],
+            'usuarios_ver' => [
+                'descripcion' => 'Permite ver la ficha de detalle de un usuario en el panel',
+            ],
             'usuarios_crear' => [
                 'descripcion' => 'Permite crear nuevos usuarios desde el panel',
             ],
@@ -37,7 +40,7 @@ class PermissionSeeder extends Seeder
             'usuarios_restaurar' => [
                 'descripcion' => 'Permite restaurar usuarios previamente eliminados desde el panel',
             ],
-        /** Fin usuarios */
+            /** Fin usuarios */
         ];
 
         // Recorremos cada permiso y lo creamos o actualizamos según exista en la base de datos

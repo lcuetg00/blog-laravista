@@ -9,6 +9,7 @@ use Database\Factories\UsuarioFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -37,5 +38,19 @@ class Usuario extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Devuelve el nombre completo del usuario uniendo nombre y apellidos, sin espacios sobrantes.
+     */
+    protected function nombreCompleto(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): string => trim(implode(' ', array_filter([
+                $this->nombre,
+                $this->primer_apellido,
+                $this->segundo_apellido,
+            ]))),
+        );
     }
 }

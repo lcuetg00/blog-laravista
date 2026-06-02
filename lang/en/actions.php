@@ -11,9 +11,21 @@ return [
     'sign_in' => 'Sign in',
     'sign_out' => 'Sign out',
     'forgot_password' => 'Forgot your password?',
+    'show_password' => 'Show password',
+    'hide_password' => 'Hide password',
 
     // CRUD - buttons
     'create' => 'Create',
+    'edit' => 'Edit',
+    'show' => 'View',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'accept' => 'Accept',
+    'cancel' => 'Cancel',
+
+    // Generic delete confirmation modal
+    'delete_confirm_title' => 'Do you want to delete this record?',
+    'delete_confirm_description' => 'The record will be deleted',
 
     // Flash messages (English does not inflect for gender; both variants are identical for key parity)
     'created' => '{1} :modelo created successfully.|{2} :modelo created successfully.',

@@ -1,107 +1,5 @@
-/* Colores del modo claro */
-:root[data-bs-theme="light"],
-:root:not([data-bs-theme]) {
-  --primary: rgb(45, 45, 45);
-  --primary-rgb: 45, 45, 45;
-  --primary-light: rgb(62, 62, 62);
-
-  --secondary: rgb(157, 115, 255);
-  --secondary-rgb: 157, 115, 255;
-
-  --secondary-strong: rgb(109, 40, 217);
-  --secondary-strong-rgb: 109, 40, 217;
-
-  --terciary: rgb(234, 28, 28);
-  --terciary-rgb: 234, 28, 28;
-
-  --quaternary: rgb(0, 122, 222);
-  --quaternary-rgb: 0, 122, 222;
-
-  --highlight: rgb(245, 158, 11);
-  --highlight-rgb: 245, 158, 11;
-
-  --text-color: #4a4a4a;
-  --text-color-btn: #4a4a4a;
-
-  --links: rgb(112, 25, 25);
-
-  /* Fondo */
-  --bs-light: #e8e8e8;
-  --bs-dark: #2d1b4e;
-
-  /* Etiquetas de bootstrap */
-  --bs-primary: var(--primary);
-  --bs-secondary: var(--secondary);
-
-  /* Para el texto */
-  --bs-primary-rgb: var(--primary-rgb);
-  --bs-secondary-rgb: var(--secondary-rgb);
-
-  /* Cuerpo */
-  --bs-body-color: var(--primary);
-
-  /* Encabezados */
-  --bs-heading-color: var(--primary);
-
-  /* Color del texto del popup del sidebar */
-  --popup-color: rgb(157, 115, 255);
-
-  /* Color de fondo del popup del sidebar */
-  --popup-bg: rgb(45, 45, 45);
-
-}
-
-/* Colores del modo oscuro */
-:root[data-bs-theme="dark"] {
-  --primary: rgb(30, 20, 50);
-  --primary-rgb: 30, 20, 50;
-  --primary-light: rgb(74, 50, 121);
-
-  --secondary: rgb(130, 89, 254);
-  --secondary-rgb: 130, 89, 254;
-  --secondary-strong: rgb(134, 35, 227);
-  --secondary-strong-rgb: 147, 51, 234;
-  --secondary-light: rgb(218, 178, 255);
-  --secondary-light-rgb: 218, 178, 255;
-
-  --terciary: rgb(255, 0, 0);
-  --terciary-rgb: 252, 165, 165;
-
-  --quaternary: rgb(0, 98, 255);
-  --quaternary-rgb: 59, 130, 246;
-
-  --highlight: rgb(251, 191, 36);
-  --highlight-rgb: 251, 191, 36;
-
-  --text-color: rgb(167, 139, 250);
-  --text-color-btn: rgb(255, 255, 255);
-
-  --links: rgb(25, 25, 112);
-
-  --body-color: rgb(167, 139, 250);
-  --body-bg: rgb(16, 10, 30);
-
-  /* Etiquetas de bootstrap */
-  --bs-primary: var(--primary);
-  --bs-secondary: var(--secondary);
-
-  /* Para el texto */
-  --bs-primary-rgb: var(--primary-rgb);
-  --bs-secondary-rgb: var(--secondary-rgb);
-
-  /* Cuerpo */
-  --bs-body-color: var(--secondary);
-
-  /* Encabezados */
-  --bs-heading-color: var(--secondary-strong);
-
-  /* Color del texto del popup del sidebar */
-  --popup-color: rgb(218, 178, 255);
-
-  /* Color de fondo del popup del sidebar */
-  --popup-bg: rgb(16, 10, 30);
-
-}
+@import './panel-light-theme.css';
+@import './panel-dark-theme.css';
 
 /* Compartido entre ambos modos */
 :root {
@@ -115,6 +13,12 @@
     padding-top: 0 !important;
     padding-bottom: 60px !important;
     color: var(--text-color);
+  }
+
+  /* Los enlaces del panel y del login nunca llevan subrayado por defecto (incluido btn-link, que visualmente actúa como enlace) */
+  a,
+  .btn-link {
+    text-decoration: none;
   }
 
   /* Header con fondo primary */
@@ -142,6 +46,23 @@
     --bs-btn-disabled-color: var(--bs-white);
     --bs-btn-disabled-bg: var(--secondary);
     --bs-btn-disabled-border-color: var(--secondary);
+  }
+
+  .text-yellow {
+    color: var(--yellow) !important;
+  }
+
+  .text-blue {
+    color: var(--blue) !important;
+  }
+
+  .text-red {
+    color: var(--red) !important;
+  }
+
+  /* Texto verde */
+  .text-green {
+    color: var(--green) !important;
   }
 
   /* Botones con el borde del proyecto */
@@ -198,6 +119,222 @@
     margin-bottom: 0.25rem;
   }
 
+  /*
+    INPUTS DEL PANEL
+  */
+  /* Asterisco rojo añadido al título de los campos de formulario obligatorios */
+  .required::after {
+    content: ' *';
+    color: var(--terciary);
+    font-weight: 700;
+    margin-left: 0.15rem;
+  }
+
+  /* Etiqueta del formulario: ligeramente más marcada y con espacio respecto al input */
+  .form-label {
+    font-weight: 600;
+    color: var(--input-label);
+    letter-spacing: 0.3px;
+    margin-bottom: 0.4rem;
+    transition: color 0.3s ease;
+    display: inline-block;
+  }
+
+  /* Cuando el input recibe foco, su label hermano se tiñe del color del proyecto */
+  .form-label:has(+ .form-control:focus),
+  .form-label:has(+ .input-group:focus-within) {
+    color: var(--input-label-focus);
+  }
+
+  /* Input base: borde sutil, esquinas redondeadas y transición suave para hover/focus */
+  .form-control {
+    border: 2px solid var(--input-border);
+    border-radius: 8px;
+    padding: 0.6rem 0.9rem;
+    background-color: var(--input-bg);
+    color: var(--input-color);
+    box-shadow: inset 0 1px 2px var(--input-shadow-inset);
+    transition: all 0.3s ease;
+    caret-color: var(--secondary);
+  }
+
+  /* Hover: borde más visible, ligera elevación y halo tenue alrededor para invitar al clic */
+  .form-control:hover:not(:focus):not(.is-invalid) {
+    border-color: var(--input-hover-border);
+    background-color: var(--input-hover-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--secondary-rgb), 0.12), inset 0 1px 2px var(--input-shadow-inset);
+    cursor: text;
+  }
+
+  /* Focus: borde y halo en color secundario del proyecto, fondo limpio y elevación más marcada */
+  .form-control:focus {
+    border-color: var(--secondary);
+    background-color: var(--input-focus-bg);
+    box-shadow: 0 0 0 0.2rem rgba(var(--secondary-rgb), 0.2), 0 4px 12px rgba(var(--secondary-rgb), 0.15);
+    transform: translateY(-1px);
+    outline: none;
+  }
+
+  /* Placeholder atenuado para que no compita con el texto introducido */
+  .form-control::placeholder {
+    color: var(--input-placeholder);
+    transition: opacity 0.3s ease;
+  }
+
+  .form-control:focus::placeholder {
+    opacity: 0.6;
+  }
+
+  /* Estado de error: borde y halo en el danger de Bootstrap manteniendo la misma sensación táctil */
+  .form-control.is-invalid {
+    border-color: var(--bs-danger);
+    background-color: rgba(var(--bs-danger-rgb), 0.03);
+  }
+
+  .form-control.is-invalid:focus {
+    border-color: var(--bs-danger);
+    box-shadow: 0 0 0 0.2rem rgba(var(--bs-danger-rgb), 0.2), 0 4px 12px rgba(var(--bs-danger-rgb), 0.15);
+  }
+
+  .invalid-feedback {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--bs-danger);
+    margin-top: 0.35rem;
+  }
+
+  /* Grupo input + botón del ojo: misma altura, esquinas redondeadas que cuadran con el input */
+  .password-toggle-group .form-control {
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .password-toggle-group .form-control:focus {
+    z-index: 3;
+  }
+
+  /* Botón del ojo: mismo borde que el input por todos los lados — el de la izquierda actúa de separador */
+  .password-toggle-btn {
+    border: 2px solid var(--input-border);
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-color: var(--input-bg);
+    color: var(--input-btn-color);
+    padding: 0.6rem 0.9rem;
+    transition: all 0.3s ease;
+  }
+
+  /* Hover del botón: mismo color de borde y elevación sutil que el input */
+  .password-toggle-group:hover .password-toggle-btn,
+  .password-toggle-btn:hover {
+    border-color: var(--input-hover-border);
+    background-color: var(--input-hover-bg);
+    color: var(--secondary);
+  }
+
+  /* Cuando el input se enfoca, el botón se tiñe en el secundario y comparte el mismo halo que el input */
+  .password-toggle-group:focus-within .password-toggle-btn {
+    border-color: var(--secondary);
+    color: var(--secondary);
+    box-shadow: 0 0 0 0.2rem rgba(var(--secondary-rgb), 0.2), 0 4px 12px rgba(var(--secondary-rgb), 0.15);
+  }
+
+  .password-toggle-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(var(--secondary-rgb), 0.25);
+    z-index: 3;
+  }
+
+  /* Si el input está en error, el botón acompaña en el color danger */
+  .password-toggle-group .form-control.is-invalid+.password-toggle-btn,
+  .password-toggle-group:has(.form-control.is-invalid) .password-toggle-btn {
+    border-color: var(--bs-danger);
+    color: var(--bs-danger);
+  }
+
+  /* Lista de reglas de la contraseña — feedback en vivo bajo el input */
+  .password-rules li {
+    transition: color 0.25s ease;
+  }
+
+  .password-rules li i {
+    transition: transform 0.25s ease;
+  }
+
+  /* Pequeño rebote del icono al cumplir la regla para reforzar el feedback */
+  .password-rules li.text-success i {
+    transform: scale(1.15);
+  }
+
+  /* x-cloak: oculta los elementos con esta directiva hasta que Alpine los procesa, para evitar el parpadeo inicial */
+  [x-cloak] {
+    display: none !important;
+  }
+
+  /* Columna de acciones de las tablas: ancho fijo independientemente del contenido del resto */
+  .col-acciones {
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+    white-space: nowrap;
+  }
+
+  /* Icono de acción en tablas: sombra al pasar el cursor para dar feedback al usuario */
+  .action-item {
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+
+  .action-item:hover,
+  .action-item:focus-visible {
+    filter: drop-shadow(0 2px 6px rgba(var(--primary-rgb), 0.45));
+    transform: translateY(-2px);
+  }
+
+  /* Truncar texto a una sola línea con ellipsis usando line-clamp */
+  .table-row-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-all;
+  }
+
+  /*
+    FIN INPUTS DEL PANEL
+  */
+
+  /* Tooltip solo con CSS */
+  .popup {
+    position: relative;
+  }
+
+  .popup::after {
+    content: attr(data-popup);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: var(--popup-bg);
+    color: var(--popup-color);
+    padding: 0.35rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.2s ease;
+    z-index: 2000;
+  }
+
+  .popup:hover::after,
+  .popup:focus-visible::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
   /* Tipografía */
   body,
   p,
@@ -234,6 +371,7 @@
   }
 
   .table thead th {
+    font-weight: 600;
     transition: color 0.3s ease;
   }
 
@@ -427,6 +565,36 @@
     background: rgba(var(--secondary-rgb), 0.25);
     box-shadow: 0 4px 15px rgba(var(--secondary-rgb), 0.4);
     outline: none;
+  }
+
+  /* Los modales y su backdrop deben estar por encima del header (2100), footer (2100) y sidebar (2000) para oscurecerlos correctamente */
+  .modal-backdrop {
+    z-index: 2200;
+  }
+
+  .modal {
+    z-index: 2205;
+  }
+
+  /* Toasts por encima del header, sidebar y modales para que siempre sean visibles */
+  .toast-container {
+    z-index: 2300;
+  }
+
+  /* El título del modal hereda el letter-spacing de h5, lo neutralizamos para que el texto respire de forma natural */
+  .modal-title {
+    letter-spacing: 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  /* Cuerpo del modal centrado y sin la línea divisoria entre body y footer */
+  .modal-body {
+    text-align: center;
+  }
+
+  .modal-footer {
+    border-top: 0;
   }
 
   /* Escritorio (≥768px): sidebar sticky, cabecera visible, modo colapsado y popup-sidebar */

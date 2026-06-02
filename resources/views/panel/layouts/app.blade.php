@@ -40,6 +40,9 @@
     </div>
 
     @include('panel.layouts.footer')
+
+    {{-- Toasts de flash messages y errores de validación --}}
+    @include('panel.layouts.toasts')
 </body>
 
 </html>
