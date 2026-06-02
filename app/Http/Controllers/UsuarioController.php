@@ -14,6 +14,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware as MiddlewareItem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class UsuarioController extends Controller implements HasMiddleware
 {
@@ -60,6 +61,11 @@ class UsuarioController extends Controller implements HasMiddleware
     public function store(StoreUsuarioRequest $request): RedirectResponse
     {
         $datos = $request->validated();
+
+        // Si no llega contraseña generamos una aleatoria fuerte; el usuario deberá usar el flujo de recuperación
+        if (empty($datos['password'])) {
+            $datos['password'] = Str::password(32);
+        }
 
         try {
             DB::beginTransaction();

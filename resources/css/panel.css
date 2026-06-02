@@ -38,8 +38,8 @@
     --bs-btn-bg: var(--secondary);
     --bs-btn-border-color: var(--secondary);
     --bs-btn-hover-color: var(--bs-white);
-    --bs-btn-hover-bg: var(--secondary);
-    --bs-btn-hover-border-color: var(--secondary);
+    --bs-btn-hover-bg: var(--secondary-strong);
+    --bs-btn-hover-border-color: var(--secondary-strong);
     --bs-btn-active-color: var(--bs-white);
     --bs-btn-active-bg: var(--secondary);
     --bs-btn-active-border-color: var(--secondary);
@@ -134,7 +134,6 @@
   .form-label {
     font-weight: 600;
     color: var(--input-label);
-    letter-spacing: 0.3px;
     margin-bottom: 0.4rem;
     transition: color 0.3s ease;
     display: inline-block;
@@ -154,7 +153,7 @@
     background-color: var(--input-bg);
     color: var(--input-color);
     box-shadow: inset 0 1px 2px var(--input-shadow-inset);
-    transition: all 0.3s ease;
+    transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     caret-color: var(--secondary);
   }
 
@@ -223,7 +222,7 @@
     background-color: var(--input-bg);
     color: var(--input-btn-color);
     padding: 0.6rem 0.9rem;
-    transition: all 0.3s ease;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
   }
 
   /* Hover del botón: mismo color de borde y elevación sutil que el input */
@@ -232,6 +231,7 @@
     border-color: var(--input-hover-border);
     background-color: var(--input-hover-bg);
     color: var(--secondary);
+    transform: translateY(-2px);
   }
 
   /* Cuando el input se enfoca, el botón se tiñe en el secundario y comparte el mismo halo que el input */
@@ -343,7 +343,6 @@
   th {
     font-family: 'Montserrat', sans-serif;
     line-height: 1.7;
-    letter-spacing: 0.3px;
     font-weight: 400;
   }
 
@@ -351,7 +350,6 @@
   h2 {
     font-family: 'Bebas Neue', sans-serif;
     line-height: 1.2;
-    letter-spacing: 2px;
     font-weight: 400;
   }
 
@@ -360,7 +358,6 @@
   h5,
   h6 {
     font-family: 'Montserrat', sans-serif;
-    letter-spacing: 0.5px;
     font-weight: 600;
   }
 
@@ -379,7 +376,8 @@
     color: var(--secondary-strong);
   }
 
-  a:hover {
+  /* No aplicamos el color de enlace a anclas que actúan como botón; mantienen el color propio del btn */
+  a:not(.btn):hover {
     color: var(--links);
     transition: all 0.3s ease;
   }
@@ -481,7 +479,6 @@
   .sidebar-heading {
     font-size: 0.7rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
     opacity: 0.6;
     color: var(--text-color);
   }
@@ -514,6 +511,12 @@
   /* Quitamos el subrayado de los enlaces del breadcrumb */
   .breadcrumb-item a {
     text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  /* Hover: cambiamos al tono claro del color secundario */
+  .breadcrumb-item a:hover {
+    color: var(--secondary-light);
   }
 
   .breadcrumb-item.active {
@@ -537,7 +540,6 @@
   /* Título de la cabecera del sidebar reducido para que quepa el botón */
   .sidebar-menu-title {
     font-size: var(--panel-title-size);
-    letter-spacing: 1px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -581,9 +583,7 @@
     z-index: 2300;
   }
 
-  /* El título del modal hereda el letter-spacing de h5, lo neutralizamos para que el texto respire de forma natural */
   .modal-title {
-    letter-spacing: 0;
     text-align: center;
     width: 100%;
   }

@@ -30,7 +30,7 @@ class StoreUsuarioRequest extends FormRequest
             'primer_apellido' => ['required', 'string', 'max:70'],
             'segundo_apellido' => ['nullable', 'string', 'max:70'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:usuarios,email'],
-            'password' => ['required', 'confirmed', Password::defaults()],
+            'password' => ['nullable', 'confirmed', Password::defaults()],
         ];
     }
 

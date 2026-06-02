@@ -25,5 +25,8 @@ return [
         'titulo' => 'Users',
         'vacio' => 'No users found.',
         'detalle' => 'User details',
+        'datos' => 'User data',
+        'cambio_password' => 'Change password',
+        'password_opcional_aviso' => 'If no password is provided, a random one will be generated. The user will have to change the password through an email message via the "I forgot my password" option.',
     ],
 ];

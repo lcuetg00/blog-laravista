@@ -9,6 +9,10 @@
         @csrf
 
         <div class="card shadow">
+            <div class="card-header">
+                <h2 class="h5 mb-0">{{ trans('fields.usuarios.datos') }}</h2>
+            </div>
+
             <div class="card-body">
                 <div class="row g-3">
                     <div class="col-12 col-md-4">
@@ -26,15 +30,21 @@
                     <div class="col-12 col-md-4">
                         <x-input name="email" type="email" :label="trans('fields.input.email')" maxlength="255" required />
                     </div>
+                </div>
 
+                <div class="row g-3 mt-1">
                     <div class="col-12 col-md-4">
-                        <x-password-input name="password" :label="trans('fields.input.password')" required rules />
+                        <x-password-input name="password" :label="trans('fields.input.password')" rules />
                     </div>
 
                     <div class="col-12 col-md-4">
-                        <x-password-input name="password_confirmation" :label="trans('fields.input.password_confirmation')" required />
+                        <x-password-input name="password_confirmation" :label="trans('fields.input.password_confirmation')" />
                     </div>
                 </div>
+
+                <p class="small text-muted mb-0 mt-2">
+                    {{ trans('fields.usuarios.password_opcional_aviso') }}
+                </p>
             </div>
 
             <div class="card-footer d-flex justify-content-end">

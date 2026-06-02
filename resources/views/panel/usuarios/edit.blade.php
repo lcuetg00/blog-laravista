@@ -10,6 +10,10 @@
         @method('PUT')
 
         <div class="card shadow">
+            <div class="card-header">
+                <h2 class="h5 mb-0">{{ trans('fields.usuarios.datos') }}</h2>
+            </div>
+
             <div class="card-body">
                 <div class="row g-3">
                     <div class="col-12 col-md-4">
@@ -27,7 +31,11 @@
                     <div class="col-12 col-md-4">
                         <x-input name="email" type="email" :label="trans('fields.input.email')" :value="$usuario->email" maxlength="255" required />
                     </div>
+                </div>
 
+                <h3 class="h5 mt-4 mb-3">{{ trans('fields.usuarios.cambio_password') }}</h3>
+
+                <div class="row g-3">
                     <div class="col-12 col-md-4">
                         <x-password-input name="password" :label="trans('fields.input.password')" />
                     </div>

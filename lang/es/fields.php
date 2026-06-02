@@ -25,5 +25,8 @@ return [
         'titulo' => 'Usuarios',
         'vacio' => 'No hay usuarios.',
         'detalle' => 'Detalle del usuario',
+        'datos' => 'Datos del usuario',
+        'cambio_password' => 'Cambio de contraseña',
+        'password_opcional_aviso' => 'Si no introduce una contraseña, se generará una aleatoria. El usuario tendrá que cambiar la contraseña con un mensaje al correo electrónico en la opción de «He olvidado mi contraseña».',
     ],
 ];
