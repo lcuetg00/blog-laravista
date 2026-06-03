@@ -22,6 +22,7 @@ return [
     'save' => 'Save',
     'accept' => 'Accept',
     'cancel' => 'Cancel',
+    'export' => 'Export',
 
     // Generic delete confirmation modal
     'delete_confirm_title' => 'Do you want to delete this record?',

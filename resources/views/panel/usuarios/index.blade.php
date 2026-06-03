@@ -5,10 +5,14 @@
 @section('breadcrumbs', Breadcrumbs::render('panel.usuarios.index'))
 
 @section('content')
-    <div class="mb-3">
+    <div class="mb-3 d-flex gap-2">
         <a href="{{ route('panel.usuarios.create') }}" class="btn btn-primary">
             <i class="fa-solid fa-plus me-1" aria-hidden="true"></i>
             {{ trans('actions.create') }}
+        </a>
+        <a href="{{ route('panel.usuarios.export') }}" class="btn btn-terciary ms-auto">
+            <i class="fa-solid fa-file-excel me-1" aria-hidden="true"></i>
+            {{ trans('actions.export') }}
         </a>
     </div>
 

@@ -48,6 +48,22 @@
     --bs-btn-disabled-border-color: var(--secondary);
   }
 
+  /* Botón terciary usando el color terciario del proyecto (acciones secundarias destacadas como exportar) */
+  .btn-terciary {
+    --bs-btn-color: var(--bs-white);
+    --bs-btn-bg: var(--terciary);
+    --bs-btn-border-color: var(--terciary);
+    --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-hover-bg: var(--terciary-strong);
+    --bs-btn-hover-border-color: var(--terciary-strong);
+    --bs-btn-active-color: var(--bs-white);
+    --bs-btn-active-bg: var(--terciary);
+    --bs-btn-active-border-color: var(--terciary);
+    --bs-btn-disabled-color: var(--bs-white);
+    --bs-btn-disabled-bg: var(--terciary);
+    --bs-btn-disabled-border-color: var(--terciary);
+  }
+
   .text-yellow {
     color: var(--yellow) !important;
   }

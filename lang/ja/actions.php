@@ -22,6 +22,7 @@ return [
     'save' => '保存',
     'accept' => '承諾',
     'cancel' => 'キャンセル',
+    'export' => 'エクスポート',
 
     // 汎用の削除確認モーダル
     'delete_confirm_title' => 'このレコードを削除しますか？',

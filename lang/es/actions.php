@@ -22,6 +22,7 @@ return [
     'save' => 'Guardar',
     'accept' => 'Aceptar',
     'cancel' => 'Cancelar',
+    'export' => 'Exportar',
 
     // Modal de confirmación de borrado genérico
     'delete_confirm_title' => '¿Desea borrar este registro?',

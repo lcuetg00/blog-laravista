@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsuariosExport;
 use App\Http\Requests\IndexUsuarioRequest;
 use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Requests\UpdateUsuarioRequest;
@@ -16,14 +17,14 @@ use Illuminate\Routing\Controllers\Middleware as MiddlewareItem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class UsuarioController extends Controller implements HasMiddleware
 {
     /**
      * Declara el middleware aplicado a nivel de clase.
      * El resto de permisos se declaran como atributos #[Middleware] sobre cada método.
-     *
-     * @return array<int, MiddlewareItem>
      */
     public static function middleware(): array
     {
@@ -208,5 +209,17 @@ class UsuarioController extends Controller implements HasMiddleware
         return redirect()
             ->route('panel.usuarios.index')
             ->with('success', trans_choice('actions.restored', Usuario::CHOICE->value, ['modelo' => trans('fields.models.usuario')]));
+    }
+
+    /**
+     * Exporta el listado de usuarios a un archivo Excel
+     */
+    #[Middleware('can:usuarios_exportar')]
+    public function exportExcel(): BinaryFileResponse
+    {
+        // Generamos el nombre del archivo con el título traducido del recurso y la fecha de exportación
+        $nombreArchivo = trans('fields.usuarios.titulo').' - '.now()->format('Y-m-d').'.xlsx';
+
+        return Excel::download(new UsuariosExport, $nombreArchivo);
     }
 }

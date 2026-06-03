@@ -11,8 +11,13 @@
   --secondary-light: rgb(218, 178, 255);
   --secondary-light-rgb: 218, 178, 255;
 
-  --terciary: rgb(255, 0, 0);
-  --terciary-rgb: 255, 0, 0;
+  /* Naranja algo más claro y luminoso en modo oscuro para mantener legibilidad contra el fondo */
+  --terciary: rgb(251, 146, 60);
+  --terciary-rgb: 251, 146, 60;
+
+  /* Variante oscura del terciary, usada en hover/active de botones terciary */
+  --terciary-strong: rgb(234, 88, 12);
+  --terciary-strong-rgb: 234, 88, 12;
 
   --quaternary: rgb(0, 98, 255);
   --quaternary-rgb: 0, 98, 255;

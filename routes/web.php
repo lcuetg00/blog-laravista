@@ -60,6 +60,7 @@ Route::group([
         Route::get('/', [PanelController::class, 'index'])->name('index');
 
         // CRUDs. Las urls con parámetros se resuelven por el ulid
+        Route::get('usuarios/export', [UsuarioController::class, 'exportExcel'])->name('usuarios.export');
         Route::resource('usuarios', UsuarioController::class);
         Route::post('usuarios/{usuario}/restore', [UsuarioController::class, 'restore'])
             ->withTrashed()

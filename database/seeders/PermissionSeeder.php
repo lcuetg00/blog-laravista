@@ -40,7 +40,10 @@ class PermissionSeeder extends Seeder
             'usuarios_restaurar' => [
                 'descripcion' => 'Permite restaurar usuarios previamente eliminados desde el panel',
             ],
-            /** Fin usuarios */
+            'usuarios_exportar' => [
+                'descripcion' => 'Permite exportar el listado de usuarios a un archivo Excel desde el panel',
+            ],
+        /** Fin usuarios */
         ];
 
         // Recorremos cada permiso y lo creamos o actualizamos según exista en la base de datos
