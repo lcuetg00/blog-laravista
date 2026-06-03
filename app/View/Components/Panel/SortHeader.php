@@ -65,6 +65,7 @@ class SortHeader extends Component
             return null;
         }
 
+        // Devuelvo la posición más 1 (el primero será 1, el segundo 2, ...)
         return array_search($clave, array_keys($this->actual), true) + 1;
     }
 
@@ -94,10 +95,10 @@ class SortHeader extends Component
             $partes[] = http_build_query($params);
         }
         if ($cadenaSiguiente !== null) {
-            $partes[] = 'ordenacion='.$cadenaSiguiente;
+            $partes[] = 'ordenacion=' . $cadenaSiguiente;
         }
 
-        return request()->url().($partes !== [] ? '?'.implode('&', $partes) : '');
+        return request()->url() . ($partes !== [] ? '?' . implode('&', $partes) : '');
     }
 
     /**
