@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Exports\UsuariosExport;
+use App\Http\Requests\ExportExcelUsuariosRequest;
 use App\Http\Requests\IndexUsuarioRequest;
 use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Requests\UpdateUsuarioRequest;
@@ -212,14 +213,17 @@ class UsuarioController extends Controller implements HasMiddleware
     }
 
     /**
-     * Exporta el listado de usuarios a un archivo Excel
+     * Exporta el listado de usuarios a un archivo Excel aplicando la ordenación indicada por URL.
      */
     #[Middleware('can:usuarios_exportar')]
-    public function exportExcel(): BinaryFileResponse
+    public function exportExcel(ExportExcelUsuariosRequest $request): BinaryFileResponse
     {
+        // Validamos los parámetros en la url
+        $ordenacion = $request->validated('ordenacion', []);
+
         // Generamos el nombre del archivo con el título traducido del recurso y la fecha de exportación
         $nombreArchivo = trans('fields.usuarios.titulo').' - '.now()->format('Y-m-d').'.xlsx';
 
-        return Excel::download(new UsuariosExport, $nombreArchivo);
+        return Excel::download(new UsuariosExport($ordenacion), $nombreArchivo);
     }
 }

@@ -10,10 +10,12 @@
             <i class="fa-solid fa-plus me-1" aria-hidden="true"></i>
             {{ trans('actions.create') }}
         </a>
-        <a href="{{ route('panel.usuarios.export') }}" class="btn btn-terciary ms-auto">
-            <i class="fa-solid fa-file-excel me-1" aria-hidden="true"></i>
-            {{ trans('actions.export') }}
-        </a>
+        @can('usuarios_exportar')
+            <a href="{{ route('panel.usuarios.export', request()->query()) }}" class="btn btn-terciary ms-auto">
+                <i class="fa-solid fa-file-excel me-1" aria-hidden="true"></i>
+                {{ trans('actions.export') }}
+            </a>
+        @endcan
     </div>
 
     <div class="table-responsive">

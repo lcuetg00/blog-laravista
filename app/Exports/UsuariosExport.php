@@ -18,12 +18,18 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class UsuariosExport implements FromCollection, ShouldAutoSize, WithHeadings, WithMapping, WithStyles, WithTitle
 {
     /**
-     * Devuelve la colección de usuarios a exportar (excluye los soft deleted).
+     * Recibe la ordenación ya validada (clave URL → dirección) para aplicarla a la consulta de exportación.
+     */
+    public function __construct(private array $ordenacion = []) {}
+
+    /**
+     * Devuelve la colección de usuarios a exportar aplicando la ordenación recibida y, finalmente, id descendente.
      */
     public function collection(): Collection
     {
         return Usuario::query()
-            ->orderBy('id', 'desc')
+            ->byOrdenacion($this->ordenacion)
+            ->orderByDesc('id')
             ->get(['nombre', 'primer_apellido', 'segundo_apellido', 'email']);
     }
 
