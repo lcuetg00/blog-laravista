@@ -20,8 +20,6 @@ class StoreUsuarioRequest extends FormRequest
 
     /**
      * Reglas de validación para la creación de un usuario nuevo.
-     *
-     * @return array<string, array<int, mixed>>
      */
     public function rules(): array
     {
@@ -36,8 +34,6 @@ class StoreUsuarioRequest extends FormRequest
 
     /**
      * Devuelve los nombres traducidos de los campos para los mensajes de validación.
-     *
-     * @return array<string, string>
      */
     public function attributes(): array
     {

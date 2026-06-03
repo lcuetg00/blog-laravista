@@ -21,6 +21,13 @@ return [
         'usuario' => 'Usuario',
     ],
     'acciones' => 'Acciones',
+    'ordenacion' => [
+        'atributo' => 'ordenación',
+        'atributo_direccion' => 'dirección de ordenación',
+        'ordenar_ascendente' => 'Ordenar por :columna ascendente',
+        'ordenar_descendente' => 'Ordenar por :columna descendente',
+        'quitar_ordenacion' => 'Quitar la ordenación por :columna',
+    ],
     'usuarios' => [
         'titulo' => 'Usuarios',
         'vacio' => 'No hay usuarios.',

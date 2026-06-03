@@ -17,10 +17,10 @@
             <caption class="visually-hidden">{{ trans('fields.usuarios.titulo') }}</caption>
             <thead>
                 <tr>
-                    <th scope="col" class="align-top">{{ trans('fields.input.nombre') }}</th>
-                    <th scope="col" class="align-top">{{ trans('fields.input.primer_apellido') }}</th>
-                    <th scope="col" class="align-top">{{ trans('fields.input.segundo_apellido') }}</th>
-                    <th scope="col" class="align-top">{{ trans('fields.input.email') }}</th>
+                    <x-panel.sort-header :columna="\App\Enums\UsuarioOrdenacionEnum::NOMBRE" :etiqueta="trans('fields.input.nombre')" />
+                    <x-panel.sort-header :columna="\App\Enums\UsuarioOrdenacionEnum::PRIMER_APELLIDO" :etiqueta="trans('fields.input.primer_apellido')" />
+                    <x-panel.sort-header :columna="\App\Enums\UsuarioOrdenacionEnum::SEGUNDO_APELLIDO" :etiqueta="trans('fields.input.segundo_apellido')" />
+                    <x-panel.sort-header :columna="\App\Enums\UsuarioOrdenacionEnum::EMAIL" :etiqueta="trans('fields.input.email')" />
                     <th scope="col" class="align-top text-start col-acciones">{{ trans('fields.acciones') }}</th>
                 </tr>
             </thead>

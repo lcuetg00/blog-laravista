@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IndexUsuarioRequest;
 use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Requests\UpdateUsuarioRequest;
 use App\Models\Usuario;
@@ -32,13 +33,21 @@ class UsuarioController extends Controller implements HasMiddleware
     }
 
     /**
-     * Muestra el listado paginado de usuarios del panel.
+     * Muestra el listado paginado de usuarios del panel aplicando la ordenación indicada por URL.
      */
-    public function index(): View
+    public function index(IndexUsuarioRequest $request): View
     {
+        // Validamos los parámetros en la url
+        $ordenacion = $request->validated('ordenacion', []);
+
+        // Añadimos la ordenación y finalmente siempre se ordena por id descendiente
         $usuarios = Usuario::query()
+            ->byOrdenacion($ordenacion)
             ->orderByDesc('id')
-            ->paginate();
+            ->paginate()
+            // Cuando se generan páginas, copia los parámetros de la url en las siguientes páginas con esto
+            // De forma que si estamos ordenando, al pasar a la página 2 no se pierden estos parámetros
+            ->withQueryString();
 
         return view('panel.usuarios.index', [
             'usuarios' => $usuarios,
@@ -75,7 +84,7 @@ class UsuarioController extends Controller implements HasMiddleware
             Usuario::create($datos);
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al crear el usuario', ['exception' => $e]);
 
@@ -131,7 +140,7 @@ class UsuarioController extends Controller implements HasMiddleware
             $usuario->update($datos);
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al actualizar el usuario', ['exception' => $e]);
 
@@ -158,7 +167,7 @@ class UsuarioController extends Controller implements HasMiddleware
             $usuario->delete();
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al eliminar el usuario', ['exception' => $e]);
 
@@ -187,7 +196,7 @@ class UsuarioController extends Controller implements HasMiddleware
             }
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al restaurar el usuario', ['exception' => $e]);
 

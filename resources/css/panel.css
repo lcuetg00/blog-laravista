@@ -376,10 +376,45 @@
     color: var(--secondary-strong);
   }
 
+  /* Cabecera de columna ordenable: hereda el color del <th> y vira al color de acento al pasar el cursor o recibir foco */
+  .sort-header {
+    color: inherit;
+    transition: color 0.3s ease;
+  }
+
+  .sort-header:hover,
+  .sort-header:focus-visible {
+    color: var(--secondary-strong);
+  }
+
+  /* Icono indicando que la columna es ordenable pero no se está usando ahora: visible pero discreto */
+  .sort-header-icon-inactivo {
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+  }
+
+  .sort-header:hover .sort-header-icon-inactivo,
+  .sort-header:focus-visible .sort-header-icon-inactivo {
+    opacity: 1;
+  }
+
+  /* Indicador de prioridad en orden múltiple: 1 = orden primario, 2 = secundario, etc. */
+  .sort-header-orden {
+    font-size: 0.7em;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--secondary-strong);
+  }
+
   /* No aplicamos el color de enlace a anclas que actúan como botón; mantienen el color propio del btn */
   a:not(.btn):hover {
     color: var(--links);
     transition: all 0.3s ease;
+  }
+
+  /* La cabecera ordenable debe mantener su color de acento al hover, no el color genérico de enlaces */
+  a.sort-header:hover {
+    color: var(--secondary-strong);
   }
 
   /* Efecto scanlines en el header */

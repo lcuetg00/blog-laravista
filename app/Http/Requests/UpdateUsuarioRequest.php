@@ -22,8 +22,6 @@ class UpdateUsuarioRequest extends FormRequest
 
     /**
      * Reglas de validación para la actualización de un usuario existente.
-     *
-     * @return array<string, array<int, mixed>>
      */
     public function rules(): array
     {
@@ -48,8 +46,6 @@ class UpdateUsuarioRequest extends FormRequest
 
     /**
      * Devuelve los nombres traducidos de los campos para los mensajes de validación.
-     *
-     * @return array<string, string>
      */
     public function attributes(): array
     {

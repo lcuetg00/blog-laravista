@@ -21,6 +21,13 @@ return [
         'usuario' => 'ユーザー',
     ],
     'acciones' => 'アクション',
+    'ordenacion' => [
+        'atributo' => '並べ替え',
+        'atributo_direccion' => '並べ替え方向',
+        'ordenar_ascendente' => ':columnaを昇順で並べ替え',
+        'ordenar_descendente' => ':columnaを降順で並べ替え',
+        'quitar_ordenacion' => ':columnaの並べ替えを解除',
+    ],
     'usuarios' => [
         'titulo' => 'ユーザー',
         'vacio' => 'ユーザーがいません。',
