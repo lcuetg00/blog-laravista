@@ -220,13 +220,25 @@
   }
 
   /* Grupo input + botón del ojo: misma altura, esquinas redondeadas que cuadran con el input */
+  .password-toggle-group {
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
+  }
+
+  /* Al enfocar cualquier hijo, pintamos un único halo alrededor del conjunto para que input y botón no muestren dos halos solapados en el borde donde se tocan */
+  .password-toggle-group:focus-within {
+    box-shadow: 0 0 0 0.2rem rgba(var(--secondary-rgb), 0.2), 0 4px 12px rgba(var(--secondary-rgb), 0.15);
+  }
+
   .password-toggle-group .form-control {
     border-right: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
 
+  /* Anulamos el halo propio del input dentro del grupo porque ya lo pinta el contenedor */
   .password-toggle-group .form-control:focus {
+    box-shadow: none;
     z-index: 3;
   }
 
@@ -250,11 +262,11 @@
     transform: translateY(-2px);
   }
 
-  /* Cuando el input se enfoca, el botón se tiñe en el secundario y comparte el mismo halo que el input */
+  /* Cuando el input se enfoca, el botón se tiñe en el secundario y acompaña la misma elevación que el input; el halo lo pinta el contenedor del grupo para no duplicarlo en la unión */
   .password-toggle-group:focus-within .password-toggle-btn {
     border-color: var(--secondary);
     color: var(--secondary);
-    box-shadow: 0 0 0 0.2rem rgba(var(--secondary-rgb), 0.2), 0 4px 12px rgba(var(--secondary-rgb), 0.15);
+    transform: translateY(-1px);
   }
 
   .password-toggle-btn:focus-visible {
