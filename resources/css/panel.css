@@ -284,7 +284,7 @@
   /* Icono de acción en tablas: sombra al pasar el cursor para dar feedback al usuario */
   .action-item {
     display: inline-block;
-    transition: all 0.3s ease;
+    transition: filter 0.3s ease, transform 0.3s ease;
   }
 
   .action-item:hover,
@@ -488,7 +488,7 @@
     font-weight: 500;
     color: var(--text-color);
     border-radius: 6px;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
     padding: 0.5rem 1rem;
   }
 

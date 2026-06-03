@@ -108,7 +108,7 @@ class SortHeader extends Component
     {
         if ($this->dirActual === 'asc') {
             $this->icono = 'fa-arrow-up';
-            $this->iconoClase = 'sort-header-icon-activo';
+            $this->iconoClase = 'sort-header-icon-activo text-secondary';
             $this->ariaSort = 'ascending';
             $this->ariaLabel = trans('fields.ordenacion.ordenar_descendente', ['columna' => $this->etiqueta]);
 
@@ -117,7 +117,7 @@ class SortHeader extends Component
 
         if ($this->dirActual === 'desc') {
             $this->icono = 'fa-arrow-down';
-            $this->iconoClase = 'sort-header-icon-activo';
+            $this->iconoClase = 'sort-header-icon-activo text-secondary';
             $this->ariaSort = 'descending';
             $this->ariaLabel = trans('fields.ordenacion.quitar_ordenacion', ['columna' => $this->etiqueta]);
 
