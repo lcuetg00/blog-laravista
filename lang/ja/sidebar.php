@@ -10,5 +10,6 @@ return [
     'close' => '閉じる',
     'dashboard' => 'ダッシュボード',
     'usuarios' => 'ユーザー',
+    'roles' => 'ロール',
     'settings' => '設定',
 ];

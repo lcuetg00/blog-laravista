@@ -10,5 +10,6 @@ return [
     'close' => 'Cerrar',
     'dashboard' => 'Panel',
     'usuarios' => 'Usuarios',
+    'roles' => 'Roles',
     'settings' => 'Ajustes',
 ];

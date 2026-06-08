@@ -19,13 +19,13 @@ class RoleSeeder extends Seeder
     {
         // Definimos los atributos adicionales de cada rol indexados por el nombre del enum
         $roles = [
-            RoleEnum::SUPERADMIN->name => [
+            ucfirst(RoleEnum::SUPERADMIN->name) => [
                 'descripcion' => 'Superadministrador con acceso total a la aplicación',
             ],
-            RoleEnum::ADMIN->name => [
+            ucfirst(RoleEnum::ADMIN->name) => [
                 'descripcion' => 'Administrador con acceso al panel mediante permisos asignados',
             ],
-            RoleEnum::USUARIO->name => [
+            ucfirst(RoleEnum::USUARIO->name) => [
                 'descripcion' => 'Usuario estándar con permisos individuales asignados',
             ],
         ];

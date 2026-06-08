@@ -11,6 +11,9 @@ return [
         'email' => 'メールアドレス',
         'password' => 'パスワード',
         'password_confirmation' => 'パスワード（確認）',
+        'busqueda' => 'テキスト検索',
+        'nombre_rol' => 'ロール名',
+        'descripcion' => '説明',
     ],
     'password_rules' => [
         'min_length' => '8文字以上',
@@ -20,6 +23,7 @@ return [
     ],
     'models' => [
         'usuario' => 'ユーザー',
+        'rol' => 'ロール',
     ],
     'acciones' => 'アクション',
     'sin_registros' => 'レコードが見つかりませんでした。',
@@ -36,5 +40,10 @@ return [
         'datos' => 'ユーザー情報',
         'cambio_password' => 'パスワードの変更',
         'password_opcional_aviso' => 'パスワードを入力しない場合、ランダムなパスワードが生成されます。ユーザーは「パスワードをお忘れですか」から届くメールのメッセージでパスワードを変更する必要があります。',
+    ],
+    'roles' => [
+        'titulo' => 'ロール',
+        'detalle' => 'ロールの詳細',
+        'datos' => 'ロール情報',
     ],
 ];

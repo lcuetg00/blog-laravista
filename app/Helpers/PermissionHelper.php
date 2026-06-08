@@ -13,12 +13,30 @@ class PermissionHelper
     public const string ACCESO_PANEL_PERMISSION = 'acceso_panel';
 
     public const string USUARIOS_LISTADO_PERMISSION = 'usuarios_listado';
+
     public const string USUARIOS_VER_PERMISSION = 'usuarios_ver';
+
     public const string USUARIOS_CREAR_PERMISSION = 'usuarios_crear';
+
     public const string USUARIOS_EDITAR_PERMISSION = 'usuarios_editar';
+
     public const string USUARIOS_ELIMINAR_PERMISSION = 'usuarios_eliminar';
+
     public const string USUARIOS_RESTAURAR_PERMISSION = 'usuarios_restaurar';
+
     public const string USUARIOS_EXPORTAR_PERMISSION = 'usuarios_exportar';
+
+    public const string ROLES_LISTADO_PERMISSION = 'roles_listado';
+
+    public const string ROLES_VER_PERMISSION = 'roles_ver';
+
+    public const string ROLES_CREAR_PERMISSION = 'roles_crear';
+
+    public const string ROLES_EDITAR_PERMISSION = 'roles_editar';
+
+    public const string ROLES_ELIMINAR_PERMISSION = 'roles_eliminar';
+
+    public const string ROLES_EXPORTAR_PERMISSION = 'roles_exportar';
 
     /**
      * Devuelve el mapa completo de permisos de la aplicación indexado por el nombre del permiso y con su descripción asociada (fuente única para el seeder).
@@ -52,6 +70,26 @@ class PermissionHelper
                 'descripcion' => 'Permite exportar el listado de usuarios a un archivo Excel desde el panel',
             ],
             /** Fin usuarios */
+            /** Roles */
+            self::ROLES_LISTADO_PERMISSION => [
+                'descripcion' => 'Permite ver el listado de roles en el panel',
+            ],
+            self::ROLES_VER_PERMISSION => [
+                'descripcion' => 'Permite ver la ficha de detalle de un rol en el panel',
+            ],
+            self::ROLES_CREAR_PERMISSION => [
+                'descripcion' => 'Permite crear nuevos roles desde el panel',
+            ],
+            self::ROLES_EDITAR_PERMISSION => [
+                'descripcion' => 'Permite editar los datos de los roles desde el panel',
+            ],
+            self::ROLES_ELIMINAR_PERMISSION => [
+                'descripcion' => 'Permite eliminar roles desde el panel (excepto los roles protegidos del sistema)',
+            ],
+            self::ROLES_EXPORTAR_PERMISSION => [
+                'descripcion' => 'Permite exportar el listado de roles a un archivo Excel desde el panel',
+            ],
+            /** Fin roles */
         ];
     }
 }

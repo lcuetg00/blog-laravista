@@ -8,12 +8,13 @@
 @section('breadcrumbs', Breadcrumbs::render('panel.usuarios.index'))
 
 @section('content')
-    <x-panel.filtros :route-index="route('panel.usuarios.index')" :route-create="route('panel.usuarios.create')" :route-export="route('panel.usuarios.export', request()->query())" :campos-filtro="['nombre_completo', 'email']"
-        :permiso-export="\App\Helpers\PermissionHelper::USUARIOS_EXPORTAR_PERMISSION">
+    <x-panel.filtros :route-index="route('panel.usuarios.index')" :route-create="route('panel.usuarios.create')" :route-export="route('panel.usuarios.export', request()->query())" :campos-filtro="['nombre_completo', 'email']" :permiso-export="\App\Helpers\PermissionHelper::USUARIOS_EXPORTAR_PERMISSION">
 
+        {{-- Filtros --}}
         <div class="col-12 col-md-6">
             <x-input name="nombre_completo" :label="trans('fields.input.nombre_completo')" :value="request('nombre_completo')" autocomplete="off" />
         </div>
+
         <div class="col-12 col-md-6">
             <x-input name="email" type="text" :label="trans('fields.input.email')" :value="request('email')" autocomplete="off" />
         </div>

@@ -11,6 +11,9 @@ return [
         'email' => 'Email address',
         'password' => 'Password',
         'password_confirmation' => 'Confirm password',
+        'busqueda' => 'Text search',
+        'nombre_rol' => 'Role name',
+        'descripcion' => 'Description',
     ],
     'password_rules' => [
         'min_length' => 'At least 8 characters',
@@ -20,6 +23,7 @@ return [
     ],
     'models' => [
         'usuario' => 'User',
+        'rol' => 'Role',
     ],
     'acciones' => 'Actions',
     'sin_registros' => 'No records found.',
@@ -36,5 +40,10 @@ return [
         'datos' => 'User data',
         'cambio_password' => 'Change password',
         'password_opcional_aviso' => 'If no password is provided, a random one will be generated. The user will have to change the password through an email message via the "I forgot my password" option.',
+    ],
+    'roles' => [
+        'titulo' => 'Roles',
+        'detalle' => 'Role details',
+        'datos' => 'Role data',
     ],
 ];

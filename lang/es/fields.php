@@ -11,6 +11,9 @@ return [
         'email' => 'Correo electrónico',
         'password' => 'Contraseña',
         'password_confirmation' => 'Confirmar contraseña',
+        'busqueda' => 'Búsqueda por texto',
+        'nombre_rol' => 'Nombre del rol',
+        'descripcion' => 'Descripción',
     ],
     'password_rules' => [
         'min_length' => 'Mínimo 8 caracteres',
@@ -20,6 +23,7 @@ return [
     ],
     'models' => [
         'usuario' => 'Usuario',
+        'rol' => 'Rol',
     ],
     'acciones' => 'Acciones',
     'sin_registros' => 'No se han encontrado registros.',
@@ -36,5 +40,10 @@ return [
         'datos' => 'Datos del usuario',
         'cambio_password' => 'Cambio de contraseña',
         'password_opcional_aviso' => 'Si no introduce una contraseña, se generará una aleatoria. El usuario tendrá que cambiar la contraseña con un mensaje al correo electrónico en la opción de «He olvidado mi contraseña».',
+    ],
+    'roles' => [
+        'titulo' => 'Roles',
+        'detalle' => 'Detalle del rol',
+        'datos' => 'Datos del rol',
     ],
 ];

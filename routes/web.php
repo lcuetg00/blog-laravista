@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PanelController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -65,5 +66,8 @@ Route::group([
         Route::post('usuarios/{usuario}/restore', [UsuarioController::class, 'restore'])
             ->withTrashed()
             ->name('usuarios.restore');
+
+        Route::get('roles/export', [RoleController::class, 'exportExcel'])->name('roles.export');
+        Route::resource('roles', RoleController::class)->parameters(['roles' => 'rol']);
     });
 });

@@ -35,3 +35,27 @@ Breadcrumbs::for('panel.usuarios.edit', function (BreadcrumbTrail $trail, $usuar
     $trail->parent('panel.usuarios.show', $usuario);
     $trail->push(trans('actions.edit'), route('panel.usuarios.edit', $usuario));
 });
+
+// Inicio > Roles
+Breadcrumbs::for('panel.roles.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(trans('fields.roles.titulo'), route('panel.roles.index'));
+});
+
+// Inicio > Roles > [Nombre]
+Breadcrumbs::for('panel.roles.show', function (BreadcrumbTrail $trail, $rol) {
+    $trail->parent('panel.roles.index');
+    $trail->push($rol->name, route('panel.roles.show', $rol));
+});
+
+// Inicio > Roles > Crear
+Breadcrumbs::for('panel.roles.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('panel.roles.index');
+    $trail->push(trans('actions.create'), route('panel.roles.create'));
+});
+
+// Inicio > Roles > [Nombre] > Editar
+Breadcrumbs::for('panel.roles.edit', function (BreadcrumbTrail $trail, $rol) {
+    $trail->parent('panel.roles.show', $rol);
+    $trail->push(trans('actions.edit'), route('panel.roles.edit', $rol));
+});

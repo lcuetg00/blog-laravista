@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Enums\RoleEnum;
+use App\Models\Role;
 use App\Models\Usuario;
 
 /**
@@ -47,7 +48,7 @@ class RoleHelper
         if ($usuarioAutenticado->hasRole(RoleEnum::ADMIN->value)) {
             // Los admins solo pueden gestionar otros admins y usuarios
             // Nunca deben de gestionar superadmins
-            return !self::tieneRolSuperadmin($usuario) && $usuario->hasAnyRole([
+            return ! self::tieneRolSuperadmin($usuario) && $usuario->hasAnyRole([
                 RoleEnum::ADMIN->value,
                 RoleEnum::USUARIO->value,
             ]);
@@ -59,5 +60,32 @@ class RoleHelper
         }
 
         return false;
+    }
+
+    /**
+     * Determina si un rol está protegido por ser uno de los roles del sistema definidos en RoleEnum (comprobación por id).
+     */
+    public static function esRolProtegido(?Role $rol): bool
+    {
+        if ($rol === null) {
+            return false;
+        }
+
+        // Comparamos por id contra los valores del enum, que se corresponden con los ids fijados en RoleSeeder
+        $idsProtegidos = array_column(RoleEnum::cases(), 'value');
+
+        return in_array($rol->id, $idsProtegidos, true);
+    }
+
+    /**
+     * Determina si un rol puede ser borrado (no es uno de los roles protegidos definidos en RoleEnum).
+     */
+    public static function puedeBorrarRol(?Role $rol): bool
+    {
+        if ($rol === null) {
+            return false;
+        }
+
+        return ! self::esRolProtegido($rol);
     }
 }

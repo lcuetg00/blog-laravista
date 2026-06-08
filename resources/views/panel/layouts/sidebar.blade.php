@@ -44,6 +44,19 @@
                         </a>
                     </li>
                 @endcan
+
+                @can(\App\Helpers\PermissionHelper::ROLES_LISTADO_PERMISSION)
+                    <li class="nav-item mb-2">
+                        <a class="nav-link sidebar-option popup-sidebar d-flex align-items-center gap-2 {{ request()->routeIs('panel.roles.*') ? 'active' : '' }}"
+                            aria-current="{{ request()->routeIs('panel.roles.*') ? 'page' : 'false' }}"
+                            href="{{ route('panel.roles.index') }}"
+                            aria-label="{{ trans('sidebar.roles') }}"
+                            data-popup-sidebar="{{ trans('sidebar.roles') }}">
+                            <i class="fa-solid fa-user-shield" aria-hidden="true"></i>
+                            <span class="sidebar-label">{{ trans('sidebar.roles') }}</span>
+                        </a>
+                    </li>
+                @endcan
             </ul>
 
             <hr class="my-2 mx-2">

@@ -32,7 +32,7 @@ class UsuarioController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new MiddlewareItem('can:'.PermissionHelper::USUARIOS_LISTADO_PERMISSION, only: ['index']),
+            new MiddlewareItem('can:'.PermissionHelper::USUARIOS_LISTADO_PERMISSION),
         ];
     }
 

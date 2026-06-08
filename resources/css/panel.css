@@ -212,10 +212,9 @@
     box-shadow: 0 0 0 0.2rem rgba(var(--bs-danger-rgb), 0.2), 0 4px 12px rgba(var(--bs-danger-rgb), 0.15);
   }
 
-  /* Padding vertical compacto para todos los inputs del panel (filtros, login, alta, edición, contraseña) */
+  /* Padding compacto para todos los inputs del panel (filtros, login, alta, edición, contraseña) */
   .form-control {
-    padding-top: 0.3rem;
-    padding-bottom: 0.3rem;
+    padding: 0.3rem 0.5rem;
   }
 
   /* Etiquetas pegadas al input compacto */

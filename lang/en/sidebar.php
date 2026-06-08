@@ -10,5 +10,6 @@ return [
     'close' => 'Close',
     'dashboard' => 'Dashboard',
     'usuarios' => 'Users',
+    'roles' => 'Roles',
     'settings' => 'Settings',
 ];
