@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Helpers\PermissionHelper;
 use App\Models\Usuario;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -17,7 +18,7 @@ class UpdateUsuarioRequest extends FormRequest
     public function authorize(): bool
     {
         // Comprobamos que el usuario autenticado puede editar usuarios
-        return $this->user()?->can('usuarios_editar') ?? false;
+        return $this->user()?->can(PermissionHelper::USUARIOS_EDITAR_PERMISSION) ?? false;
     }
 
     /**

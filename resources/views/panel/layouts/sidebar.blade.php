@@ -32,7 +32,7 @@
                     </a>
                 </li>
 
-                @can('usuarios_listado')
+                @can(\App\Helpers\PermissionHelper::USUARIOS_LISTADO_PERMISSION)
                     <li class="nav-item mb-2">
                         <a class="nav-link sidebar-option popup-sidebar d-flex align-items-center gap-2 {{ request()->routeIs('panel.usuarios.*') ? 'active' : '' }}"
                             aria-current="{{ request()->routeIs('panel.usuarios.*') ? 'page' : 'false' }}"

@@ -5,6 +5,7 @@ declare(strict_types=1);
 return [
     'input' => [
         'nombre' => 'Nombre',
+        'nombre_completo' => 'Nombre completo',
         'primer_apellido' => 'Primer apellido',
         'segundo_apellido' => 'Segundo apellido',
         'email' => 'Correo electrónico',
@@ -21,6 +22,7 @@ return [
         'usuario' => 'Usuario',
     ],
     'acciones' => 'Acciones',
+    'sin_registros' => 'No se han encontrado registros.',
     'ordenacion' => [
         'atributo' => 'ordenación',
         'atributo_direccion' => 'dirección de ordenación',
@@ -30,7 +32,6 @@ return [
     ],
     'usuarios' => [
         'titulo' => 'Usuarios',
-        'vacio' => 'No hay usuarios.',
         'detalle' => 'Detalle del usuario',
         'datos' => 'Datos del usuario',
         'cambio_password' => 'Cambio de contraseña',

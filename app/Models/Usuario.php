@@ -58,6 +58,40 @@ class Usuario extends Authenticatable
     }
 
     /**
+     * Filtra por coincidencia parcial sobre el nombre completo concatenando nombre y apellidos con CONCAT_WS para tolerar apellidos nulos.
+     */
+    public function scopeByNombreCompleto(Builder $query, ?string $valor): Builder
+    {
+        // Si no llega valor o llega en blanco no filtramos
+        if ($valor === null || trim($valor) === '') {
+            return $query;
+        }
+
+        $busqueda = '%'.trim($valor).'%';
+
+        // Utilizado ese whereRaw para poder hacer la búsqueda con los 3 campos juntos
+        // Eloquent con whereRaw previene de inyección y además tiene la consulta parametrizada
+        // Por si acaso siempre que se pase algo, es conveniente filtrar los símbolos que se utilizan, esto se hace siempre en las requests
+        return $query->whereRaw(
+            "CONCAT_WS(' ', nombre, primer_apellido, segundo_apellido) LIKE ?",
+            [$busqueda],
+        );
+    }
+
+    /**
+     * Filtra por coincidencia parcial sobre el email del usuario.
+     */
+    public function scopeByEmail(Builder $query, ?string $valor): Builder
+    {
+        // Si no llega valor o llega en blanco no filtramos
+        if ($valor === null || trim($valor) === '') {
+            return $query;
+        }
+
+        return $query->where('email', 'like', '%'.trim($valor).'%');
+    }
+
+    /**
      * Aplica ORDER BY encadenados respetando el orden de las claves del array (clave URL → dirección).
      *
      * @param  array<string, string>  $ordenacion

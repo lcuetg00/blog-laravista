@@ -23,6 +23,10 @@ return [
     'accept' => 'Accept',
     'cancel' => 'Cancel',
     'export' => 'Export',
+    'filter' => 'Filters',
+    'filter_submit' => 'Search',
+    'clear_filters' => 'Clear filters',
+    'clear_ordenacion' => 'Clear sort',
 
     // Generic delete confirmation modal
     'delete_confirm_title' => 'Do you want to delete this record?',

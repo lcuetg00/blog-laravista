@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Concerns;
 
-use App\Contracts\OrdenacionEnum;
 use App\Enums\OrdenacionColumnaEnum;
 use App\Helpers\OrdenacionHelper;
 use Illuminate\Validation\Rule;
@@ -12,12 +11,10 @@ use Illuminate\Validation\Rule;
 /**
  * Trait para FormRequests de listado: parsea la cadena "campo:dir?campo:dir" y filtra por las claves válidas del recurso.
  */
-trait PreparaOrdenacion
+trait RequestOrdenacionTrait
 {
     /**
      * Devuelve la clase del enum (BackedEnum + OrdenacionEnum) con las claves válidas para este recurso.
-     *
-     * @return class-string<OrdenacionEnum>
      */
     abstract protected function ordenacionEnum(): string;
 

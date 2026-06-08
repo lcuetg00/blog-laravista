@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Helpers\PermissionHelper;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
@@ -15,7 +16,7 @@ class StoreUsuarioRequest extends FormRequest
     public function authorize(): bool
     {
         // Comprobamos que el usuario autenticado puede crear usuarios
-        return $this->user()?->can('usuarios_crear') ?? false;
+        return $this->user()?->can(PermissionHelper::USUARIOS_CREAR_PERMISSION) ?? false;
     }
 
     /**

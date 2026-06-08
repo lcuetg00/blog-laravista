@@ -212,6 +212,17 @@
     box-shadow: 0 0 0 0.2rem rgba(var(--bs-danger-rgb), 0.2), 0 4px 12px rgba(var(--bs-danger-rgb), 0.15);
   }
 
+  /* Padding vertical compacto para todos los inputs del panel (filtros, login, alta, edición, contraseña) */
+  .form-control {
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+  }
+
+  /* Etiquetas pegadas al input compacto */
+  .form-label {
+    margin-bottom: 0.2rem;
+  }
+
   .invalid-feedback {
     font-size: 0.85rem;
     font-weight: 500;
@@ -242,14 +253,14 @@
     z-index: 3;
   }
 
-  /* Botón del ojo: mismo borde que el input por todos los lados — el de la izquierda actúa de separador */
+  /* Botón del ojo: mismo borde que el input por todos los lados — el de la izquierda actúa de separador. Padding vertical igual al del input compacto para que coincidan en altura dentro del input-group */
   .password-toggle-btn {
     border: 2px solid var(--input-border);
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
     background-color: var(--input-bg);
     color: var(--input-btn-color);
-    padding: 0.6rem 0.9rem;
+    padding: 0.3rem 0.9rem;
     transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
   }
 
@@ -405,29 +416,29 @@
   }
 
   /* Cabecera de columna ordenable: hereda el color del <th> y vira al color de acento al pasar el cursor o recibir foco */
-  .sort-header {
+  .ordenacion-columna {
     color: inherit;
     transition: color 0.3s ease;
   }
 
-  .sort-header:hover,
-  .sort-header:focus-visible {
+  .ordenacion-columna:hover,
+  .ordenacion-columna:focus-visible {
     color: var(--secondary-strong);
   }
 
   /* Icono indicando que la columna es ordenable pero no se está usando ahora: visible pero discreto */
-  .sort-header-icon-inactivo {
+  .ordenacion-columna-icon-inactivo {
     opacity: 0.4;
     transition: opacity 0.3s ease;
   }
 
-  .sort-header:hover .sort-header-icon-inactivo,
-  .sort-header:focus-visible .sort-header-icon-inactivo {
+  .ordenacion-columna:hover .ordenacion-columna-icon-inactivo,
+  .ordenacion-columna:focus-visible .ordenacion-columna-icon-inactivo {
     opacity: 1;
   }
 
   /* Indicador de prioridad en orden múltiple: 1 = orden primario, 2 = secundario, etc. */
-  .sort-header-orden {
+  .ordenacion-columna-orden {
     font-size: 0.7em;
     font-weight: 700;
     line-height: 1;
@@ -441,7 +452,7 @@
   }
 
   /* La cabecera ordenable debe mantener su color de acento al hover, no el color genérico de enlaces */
-  a.sort-header:hover {
+  a.ordenacion-columna:hover {
     color: var(--secondary-strong);
   }
 

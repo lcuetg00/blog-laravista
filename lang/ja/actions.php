@@ -23,6 +23,10 @@ return [
     'accept' => '承諾',
     'cancel' => 'キャンセル',
     'export' => 'エクスポート',
+    'filter' => 'フィルター',
+    'filter_submit' => '検索',
+    'clear_filters' => 'フィルターをクリア',
+    'clear_ordenacion' => '並べ替えをクリア',
 
     // 汎用の削除確認モーダル
     'delete_confirm_title' => 'このレコードを削除しますか？',

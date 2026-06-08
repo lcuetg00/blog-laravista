@@ -23,6 +23,10 @@ return [
     'accept' => 'Aceptar',
     'cancel' => 'Cancelar',
     'export' => 'Exportar',
+    'filter' => 'Filtros',
+    'filter_submit' => 'Buscar',
+    'clear_filters' => 'Borrar filtros',
+    'clear_ordenacion' => 'Borrar ordenación',
 
     // Modal de confirmación de borrado genérico
     'delete_confirm_title' => '¿Desea borrar este registro?',

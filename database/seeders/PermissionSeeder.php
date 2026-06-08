@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Helpers\PermissionHelper;
 use App\Models\Permission;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\PermissionRegistrar;
@@ -16,35 +17,8 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        // Definimos la lista de permisos deseados con sus atributos
-        $permisos = [
-            'acceso_panel' => [
-                'descripcion' => 'Permite el acceso al panel de administración',
-            ],
-            /** Usuarios */
-            'usuarios_listado' => [
-                'descripcion' => 'Permite ver el listado de usuarios en el panel',
-            ],
-            'usuarios_ver' => [
-                'descripcion' => 'Permite ver la ficha de detalle de un usuario en el panel',
-            ],
-            'usuarios_crear' => [
-                'descripcion' => 'Permite crear nuevos usuarios desde el panel',
-            ],
-            'usuarios_editar' => [
-                'descripcion' => 'Permite editar los datos de los usuarios desde el panel',
-            ],
-            'usuarios_eliminar' => [
-                'descripcion' => 'Permite eliminar (soft delete) usuarios desde el panel',
-            ],
-            'usuarios_restaurar' => [
-                'descripcion' => 'Permite restaurar usuarios previamente eliminados desde el panel',
-            ],
-            'usuarios_exportar' => [
-                'descripcion' => 'Permite exportar el listado de usuarios a un archivo Excel desde el panel',
-            ],
-        /** Fin usuarios */
-        ];
+        // Obtenemos la lista de permisos deseados desde el helper centralizado
+        $permisos = PermissionHelper::permisos();
 
         // Recorremos cada permiso y lo creamos o actualizamos según exista en la base de datos
         foreach ($permisos as $nombre => $atributos) {
@@ -54,7 +28,7 @@ class PermissionSeeder extends Seeder
             );
         }
 
-        // Eliminamos de la base de datos los permisos que ya no estén declarados en el array
+        // Eliminamos de la base de datos los permisos que ya no estén declarados en el helper
         Permission::query()
             ->where('guard_name', 'web')
             ->whereNotIn('name', array_keys($permisos))

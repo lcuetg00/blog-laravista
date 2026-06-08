@@ -6,11 +6,10 @@ namespace App\View\Components\Panel;
 
 use App\Contracts\OrdenacionEnum;
 use App\Helpers\OrdenacionHelper;
-use Closure;
-use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\View\Component;
 
-class SortHeader extends Component
+class OrdenacionColumna extends Component
 {
     // Estado actual de ordenación parseado desde la URL
     public array $actual;
@@ -108,7 +107,7 @@ class SortHeader extends Component
     {
         if ($this->dirActual === 'asc') {
             $this->icono = 'fa-arrow-up';
-            $this->iconoClase = 'sort-header-icon-activo text-secondary';
+            $this->iconoClase = 'ordenacion-columna-icon-activo text-secondary';
             $this->ariaSort = 'ascending';
             $this->ariaLabel = trans('fields.ordenacion.ordenar_descendente', ['columna' => $this->etiqueta]);
 
@@ -117,7 +116,7 @@ class SortHeader extends Component
 
         if ($this->dirActual === 'desc') {
             $this->icono = 'fa-arrow-down';
-            $this->iconoClase = 'sort-header-icon-activo text-secondary';
+            $this->iconoClase = 'ordenacion-columna-icon-activo text-secondary';
             $this->ariaSort = 'descending';
             $this->ariaLabel = trans('fields.ordenacion.quitar_ordenacion', ['columna' => $this->etiqueta]);
 
@@ -126,7 +125,7 @@ class SortHeader extends Component
 
         // Sin orden: mostramos un icono de flechas arriba/abajo como indicador de que la columna es ordenable
         $this->icono = 'fa-up-down';
-        $this->iconoClase = 'sort-header-icon-inactivo';
+        $this->iconoClase = 'ordenacion-columna-icon-inactivo';
         $this->ariaSort = 'none';
         $this->ariaLabel = trans('fields.ordenacion.ordenar_ascendente', ['columna' => $this->etiqueta]);
     }
@@ -134,8 +133,8 @@ class SortHeader extends Component
     /**
      * Devuelve la vista del componente.
      */
-    public function render(): View|Closure|string
+    public function render(): Renderable
     {
-        return view('components.panel.sort-header');
+        return view('components.panel.ordenacion-columna');
     }
 }

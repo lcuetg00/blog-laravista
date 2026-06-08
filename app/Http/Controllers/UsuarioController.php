@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Exports\UsuariosExport;
+use App\Helpers\PermissionHelper;
 use App\Http\Requests\ExportExcelUsuariosRequest;
 use App\Http\Requests\IndexUsuarioRequest;
 use App\Http\Requests\StoreUsuarioRequest;
@@ -30,7 +31,7 @@ class UsuarioController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new MiddlewareItem('can:usuarios_listado', only: ['index']),
+            new MiddlewareItem('can:'.PermissionHelper::USUARIOS_LISTADO_PERMISSION, only: ['index']),
         ];
     }
 
@@ -39,16 +40,18 @@ class UsuarioController extends Controller implements HasMiddleware
      */
     public function index(IndexUsuarioRequest $request): View
     {
-        // Validamos los parámetros en la url
-        $ordenacion = $request->validated('ordenacion', []);
+        // Validamos la request
+        $validated = $request->validated();
 
-        // Añadimos la ordenación y finalmente siempre se ordena por id descendiente
+        // Aplicamos los filtros opcionales, la ordenación y finalmente siempre se ordena por id descendiente
         $usuarios = Usuario::query()
-            ->byOrdenacion($ordenacion)
+            ->byNombreCompleto($validated['nombre_completo'] ?? null)
+            ->byEmail($validated['email'] ?? null)
+            ->byOrdenacion($validated['ordenacion'] ?? [])
             ->orderByDesc('id')
             ->paginate()
-            // Cuando se generan páginas, copia los parámetros de la url en las siguientes páginas con esto
-            // De forma que si estamos ordenando, al pasar a la página 2 no se pierden estos parámetros
+            // Cuando se generan páginas, copia los parámetros de la url en las siguientes páginas con withQueryString
+            // De forma que si estamos filtrando u ordenando, al pasar a la página 2 no se pierden estos parámetros
             ->withQueryString();
 
         return view('panel.usuarios.index', [
@@ -59,7 +62,7 @@ class UsuarioController extends Controller implements HasMiddleware
     /**
      * Muestra el formulario de creación de un nuevo usuario.
      */
-    #[Middleware('can:usuarios_crear')]
+    #[Middleware('can:'.PermissionHelper::USUARIOS_CREAR_PERMISSION)]
     public function create(): View
     {
         return view('panel.usuarios.create');
@@ -68,7 +71,7 @@ class UsuarioController extends Controller implements HasMiddleware
     /**
      * Persiste un nuevo usuario en la base de datos a partir de los datos validados.
      */
-    #[Middleware('can:usuarios_crear')]
+    #[Middleware('can:'.PermissionHelper::USUARIOS_CREAR_PERMISSION)]
     public function store(StoreUsuarioRequest $request): RedirectResponse
     {
         $datos = $request->validated();
@@ -103,7 +106,7 @@ class UsuarioController extends Controller implements HasMiddleware
     /**
      * Muestra la ficha de detalle de un usuario, resuelto por su ulid público.
      */
-    #[Middleware('can:usuarios_ver')]
+    #[Middleware('can:'.PermissionHelper::USUARIOS_VER_PERMISSION)]
     public function show(Usuario $usuario): View
     {
         return view('panel.usuarios.show', [
@@ -114,7 +117,7 @@ class UsuarioController extends Controller implements HasMiddleware
     /**
      * Muestra el formulario de edición de un usuario, resuelto por su ulid público.
      */
-    #[Middleware('can:usuarios_editar')]
+    #[Middleware('can:'.PermissionHelper::USUARIOS_EDITAR_PERMISSION)]
     public function edit(Usuario $usuario): View
     {
         return view('panel.usuarios.edit', [
@@ -125,7 +128,7 @@ class UsuarioController extends Controller implements HasMiddleware
     /**
      * Actualiza los datos de un usuario existente con los datos validados.
      */
-    #[Middleware('can:usuarios_editar')]
+    #[Middleware('can:'.PermissionHelper::USUARIOS_EDITAR_PERMISSION)]
     public function update(UpdateUsuarioRequest $request, Usuario $usuario): RedirectResponse
     {
         $datos = $request->validated();
@@ -159,7 +162,7 @@ class UsuarioController extends Controller implements HasMiddleware
     /**
      * Realiza un soft delete del usuario indicado por su ulid público.
      */
-    #[Middleware('can:usuarios_eliminar')]
+    #[Middleware('can:'.PermissionHelper::USUARIOS_ELIMINAR_PERMISSION)]
     public function destroy(Usuario $usuario): RedirectResponse
     {
         try {
@@ -186,7 +189,7 @@ class UsuarioController extends Controller implements HasMiddleware
     /**
      * Restaura un usuario previamente eliminado (soft deleted), resuelto por su ulid público.
      */
-    #[Middleware('can:usuarios_restaurar')]
+    #[Middleware('can:'.PermissionHelper::USUARIOS_RESTAURAR_PERMISSION)]
     public function restore(Usuario $usuario): RedirectResponse
     {
         try {
@@ -215,15 +218,22 @@ class UsuarioController extends Controller implements HasMiddleware
     /**
      * Exporta el listado de usuarios a un archivo Excel aplicando la ordenación indicada por URL.
      */
-    #[Middleware('can:usuarios_exportar')]
+    #[Middleware('can:'.PermissionHelper::USUARIOS_EXPORTAR_PERMISSION)]
     public function exportExcel(ExportExcelUsuariosRequest $request): BinaryFileResponse
     {
-        // Validamos los parámetros en la url
-        $ordenacion = $request->validated('ordenacion', []);
+        // Solo aplicamos los parámetros validados (ordenación + filtros)
+        $validated = $request->validated();
 
         // Generamos el nombre del archivo con el título traducido del recurso y la fecha de exportación
         $nombreArchivo = trans('fields.usuarios.titulo').' - '.now()->format('Y-m-d').'.xlsx';
 
-        return Excel::download(new UsuariosExport($ordenacion), $nombreArchivo);
+        return Excel::download(
+            new UsuariosExport(
+                $validated['ordenacion'] ?? [],
+                $validated['nombre_completo'] ?? null,
+                $validated['email'] ?? null,
+            ),
+            $nombreArchivo,
+        );
     }
 }

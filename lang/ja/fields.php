@@ -5,6 +5,7 @@ declare(strict_types=1);
 return [
     'input' => [
         'nombre' => '名',
+        'nombre_completo' => '氏名',
         'primer_apellido' => '姓',
         'segundo_apellido' => 'ミドルネーム',
         'email' => 'メールアドレス',
@@ -21,6 +22,7 @@ return [
         'usuario' => 'ユーザー',
     ],
     'acciones' => 'アクション',
+    'sin_registros' => 'レコードが見つかりませんでした。',
     'ordenacion' => [
         'atributo' => '並べ替え',
         'atributo_direccion' => '並べ替え方向',
@@ -30,7 +32,6 @@ return [
     ],
     'usuarios' => [
         'titulo' => 'ユーザー',
-        'vacio' => 'ユーザーがいません。',
         'detalle' => 'ユーザーの詳細',
         'datos' => 'ユーザー情報',
         'cambio_password' => 'パスワードの変更',
