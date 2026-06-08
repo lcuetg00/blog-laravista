@@ -1,6 +1,7 @@
 @extends('panel.layouts.app')
 
 @use('App\Enums\UsuarioOrdenacionEnum')
+@use('App\Helpers\UsuarioHelper')
 
 @section('title', trans('fields.usuarios.titulo'))
 
@@ -50,20 +51,24 @@
                                 aria-label="{{ trans('actions.show') }}" data-popup="{{ trans('actions.show') }}">
                                 <i class="fa-solid fa-eye" aria-hidden="true"></i>
                             </a>
-                            <a href="{{ route('panel.usuarios.edit', $usuario) }}"
-                                class="action-item text-yellow popup me-2" aria-label="{{ trans('actions.edit') }}"
-                                data-popup="{{ trans('actions.edit') }}">
-                                <i class="fa-solid fa-pencil" aria-hidden="true"></i>
-                            </a>
-                            <button type="button"
-                                class="action-item btn btn-link p-0 border-0 align-baseline text-red popup"
-                                data-bs-toggle="modal" data-bs-target="#confirmModal-{{ $usuario->ulid }}"
-                                aria-label="{{ trans('actions.delete') }}" data-popup="{{ trans('actions.delete') }}">
-                                <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
-                            </button>
+                            @if (UsuarioHelper::puedeModificarUsuario(auth()->user(), $usuario))
+                                <a href="{{ route('panel.usuarios.edit', $usuario) }}"
+                                    class="action-item text-yellow popup me-2" aria-label="{{ trans('actions.edit') }}"
+                                    data-popup="{{ trans('actions.edit') }}">
+                                    <i class="fa-solid fa-pencil" aria-hidden="true"></i>
+                                </a>
+                            @endif
+                            @if (UsuarioHelper::puedeBorrarUsuario(auth()->user(), $usuario))
+                                <button type="button"
+                                    class="action-item btn btn-link p-0 border-0 align-baseline text-red popup"
+                                    data-bs-toggle="modal" data-bs-target="#confirmModal-{{ $usuario->ulid }}"
+                                    aria-label="{{ trans('actions.delete') }}" data-popup="{{ trans('actions.delete') }}">
+                                    <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                                </button>
 
-                            <x-confirm-modal :id="$usuario->ulid" :action="route('panel.usuarios.destroy', $usuario)" method="DELETE"
-                                acceptClass="btn-danger" />
+                                <x-confirm-modal :id="$usuario->ulid" :action="route('panel.usuarios.destroy', $usuario)" method="DELETE"
+                                    acceptClass="btn-danger" />
+                            @endif
                         </td>
                     </tr>
                 @empty

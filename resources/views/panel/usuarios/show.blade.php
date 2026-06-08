@@ -1,5 +1,7 @@
 @extends('panel.layouts.app')
 
+@use('App\Helpers\UsuarioHelper')
+
 @section('title', trans('fields.usuarios.detalle'))
 
 @section('breadcrumbs', Breadcrumbs::render('panel.usuarios.show', $usuario))
@@ -9,10 +11,12 @@
         <div class="card-header d-flex align-items-center justify-content-between">
             <h2 class="h5 mb-0">{{ trans('fields.usuarios.detalle') }}</h2>
             @can(\App\Helpers\PermissionHelper::USUARIOS_EDITAR_PERMISSION)
-                <a href="{{ route('panel.usuarios.edit', $usuario) }}" class="btn btn-sm btn-primary">
-                    <i class="fa-solid fa-pencil me-1" aria-hidden="true"></i>
-                    {{ trans('actions.edit') }}
-                </a>
+                @if (UsuarioHelper::puedeModificarUsuario(auth()->user(), $usuario))
+                    <a href="{{ route('panel.usuarios.edit', $usuario) }}" class="btn btn-sm btn-primary">
+                        <i class="fa-solid fa-pencil me-1" aria-hidden="true"></i>
+                        {{ trans('actions.edit') }}
+                    </a>
+                @endif
             @endcan
         </div>
 

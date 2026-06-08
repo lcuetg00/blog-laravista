@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\UsuariosExport;
 use App\Helpers\PermissionHelper;
+use App\Helpers\UsuarioHelper;
 use App\Http\Requests\ExportExcelUsuariosRequest;
 use App\Http\Requests\IndexUsuarioRequest;
 use App\Http\Requests\StoreUsuarioRequest;
@@ -120,6 +121,9 @@ class UsuarioController extends Controller implements HasMiddleware
     #[Middleware('can:'.PermissionHelper::USUARIOS_EDITAR_PERMISSION)]
     public function edit(Usuario $usuario): View
     {
+        // Bloqueamos el acceso al formulario si el usuario activo no puede modificar a este usuario (regla de autoedición)
+        abort_unless(UsuarioHelper::puedeModificarUsuario(auth()->user(), $usuario), 403);
+
         return view('panel.usuarios.edit', [
             'usuario' => $usuario,
         ]);
@@ -165,6 +169,9 @@ class UsuarioController extends Controller implements HasMiddleware
     #[Middleware('can:'.PermissionHelper::USUARIOS_ELIMINAR_PERMISSION)]
     public function destroy(Usuario $usuario): RedirectResponse
     {
+        // Bloqueamos el borrado si el usuario activo no puede borrar a este usuario (regla de autoeliminación, válida incluso para el superadmin)
+        abort_unless(UsuarioHelper::puedeBorrarUsuario(auth()->user(), $usuario), 403);
+
         try {
             DB::beginTransaction();
 

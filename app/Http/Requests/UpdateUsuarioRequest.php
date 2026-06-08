@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use App\Helpers\PermissionHelper;
+use App\Helpers\UsuarioHelper;
 use App\Models\Usuario;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -13,12 +14,15 @@ use Illuminate\Validation\Rules\Password;
 class UpdateUsuarioRequest extends FormRequest
 {
     /**
-     * Autoriza la petición exigiendo permiso de edición (doble barrera junto al middleware de ruta).
+     * Autoriza la petición exigiendo permiso de edición y que el usuario activo pueda modificar al usuario objetivo (incluye la regla de autoedición).
      */
     public function authorize(): bool
     {
-        // Comprobamos que el usuario autenticado puede editar usuarios
-        return $this->user()?->can(PermissionHelper::USUARIOS_EDITAR_PERMISSION) ?? false;
+        /** @var Usuario|null $usuario */
+        $usuario = $this->route('usuario');
+
+        // Doble barrera: permiso global + jerarquía de roles + regla de autoedición (solo superadmin puede editarse a sí mismo)
+        return $this->user()?->can(PermissionHelper::USUARIOS_EDITAR_PERMISSION) && UsuarioHelper::puedeModificarUsuario($this->user(), $usuario);
     }
 
     /**
