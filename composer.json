@@ -16,6 +16,7 @@
         "maatwebsite/excel": "^3.1",
         "mcamara/laravel-localization": "^2.3",
         "spatie/laravel-permission": "^7.4",
+        "spatie/laravel-translatable": "^6.14",
         "twbs/bootstrap": "^5.3"
     },
     "require-dev": {
