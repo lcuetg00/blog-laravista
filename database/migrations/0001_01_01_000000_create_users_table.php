@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('primer_apellido', 70);
             $table->string('segundo_apellido', 70)->nullable();
             $table->string('email', 255)->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->datetime('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->datetimes();
