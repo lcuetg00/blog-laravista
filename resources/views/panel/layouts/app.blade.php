@@ -11,6 +11,9 @@
 
     {{-- CSS del panel --}}
     @vite('resources/css/panel.css')
+
+    {{-- Livewire en bundling manual (inject_assets=false): estilos y config que lee el Livewire empaquetado en app.js --}}
+    @livewireStyles
 </head>
 
 <body>
@@ -43,6 +46,9 @@
 
     {{-- Toasts de flash messages y errores de validación --}}
     @include('panel.layouts.toasts')
+
+    {{-- Livewire en bundling manual (inject_assets=false): estilos y config que lee el Livewire empaquetado en app.js --}}
+    @livewireScriptConfig
 </body>
 
 </html>
