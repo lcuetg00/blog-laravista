@@ -11,6 +11,9 @@
 
     {{-- CSS del panel --}}
     @vite('resources/css/panel.css')
+
+    {{-- Livewire en bundling manual (inject_assets=false): estilos y config que lee el Livewire empaquetado en app.js --}}
+    @livewireStyles
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -39,21 +42,12 @@
                         @csrf
 
                         <div class="mb-3">
-                            <x-input name="email"
-                                type="email"
-                                :label="trans('fields.input.email')"
-                                maxlength="255"
-                                autocomplete="email"
-                                autofocus
-                                required
-                                :invalid="$errors->has('email') || $errors->has('password')" />
+                            <x-input name="email" type="email" :label="trans('fields.input.email')" maxlength="255"
+                                autocomplete="email" autofocus required :invalid="$errors->has('email') || $errors->has('password')" />
                         </div>
 
                         <div class="mb-3">
-                            <x-password-input name="password"
-                                :label="trans('fields.input.password')"
-                                autocomplete="current-password"
-                                required
+                            <x-password-input name="password" :label="trans('fields.input.password')" autocomplete="current-password" required
                                 :invalid="$errors->has('email') || $errors->has('password')" />
                         </div>
 
@@ -83,6 +77,9 @@
 
     {{-- Footer del panel --}}
     @include('panel.layouts.footer')
+
+    {{-- Livewire en bundling manual (inject_assets=false): estilos y config que lee el Livewire empaquetado en app.js --}}
+    @livewireScriptConfig
 </body>
 
 </html>

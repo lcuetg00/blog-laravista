@@ -9,3 +9,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // Usando 'bootstrap/dist/js/bootstrap.bundle.min.js' no garantiza que exista window.bootstrap, por lo que lo importamos a mano y lo asignamos
 import * as bootstrap from 'bootstrap';
 window.bootstrap = bootstrap;
+
+// Bundling manual de Livewire (doc oficial: "Manually bundling Livewire and Alpine"): usamos el Alpine que ya trae Livewire (un único Alpine).
+// Va en app.js (no en panel.js) para que Alpine esté disponible en panel, login y público. Requiere 'inject_assets' => false en config/livewire.php
+// y @livewireScriptConfig en el <head> de los tres layouts que cargan este bundle.
+import { Alpine, Livewire } from '../../vendor/livewire/livewire/dist/livewire.esm';
+
+// Exponemos Alpine en window para poder depurarlo desde la consola; Livewire.start() arranca Livewire y Alpine a la vez
+window.Alpine = Alpine;
+Livewire.start();

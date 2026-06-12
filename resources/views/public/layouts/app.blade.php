@@ -15,6 +15,9 @@
 
     {{-- Css público --}}
     @vite('resources/css/public.css')
+
+    {{-- Livewire en bundling manual (inject_assets=false): estilos y config que lee el Livewire empaquetado en app.js --}}
+    @livewireStyles
 </head>
 
 <body>
@@ -36,6 +39,9 @@
         aria-label="{{ trans('public.scroll_to_top') }}" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
         <i class="fa-solid fa-arrow-up"></i>
     </button>
+
+
+    @livewireScriptConfig
 </body>
 
 </html>
