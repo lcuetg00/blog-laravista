@@ -5,8 +5,8 @@
   --primary-rgb: 45, 45, 45;
   --primary-light: rgb(62, 62, 62);
 
-  --secondary: rgb(157, 115, 255);
-  --secondary-rgb: 157, 115, 255;
+  --secondary: rgb(133, 88, 240);
+  --secondary-rgb: 133, 88, 240;
 
   --secondary-strong: rgb(109, 40, 217);
   --secondary-strong-rgb: 109, 40, 217;
@@ -43,7 +43,7 @@
   --text-color: #4a4a4a;
   --text-color-btn: #4a4a4a;
 
-  --links: rgb(112, 25, 25);
+  --links: rgb(52, 168, 36);
 
   /* Fondo */
   --bs-light: #e8e8e8;
@@ -81,4 +81,15 @@
   --input-hover-bg: rgba(var(--secondary-rgb), 0.04);
   --input-hover-border: rgba(var(--secondary-rgb), 0.5);
   --input-btn-color: var(--secondary-strong);
+
+  /* Thumb del switch desactivado: SVG data-URL con relleno secondary-light (#dab2ff) 
+  para reemplazar el azul que Bootstrap mete por defecto en :focus en los checks */
+  --switch-thumb-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%236d28d9'/%3e%3c/svg%3e");
+
+  /* Toasts del panel: fondos verdes/rojos oscurecidos para que el texto blanco cumpla contraste AA, con barra de acento aún más oscura que da profundidad */
+  --toast-fg: #fff;
+  --toast-success-bg: rgb(21, 128, 61);
+  --toast-success-accent: rgb(22, 101, 52);
+  --toast-danger-bg: rgb(185, 28, 28);
+  --toast-danger-accent: rgb(153, 27, 27);
 }

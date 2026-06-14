@@ -164,6 +164,10 @@ return [
     'url' => 'The :attribute field must be a valid URL.',
     'ulid' => 'The :attribute field must be a valid ULID.',
     'uuid' => 'The :attribute field must be a valid UUID.',
+    'imagen_mime' => [
+        'no_es_fichero' => 'The :attribute field must be a valid image.',
+        'formato_no_permitido' => 'The :attribute field must be an image in one of the allowed formats: :formatos.',
+    ],
 
     /*
     |--------------------------------------------------------------------------

@@ -22,6 +22,7 @@ return [
     'save' => 'Save',
     'accept' => 'Accept',
     'cancel' => 'Cancel',
+    'close' => 'Close',
     'export' => 'Export',
     'filter' => 'Filters',
     'filter_submit' => 'Search',

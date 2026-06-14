@@ -28,4 +28,38 @@ class ValidacionHelper
      * Campos numéricos formateados (teléfonos, documentos de identidad, códigos postales): dígitos, espacios y - . + ( ). Prohíbe "--" consecutivos.
      */
     public const REGEX_NUMERICO = '/^(?!.*--)[\p{N}\s\-.+()]+$/u';
+
+    /**
+     * MIME types de imagen aceptados al subir ficheros, indexados por extensión (fuente de la regla App\Rules\MimeTypeImagenValido).
+     */
+    public const MIME_TYPES_IMAGEN = [
+        'jpg' => 'image/jpeg',
+        'png' => 'image/png',
+        'webp' => 'image/webp',
+        'svg' => 'image/svg+xml',
+    ];
+
+    /**
+     * Tamaño máximo en kilobytes permitido para una imagen subida (regla max: de los ficheros de bloques; 4096 KB = 4 MB).
+     */
+    public const MAX_KB_IMAGEN = 4096;
+
+    /**
+     * Convierte recursivamente a null las cadenas vacías o de solo espacios, recortando el resto
+     */
+    public static function nullificarVacios(array|string|null $valor): array|string|null
+    {
+        if (is_array($valor)) {
+            return array_map([self::class, 'nullificarVacios'], $valor);
+        }
+
+        if ($valor === null) {
+            return null;
+        }
+
+        // Tratamos el blanco (vacío o solo espacios) como ausencia de valor para que 'nullable' lo salte y 'required' lo rechace
+        $valor = trim($valor);
+
+        return $valor === '' ? null : $valor;
+    }
 }

@@ -16,7 +16,7 @@ class OrdenacionHelper
     public static function parseCadenaOrdenacion(mixed $cadena): array
     {
         // Si no llega cadena válida devolvemos array vacío directamente
-        if (! is_string($cadena) || $cadena === '') {
+        if (!is_string($cadena) || $cadena === '') {
             return [];
         }
 
@@ -57,7 +57,7 @@ class OrdenacionHelper
 
         // Iteramos preservando el orden de las claves del array
         foreach ($ordenacion as $clave => $direccion) {
-            $partes[] = $clave.':'.$direccion;
+            $partes[] = $clave . ':' . $direccion;
         }
 
         return implode('?', $partes);

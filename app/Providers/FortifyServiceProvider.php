@@ -24,7 +24,7 @@ class FortifyServiceProvider extends ServiceProvider
     {
         Fortify::ignoreRoutes();
 
-        $this->app->singleton(LoginResponse::class, fn() => new class implements LoginResponse
+        $this->app->singleton(LoginResponse::class, fn () => new class implements LoginResponse
         {
             /**
              * Redirige al panel tras un login exitoso.
@@ -46,7 +46,7 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
-        Fortify::loginView(fn() => view('auth.login'));
+        Fortify::loginView(fn () => view('auth.login'));
 
         // Throttle de 5 intentos por minuto (por nombre de usuario o ip)
         RateLimiter::for('login', function (Request $request) {

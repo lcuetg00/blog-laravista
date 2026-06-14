@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaginaController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UsuarioController;
@@ -23,6 +24,8 @@ Route::group([
         Route::get('/tecnologias', 'tecnologias')->name('tecnologias');
         Route::get('/proyectos', 'proyectos')->name('proyectos');
         Route::get('/contacto', 'contacto')->name('contacto');
+        Route::get('/politica-privacidad', 'politicaPrivacidad')->name('politica_privacidad');
+        Route::get('/terminos-condiciones', 'terminosCondiciones')->name('terminos_condiciones');
     });
 
     // Rutas de autenticación (Fortify)
@@ -69,5 +72,7 @@ Route::group([
 
         Route::get('roles/export', [RoleController::class, 'exportExcel'])->name('roles.export');
         Route::resource('roles', RoleController::class)->parameters(['roles' => 'rol']);
+
+        Route::resource('paginas', PaginaController::class)->only(['index', 'show', 'edit']);
     });
 });

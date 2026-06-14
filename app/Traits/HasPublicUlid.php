@@ -5,6 +5,7 @@ namespace App\Traits;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Añade a un modelo un ULID público (columna "ulid") que se usa como identificador en URLs y respuestas, manteniendo el id numérico como PK
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
  * Requisitos del modelo:
  * - Columna "ulid" en la tabla, única e indexada.
  *
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 trait HasPublicUlid
 {

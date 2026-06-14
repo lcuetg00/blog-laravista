@@ -11,5 +11,6 @@ return [
     'dashboard' => 'Dashboard',
     'usuarios' => 'Users',
     'roles' => 'Roles',
+    'paginas' => 'Pages',
     'settings' => 'Settings',
 ];

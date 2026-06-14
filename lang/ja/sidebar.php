@@ -11,5 +11,6 @@ return [
     'dashboard' => 'ダッシュボード',
     'usuarios' => 'ユーザー',
     'roles' => 'ロール',
+    'paginas' => 'ページ',
     'settings' => '設定',
 ];

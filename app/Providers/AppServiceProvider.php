@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Helpers\RoleHelper;
-use App\Helpers\UsuarioHelper;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;

@@ -38,6 +38,12 @@ class PermissionHelper
 
     public const string ROLES_EXPORTAR_PERMISSION = 'roles_exportar';
 
+    public const string PAGINAS_LISTADO_PERMISSION = 'paginas_listado';
+
+    public const string PAGINAS_VER_PERMISSION = 'paginas_ver';
+
+    public const string PAGINAS_EDITAR_PERMISSION = 'paginas_editar';
+
     /**
      * Devuelve el mapa completo de permisos de la aplicación indexado por el nombre del permiso y con su descripción asociada (fuente única para el seeder).
      */
@@ -90,6 +96,17 @@ class PermissionHelper
                 'descripcion' => 'Permite exportar el listado de roles a un archivo Excel desde el panel',
             ],
             /** Fin roles */
+            /** Páginas */
+            self::PAGINAS_LISTADO_PERMISSION => [
+                'descripcion' => 'Permite ver el listado de páginas en el panel',
+            ],
+            self::PAGINAS_VER_PERMISSION => [
+                'descripcion' => 'Permite ver la ficha de detalle de una página en el panel',
+            ],
+            self::PAGINAS_EDITAR_PERMISSION => [
+                'descripcion' => 'Permite editar los datos de las páginas desde el panel',
+            ],
+        /** Fin páginas */
         ];
     }
 }

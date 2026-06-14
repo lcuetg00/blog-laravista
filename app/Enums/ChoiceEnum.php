@@ -10,6 +10,6 @@ enum ChoiceEnum: int
     // Masculino: "Usuario creado correctamente."
     case MASCULINO = 1;
 
-        // Femenino: "Categoría creada correctamente."
+    // Femenino: "Categoría creada correctamente."
     case FEMENINO = 2;
 }

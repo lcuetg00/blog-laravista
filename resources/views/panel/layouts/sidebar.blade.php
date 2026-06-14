@@ -57,6 +57,19 @@
                         </a>
                     </li>
                 @endcan
+
+                @can(\App\Helpers\PermissionHelper::PAGINAS_LISTADO_PERMISSION)
+                    <li class="nav-item mb-2">
+                        <a class="nav-link sidebar-option popup-sidebar d-flex align-items-center gap-2 {{ request()->routeIs('panel.paginas.*') ? 'active' : '' }}"
+                            aria-current="{{ request()->routeIs('panel.paginas.*') ? 'page' : 'false' }}"
+                            href="{{ route('panel.paginas.index') }}"
+                            aria-label="{{ trans('sidebar.paginas') }}"
+                            data-popup-sidebar="{{ trans('sidebar.paginas') }}">
+                            <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+                            <span class="sidebar-label">{{ trans('sidebar.paginas') }}</span>
+                        </a>
+                    </li>
+                @endcan
             </ul>
 
             <hr class="my-2 mx-2">

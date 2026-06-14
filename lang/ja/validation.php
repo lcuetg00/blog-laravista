@@ -112,4 +112,8 @@ return [
     'uploaded' => ':attributeのアップロードに失敗しました。',
     'url' => ':attribute形式が無効です。',
     'uuid' => ':attributeは有効なUUIDである必要があります。',
+    'imagen_mime' => [
+        'no_es_fichero' => ':attributeは有効な画像である必要があります。',
+        'formato_no_permitido' => ':attributeは次のいずれかの形式の画像である必要があります：:formatos。',
+    ],
 ];

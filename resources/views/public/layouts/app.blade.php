@@ -40,7 +40,7 @@
         <i class="fa-solid fa-arrow-up"></i>
     </button>
 
-
+    {{-- Livewire en bundling manual (inject_assets=false): estilos y config que lee el Livewire empaquetado en app.js --}}
     @livewireScriptConfig
 </body>
 

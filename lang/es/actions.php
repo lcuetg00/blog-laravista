@@ -22,6 +22,7 @@ return [
     'save' => 'Guardar',
     'accept' => 'Aceptar',
     'cancel' => 'Cancelar',
+    'close' => 'Cerrar',
     'export' => 'Exportar',
     'filter' => 'Filtros',
     'filter_submit' => 'Buscar',

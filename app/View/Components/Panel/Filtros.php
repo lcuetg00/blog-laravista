@@ -12,10 +12,12 @@ class Filtros extends Component
 {
     // Para saber si se está ordenando o filtrando
     public bool $filtrosEnUrl;
+
     public bool $ordenacionEnUrl;
 
     // Si el crud puede ser exportado
     public bool $exportarActivo;
+
     public bool $crearActivo;
 
     // Ordenación en url: "campo:dir?campo:dir"
@@ -23,6 +25,7 @@ class Filtros extends Component
 
     // URL del listado quitando los campos de filtro y la paginación, conservando la ordenación
     public string $urlBorrarFiltros;
+
     // URL del listado quitando la ordenación y la paginación, conservando los filtros
     public string $urlBorrarOrdenacion;
 

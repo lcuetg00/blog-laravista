@@ -48,7 +48,7 @@ class RoleHelper
         if ($usuarioAutenticado->hasRole(RoleEnum::ADMIN->value)) {
             // Los admins solo pueden gestionar otros admins y usuarios
             // Nunca deben de gestionar superadmins
-            return ! self::tieneRolSuperadmin($usuario) && $usuario->hasAnyRole([
+            return !self::tieneRolSuperadmin($usuario) && $usuario->hasAnyRole([
                 RoleEnum::ADMIN->value,
                 RoleEnum::USUARIO->value,
             ]);
@@ -86,6 +86,6 @@ class RoleHelper
             return false;
         }
 
-        return ! self::esRolProtegido($rol);
+        return !self::esRolProtegido($rol);
     }
 }

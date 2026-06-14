@@ -1,42 +1,41 @@
 {{--
     Contenedor de toasts del panel.
-    Renderiza un toast Bootstrap según lo que haya en sesión:
-    - session('success') -> toast verde
-    - session('error')   -> toast rojo
+    Renderiza los toasts del flash de sesión (recargas normales); panel.js los muestra con initToasts()
+    e inyecta sobre este mismo contenedor los avisos en vivo de Livewire (evento 'toast').
 --}}
 @php
-    // Tiempo (en milisegundos) que el toast permanece visible antes de auto-ocultarse
-    $toastDelay = 3000;
+    // Toasts iniciales del flash de sesión (recargas normales, sin Livewire)
+    $iniciales = collect([
+        ['tipo' => 'success', 'mensaje' => session('success')],
+        ['tipo' => 'error', 'mensaje' => session('error')],
+    ])
+        ->filter(fn ($t) => filled($t['mensaje']))
+        ->values();
 @endphp
 
-@if (session('success') || session('error'))
-    <div class="toast-container position-fixed top-0 end-0 p-3">
-        @if (session('success'))
-            <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
-                aria-atomic="true" data-bs-delay="{{ $toastDelay }}">
-                <div class="d-flex">
-                    <div class="toast-body">
-                        <i class="fa-solid fa-circle-check me-2" aria-hidden="true"></i>
-                        {{ session('success') }}
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                        aria-label="{{ trans('actions.cancel') }}"></button>
+{{-- data-cerrar-label: texto traducido del botón de cierre que panel.js reutiliza en los toasts que crea en vivo --}}
+<div id="toastContainer" class="toast-container position-fixed top-0 end-0 p-3"
+    data-cerrar-label="{{ trans('actions.close') }}">
+    @foreach ($iniciales as $toast)
+        <div class="toast toast-panel align-items-center shadow {{ $toast['tipo'] === 'error' ? 'toast-danger' : 'toast-success' }}"
+            role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
+            <div class="d-flex align-items-center">
+                <div class="toast-body d-flex align-items-center gap-2">
+                    {{-- Icono dentro de un chip circular para un aspecto más desenfadado --}}
+                    <span class="toast-icon shadow">
+                        <i class="fa-solid {{ $toast['tipo'] === 'error' ? 'fa-circle-exclamation' : 'fa-circle-check' }}" aria-hidden="true"></i>
+                    </span>
+                    <span>{{ $toast['mensaje'] }}</span>
                 </div>
+                <button type="button" class="toast-close shadow me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="{{ trans('actions.close') }}">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
             </div>
-        @endif
-
-        @if (session('error'))
-            <div class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive"
-                aria-atomic="true" data-bs-delay="{{ $toastDelay }}">
-                <div class="d-flex">
-                    <div class="toast-body">
-                        <i class="fa-solid fa-circle-exclamation me-2" aria-hidden="true"></i>
-                        {{ session('error') }}
-                    </div>
-                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                        aria-label="{{ trans('actions.cancel') }}"></button>
-                </div>
+            {{-- Barra de progreso (Bootstrap) que se vacía durante el tiempo de autocierre (sincronizada con data-bs-delay vía --toast-duration) --}}
+            <div class="progress toast-progress" aria-hidden="true">
+                <div class="progress-bar progress-bar-striped"></div>
             </div>
-        @endif
-    </div>
-@endif
+        </div>
+    @endforeach
+</div>

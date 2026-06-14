@@ -22,6 +22,7 @@ return [
     'save' => '保存',
     'accept' => '承諾',
     'cancel' => 'キャンセル',
+    'close' => '閉じる',
     'export' => 'エクスポート',
     'filter' => 'フィルター',
     'filter_submit' => '検索',

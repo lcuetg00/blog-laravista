@@ -11,5 +11,6 @@ return [
     'dashboard' => 'Panel',
     'usuarios' => 'Usuarios',
     'roles' => 'Roles',
+    'paginas' => 'Páginas',
     'settings' => 'Ajustes',
 ];

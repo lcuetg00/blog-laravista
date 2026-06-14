@@ -1,6 +1,36 @@
 @import './panel-light-theme.css';
 @import './panel-dark-theme.css';
 
+/* Animaciones de los toasts (al nivel superior: @keyframes no puede anidarse dentro del bloque :root) */
+
+/* Entrada del toast con un leve rebote (overshoot) al mostrarse */
+@keyframes toast-aparecer {
+  0% {
+    transform: translateY(-0.6rem) scale(0.9);
+    opacity: 0;
+  }
+
+  60% {
+    transform: translateY(0.1rem) scale(1.02);
+  }
+
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* Vaciado de la barra de progreso del autocierre */
+@keyframes toast-progreso {
+  from {
+    width: 100%;
+  }
+
+  to {
+    width: 0;
+  }
+}
+
 /* Compartido entre ambos modos */
 :root {
   /* Altura común para la cabecera del sidebar (escritorio) y la barra del breadcrumb */
@@ -292,6 +322,88 @@
     color: var(--bs-danger);
   }
 
+  /* Contenedor del switch: padding-left a juego con el ancho del input (3rem) más un pequeño hueco antes de la etiqueta */
+  .form-switch {
+    padding-left: 3.5rem;
+    min-height: 1.5rem;
+  }
+
+  /* Switch del panel: alto fijo de 24 px (1.5rem) para que case con la altura del contenido del .form-control compacto, ancho proporcional 2:1, y mismos colores de tema (border, bg, hover, focus) que el resto de inputs. Sobrescribimos --bs-form-switch-bg para que el thumb del estado desactivado use el color del proyecto en vez del azul Bootstrap por defecto */
+  .form-switch .form-check-input {
+    --bs-form-switch-bg: var(--switch-thumb-bg);
+
+    width: 3rem;
+    height: 1.5rem;
+    margin-top: 0.25rem;
+    margin-left: -3.5rem;
+    border: 2px solid var(--input-border);
+    background-color: var(--input-bg);
+    box-shadow: inset 0 1px 2px var(--input-shadow-inset);
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  /* Hover: mismo borde y elevación tenue que .form-control para mantener el lenguaje visual */
+  .form-switch .form-check-input:hover:not(:focus):not(:disabled):not(.is-invalid) {
+    border-color: var(--input-hover-border);
+    background-color: var(--input-hover-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--secondary-rgb), 0.12), inset 0 1px 2px var(--input-shadow-inset);
+  }
+
+  /* Focus: halo en color secundario del proyecto, igual que .form-control:focus. Reforzamos la sobrescritura del thumb porque Bootstrap reasigna --bs-form-switch-bg a un azul (#86b7fe) en el :focus desactivado */
+  .form-switch .form-check-input:focus {
+    --bs-form-switch-bg: var(--switch-thumb-bg);
+
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 0.2rem rgba(var(--secondary-rgb), 0.2), 0 4px 12px rgba(var(--secondary-rgb), 0.15);
+    outline: none;
+  }
+
+  /* Activado: track del secundario, encaja con el resto de acentos del panel (label en focus, halo, botones) */
+  .form-switch .form-check-input:checked {
+    background-color: var(--secondary);
+    border-color: var(--secondary);
+  }
+
+  /* Activado con foco: halo más opaco para diferenciarlo del estado simplemente enfocado */
+  .form-switch .form-check-input:checked:focus {
+    box-shadow: 0 0 0 0.2rem rgba(var(--secondary-rgb), 0.3), 0 4px 12px rgba(var(--secondary-rgb), 0.18);
+  }
+
+  /* Deshabilitado: visualmente atenuado y sin cursor de acción (caso de la página home, que no se puede desactivar) */
+  .form-switch .form-check-input:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  /* Etiqueta del switch: mismo tratamiento que .form-label para que un switch encaje al lado de un input clásico (line-height 1.5rem = altura del switch para que queden centradas verticalmente) */
+  .form-switch .form-check-label {
+    color: var(--input-label);
+    font-weight: 600;
+    padding-left: 0.5rem;
+    line-height: 1.5rem;
+    transition: color 0.3s ease;
+    cursor: pointer;
+  }
+
+  /* Etiqueta del switch deshabilitado: acompaña al input en la atenuación y desactiva el cursor */
+  .form-switch .form-check-input:disabled+.form-check-label {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+
+  /* Error: borde y halo en danger, mismo patrón que .form-control.is-invalid */
+  .form-switch .form-check-input.is-invalid {
+    border-color: var(--bs-danger);
+    background-color: rgba(var(--bs-danger-rgb), 0.03);
+  }
+
+  .form-switch .form-check-input.is-invalid:focus {
+    border-color: var(--bs-danger);
+    box-shadow: 0 0 0 0.2rem rgba(var(--bs-danger-rgb), 0.2), 0 4px 12px rgba(var(--bs-danger-rgb), 0.15);
+  }
+
   /* Lista de reglas de la contraseña — feedback en vivo bajo el input */
   .password-rules li {
     transition: color 0.25s ease;
@@ -371,6 +483,28 @@
   .popup:focus-visible::after {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
+  }
+
+  /* Si centrado se saldría por un borde, JS añade .popup-start/.popup-end para anclarlo a ese lado y que el texto quepa entero */
+  .popup.popup-start::after {
+    left: 0;
+    transform: translateX(0) translateY(4px);
+  }
+
+  .popup.popup-start:hover::after,
+  .popup.popup-start:focus-visible::after {
+    transform: translateX(0) translateY(0);
+  }
+
+  .popup.popup-end::after {
+    right: 0;
+    left: auto;
+    transform: translateX(0) translateY(4px);
+  }
+
+  .popup.popup-end:hover::after,
+  .popup.popup-end:focus-visible::after {
+    transform: translateX(0) translateY(0);
   }
 
   /* Tipografía */
@@ -656,6 +790,92 @@
     z-index: 2300;
   }
 
+  /* Toast del panel: esquinas muy redondeadas (aire juvenil) y barra de acento lateral que identifica el tipo. --toast-duration debe coincidir con data-bs-delay del toast (3000ms) */
+  .toast-panel {
+    --toast-duration: 3s;
+
+    border: 0;
+    border-left: 5px solid transparent;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+
+  .toast-panel .toast-body {
+    font-weight: 600;
+  }
+
+  /* Variante de éxito: verde accesible del proyecto con barra de acento de apoyo */
+  .toast-success {
+    background-color: var(--toast-success-bg);
+    border-left-color: var(--toast-success-accent);
+    color: var(--toast-fg);
+  }
+
+  /* Variante de error: rojo accesible del proyecto con barra de acento de apoyo */
+  .toast-danger {
+    background-color: var(--toast-danger-bg);
+    border-left-color: var(--toast-danger-accent);
+    color: var(--toast-fg);
+  }
+
+  /* Chip circular tras el icono: refuerza el tono desenfadado y resalta el símbolo sobre el fondo de color */
+  .toast-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    font-size: 1.1rem;
+    color: var(--toast-fg);
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 50%;
+  }
+
+  /* Botón de cierre redondo con la x dentro: gira y se aclara al pasar el cursor */
+  .toast-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    flex-shrink: 0;
+    padding: 0;
+    color: var(--toast-fg);
+    background: rgba(255, 255, 255, 0.15);
+    border: 0;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  .toast-close:hover,
+  .toast-close:focus-visible {
+    background: rgba(255, 255, 255, 0.35);
+    transform: rotate(90deg) scale(1.1);
+    outline: none;
+  }
+
+  /* Barra de progreso (componente .progress de Bootstrap) del autocierre: fina, sin radio y pegada al borde inferior para llenar de lado a lado */
+  .toast-progress {
+    height: 4px;
+    border-radius: 0;
+    background-color: rgba(255, 255, 255, 0.25);
+  }
+
+  .toast-progress .progress-bar {
+    background-color: var(--secondary);
+  }
+
+  /* El relleno se vacía mientras el toast está visible, durante el mismo tiempo que el autocierre (keyframes definidos al nivel superior del fichero) */
+  .toast-panel.show .toast-progress .progress-bar {
+    animation: toast-progreso var(--toast-duration) linear forwards;
+  }
+
+  /* Entrada con un leve rebote (overshoot) al mostrarse, en la misma duración (0.3s) que el resto de transiciones del panel (keyframes definidos al nivel superior del fichero) */
+  .toast-panel.show {
+    animation: toast-aparecer 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
   .modal-title {
     text-align: center;
     width: 100%;
@@ -785,5 +1005,218 @@
     .offcanvas-md:not(.show) {
       display: none;
     }
+  }
+
+  /* Panel flotante de vista previa del show de Página: iframe arrastrable y redimensionable (por encima de header/footer del panel) */
+  /* overflow visible para que los popups (.popup::after) de la cabecera no queden recortados; el recorte del iframe se hace en el body */
+  .pagina-preview {
+    position: fixed;
+    right: 1rem;
+    bottom: 5rem;
+    z-index: 2200;
+    display: flex;
+    flex-direction: column;
+    width: min(380px, 92vw);
+    height: min(520px, 70vh);
+    overflow: visible;
+    background: var(--popup-bg);
+    color: var(--popup-color);
+    border: 1px solid var(--input-border);
+    border-radius: 0.5rem;
+  }
+
+  /* Cabecera: asa de arrastre (touch-action none evita el scroll de la página al arrastrar en táctil) */
+  .pagina-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--secondary-strong);
+    color: var(--bs-white);
+    cursor: move;
+    touch-action: none;
+    user-select: none;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
+
+  .pagina-preview-title {
+    overflow: hidden;
+    font-weight: 600;
+  }
+
+  /* Layout en fila de la barra de acciones y del grupo de presets (en CSS propio, no con .d-flex, cuyo display:flex !important impediría ocultarlos al minimizar) */
+  .pagina-preview-actions,
+  .pagina-preview-sizes {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  /* Botones de la cabecera (abrir en pestaña / cerrar) */
+  .pagina-preview-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    color: var(--bs-white);
+    background: transparent;
+    border: 0;
+    border-radius: 0.25rem;
+    transition: background 0.3s ease;
+  }
+
+  .pagina-preview-btn:hover,
+  .pagina-preview-btn:focus-visible {
+    color: var(--bs-white);
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Preset de dispositivo seleccionado */
+  .pagina-preview-btn.is-active {
+    background: rgba(255, 255, 255, 0.35);
+  }
+
+  /* Separador entre los presets de tamaño y las acciones */
+  .pagina-preview-divider {
+    width: 1px;
+    height: 1.25rem;
+    margin: 0 0.25rem;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  /* Cuerpo con el iframe a tamaño completo (aquí se recorta el iframe con las esquinas inferiores redondeadas) */
+  .pagina-preview-body {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+  }
+
+  .pagina-preview-body iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* Asa de redimensionado en la esquina inferior derecha */
+  .pagina-preview-resizer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 1rem;
+    height: 1rem;
+    cursor: nwse-resize;
+    touch-action: none;
+    background: linear-gradient(135deg, transparent 50%, var(--secondary-strong) 50%);
+  }
+
+  /* Panel minimizado (estilo ventana): solo queda visible la cabecera anclada abajo a la derecha */
+  .pagina-preview.is-minimized {
+    height: auto;
+  }
+
+  /* Con el panel minimizado solo dejamos la cabecera y el botón de restaurar: ocultamos cuerpo, redimensionador y toda acción que no sea el propio minimizar/restaurar */
+  .pagina-preview.is-minimized .pagina-preview-body,
+  .pagina-preview.is-minimized .pagina-preview-resizer,
+  .pagina-preview.is-minimized .pagina-preview-actions > :not([data-preview-minimize]) {
+    display: none;
+  }
+
+  /* Sin cuerpo a la vista, la cabecera redondea también las esquinas inferiores */
+  .pagina-preview.is-minimized .pagina-preview-header {
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+  }
+
+  /* Línea inferior de las pestañas en tono secundario suave */
+  .nav-tabs {
+    gap: 0.25rem;
+    border-bottom-color: rgba(var(--secondary-rgb), 0.2);
+  }
+
+  /* Pestañas inactivas con un velo secundario sutil (claras, no oscuras) para que la activa destaque sin un salto brusco de contraste */
+  .nav-tabs .nav-link {
+    color: var(--secondary-strong);
+    background: rgba(var(--secondary-rgb), 0.08);
+    border: 1px solid rgba(var(--secondary-rgb), 0.35);
+    box-shadow: 0 2px 6px rgba(var(--secondary-rgb), 0.2);
+    transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .nav-tabs .nav-link:hover {
+    background: rgba(var(--secondary-rgb), 0.16);
+    border-color: rgba(var(--secondary-rgb), 0.5);
+    box-shadow: none;
+    transform: translateY(-2px);
+  }
+
+  /* Pestaña activa rellena de secondary con texto claro: mismo lenguaje cromático, contraste medido */
+  .nav-tabs .nav-link.active {
+    color: #fff;
+    background: var(--secondary);
+    border-color: var(--secondary);
+    box-shadow: 0 4px 12px rgba(var(--secondary-rgb), 0.4);
+  }
+
+  /* Hover sobre la pestaña activa: se oscurece a secondary-strong manteniendo el texto claro */
+  .nav-tabs .nav-link.active:hover {
+    background: var(--secondary-strong);
+    border-color: var(--secondary-strong);
+  }
+
+  /* Acordeón abierto en grisáceo en vez del azul por defecto de Bootstrap; el color sigue al tema y el halo de foco usa secondary como el resto del panel */
+  .accordion {
+    --bs-accordion-active-color: var(--text-color);
+    --bs-accordion-active-bg: rgba(var(--primary-rgb), 0.06);
+    --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--secondary-rgb), 0.2);
+    --bs-accordion-border-radius: 0.5rem;
+    --bs-accordion-inner-border-radius: 0.5rem;
+  }
+
+  /* El botón mantiene las esquinas redondeadas también al abrirse, para que el borde no quede recto */
+  .accordion-button,
+  .accordion-button:not(.collapsed) {
+    border-radius: var(--bs-accordion-inner-border-radius);
+  }
+
+  /* Desaturamos el icono para que el chevron del estado abierto deje de ser azul y quede gris acorde al texto */
+  .accordion-button::after {
+    filter: grayscale(1);
+  }
+
+  /* Tarjeta de una imagen de bloque: imagen redondeada arriba y franja de acciones debajo, con borde secondary-strong y leve elevación al pasar el ratón */
+  .bloque-imagen-card {
+    border: 2px solid var(--secondary-strong) !important;
+    transition: all 0.3s ease;
+  }
+
+  .bloque-imagen-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(var(--secondary-rgb), 0.35) !important;
+  }
+
+  /* La imagen ocupa todo el ancho de la tarjeta y se recorta al alto fijado para uniformar la galería */
+  .bloque-imagen-card-img {
+    display: block;
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+  }
+
+  /* Franja inferior en color secondary que aloja el nombre del fichero y el botón de borrado */
+  .bloque-imagen-card-franja {
+    background-color: var(--secondary);
+  }
+
+  /* Nombre del fichero recortado a una sola línea con puntos suspensivos (min-width:0 para que encoja dentro del flex) */
+  .bloque-imagen-card-nombre {
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }

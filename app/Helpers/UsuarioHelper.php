@@ -4,7 +4,6 @@ namespace App\Helpers;
 
 use App\Enums\RoleEnum;
 use App\Models\Usuario;
-use Illuminate\Contracts\Auth\Authenticatable;
 
 /**
  * Utilizado para las gestiones que se realicen los usuarios
@@ -21,7 +20,7 @@ class UsuarioHelper
         }
 
         // Nadie puede editarse a sí mismo salvo el superadmin
-        if ($usuarioAutenticado->is($usuario) && ! RoleHelper::tieneRolSuperadmin($usuarioAutenticado)) {
+        if ($usuarioAutenticado->is($usuario) && !RoleHelper::tieneRolSuperadmin($usuarioAutenticado)) {
             return false;
         }
 

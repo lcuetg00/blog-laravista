@@ -1,3 +1,4 @@
+@php($paginasActivas = \App\Services\ConfiguracionService::clavesActivas())
 <header id="header-top">
     <div class="container-md d-flex flex-wrap align-items-center justify-content-between py-3 mb-4">
 
@@ -19,30 +20,38 @@
                     </label>
 
                     <ul class="mobile-menu-links">
-                        <li>
-                            <a href="{{ route('home') }}" style="color: var(--terciary);">
-                                <i class="fa-solid fa-home"></i>
-                                {{ trans('public.menu.home') }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('tecnologias') }}" style="color: var(--quaternary);">
-                                <i class="fa-solid fa-code"></i>
-                                {{ trans('public.menu.tecnologias') }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('proyectos') }}" style="color: var(--terciary);">
-                                <i class="fa-solid fa-briefcase"></i>
-                                {{ trans('public.menu.proyectos') }}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('contacto') }}" style="color: var(--quaternary);">
-                                <i class="fa-solid fa-envelope"></i>
-                                {{ trans('public.menu.contacto') }}
-                            </a>
-                        </li>
+                        @if (in_array('home', $paginasActivas, true))
+                            <li>
+                                <a href="{{ route('home') }}" style="color: var(--terciary);">
+                                    <i class="fa-solid fa-home"></i>
+                                    {{ trans('public.menu.home') }}
+                                </a>
+                            </li>
+                        @endif
+                        @if (in_array('tecnologias', $paginasActivas, true))
+                            <li>
+                                <a href="{{ route('tecnologias') }}" style="color: var(--quaternary);">
+                                    <i class="fa-solid fa-code"></i>
+                                    {{ trans('public.menu.tecnologias') }}
+                                </a>
+                            </li>
+                        @endif
+                        @if (in_array('proyectos', $paginasActivas, true))
+                            <li>
+                                <a href="{{ route('proyectos') }}" style="color: var(--terciary);">
+                                    <i class="fa-solid fa-briefcase"></i>
+                                    {{ trans('public.menu.proyectos') }}
+                                </a>
+                            </li>
+                        @endif
+                        @if (in_array('contacto', $paginasActivas, true))
+                            <li>
+                                <a href="{{ route('contacto') }}" style="color: var(--quaternary);">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    {{ trans('public.menu.contacto') }}
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </nav>
             </div>
@@ -57,22 +66,30 @@
         </div>
 
         <ul class="nav col-auto mb-2 justify-content-center mb-md-0 desktop-menu">
-            <li class="nav-item">
-                <a class="nav-link menu-titulo" aria-current="page" href="{{ route('home') }}"
-                    style="color: var(--terciary); -webkit-text-stroke: 1px var(--terciary);">{{ trans('public.menu.home') }}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link menu-titulo" href="{{ route('tecnologias') }}"
-                    style="color: var(--quaternary); -webkit-text-stroke: 1px var(--quaternary);">{{ trans('public.menu.tecnologias') }}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link menu-titulo" href="{{ route('proyectos') }}"
-                    style="color: var(--terciary); -webkit-text-stroke: 1px var(--terciary);">{{ trans('public.menu.proyectos') }}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link menu-titulo" href="{{ route('contacto') }}"
-                    style="color: var(--quaternary); -webkit-text-stroke: 1px var(--quaternary);">{{ trans('public.menu.contacto') }}</a>
-            </li>
+            @if (in_array('home', $paginasActivas, true))
+                <li class="nav-item">
+                    <a class="nav-link menu-titulo" aria-current="page" href="{{ route('home') }}"
+                        style="color: var(--terciary); -webkit-text-stroke: 1px var(--terciary);">{{ trans('public.menu.home') }}</a>
+                </li>
+            @endif
+            @if (in_array('tecnologias', $paginasActivas, true))
+                <li class="nav-item">
+                    <a class="nav-link menu-titulo" href="{{ route('tecnologias') }}"
+                        style="color: var(--quaternary); -webkit-text-stroke: 1px var(--quaternary);">{{ trans('public.menu.tecnologias') }}</a>
+                </li>
+            @endif
+            @if (in_array('proyectos', $paginasActivas, true))
+                <li class="nav-item">
+                    <a class="nav-link menu-titulo" href="{{ route('proyectos') }}"
+                        style="color: var(--terciary); -webkit-text-stroke: 1px var(--terciary);">{{ trans('public.menu.proyectos') }}</a>
+                </li>
+            @endif
+            @if (in_array('contacto', $paginasActivas, true))
+                <li class="nav-item">
+                    <a class="nav-link menu-titulo" href="{{ route('contacto') }}"
+                        style="color: var(--quaternary); -webkit-text-stroke: 1px var(--quaternary);">{{ trans('public.menu.contacto') }}</a>
+                </li>
+            @endif
         </ul>
 
         {{-- Se alinea al final y con el flex-grow toma todo el espacio que pueda ocupar --}}

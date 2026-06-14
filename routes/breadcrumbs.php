@@ -59,3 +59,21 @@ Breadcrumbs::for('panel.roles.edit', function (BreadcrumbTrail $trail, $rol) {
     $trail->parent('panel.roles.show', $rol);
     $trail->push(trans('actions.edit'), route('panel.roles.edit', $rol));
 });
+
+// Inicio > Páginas
+Breadcrumbs::for('panel.paginas.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(trans('fields.paginas.titulo'), route('panel.paginas.index'));
+});
+
+// Inicio > Páginas > [Título]
+Breadcrumbs::for('panel.paginas.show', function (BreadcrumbTrail $trail, $pagina) {
+    $trail->parent('panel.paginas.index');
+    $trail->push($pagina->titulo ?: $pagina->clave, route('panel.paginas.show', $pagina));
+});
+
+// Inicio > Páginas > [Título] > Editar
+Breadcrumbs::for('panel.paginas.edit', function (BreadcrumbTrail $trail, $pagina) {
+    $trail->parent('panel.paginas.show', $pagina);
+    $trail->push(trans('actions.edit'), route('panel.paginas.edit', $pagina));
+});

@@ -15,6 +15,8 @@ window.bootstrap = bootstrap;
 // y @livewireScriptConfig en el <head> de los tres layouts que cargan este bundle.
 import { Alpine, Livewire } from '../../vendor/livewire/livewire/dist/livewire.esm';
 
-// Exponemos Alpine en window para poder depurarlo desde la consola; Livewire.start() arranca Livewire y Alpine a la vez
+// Exponemos Alpine y Livewire en window: Alpine para depurar desde consola y 
+// Livewire para que panel.js (otro bundle) pueda registrar listeners de sus eventos (toast, recargar-preview)
 window.Alpine = Alpine;
+window.Livewire = Livewire;
 Livewire.start();
