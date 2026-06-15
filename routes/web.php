@@ -24,8 +24,8 @@ Route::group([
         Route::get('/tecnologias', 'tecnologias')->name('tecnologias');
         Route::get('/proyectos', 'proyectos')->name('proyectos');
         Route::get('/contacto', 'contacto')->name('contacto');
-        Route::get('/politica-privacidad', 'politicaPrivacidad')->name('politica_privacidad');
-        Route::get('/terminos-condiciones', 'terminosCondiciones')->name('terminos_condiciones');
+        Route::get('/politica-privacidad', 'politicaPrivacidad')->name('politica-privacidad');
+        Route::get('/terminos-condiciones', 'terminosCondiciones')->name('terminos-condiciones');
     });
 
     // Rutas de autenticación (Fortify)

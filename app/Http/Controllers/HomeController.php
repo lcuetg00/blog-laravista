@@ -73,7 +73,7 @@ class HomeController extends Controller
      */
     public function politicaPrivacidad(): Renderable
     {
-        abort_unless(ConfiguracionService::estaActiva('politica_privacidad'), 404);
+        abort_unless(ConfiguracionService::estaActiva('politica-privacidad'), 404);
 
         $seo = [
             'title' => trans('public.politica_privacidad.titulo'),
@@ -88,7 +88,7 @@ class HomeController extends Controller
      */
     public function terminosCondiciones(): Renderable
     {
-        abort_unless(ConfiguracionService::estaActiva('terminos_condiciones'), 404);
+        abort_unless(ConfiguracionService::estaActiva('terminos-condiciones'), 404);
 
         $seo = [
             'title' => trans('public.terminos_condiciones.titulo'),

@@ -19,9 +19,9 @@ enum PaginaClaveEnum: string
 
     case CONTACTO = 'contacto';
 
-    case POLITICA_PRIVACIDAD = 'politica_privacidad';
+    case POLITICA_PRIVACIDAD = 'politica-privacidad';
 
-    case TERMINOS_CONDICIONES = 'terminos_condiciones';
+    case TERMINOS_CONDICIONES = 'terminos-condiciones';
 
     /**
      * Indica si la página puede desactivarse desde el panel (el home debe estar siempre accesible, el resto sí se puede desactivar).
