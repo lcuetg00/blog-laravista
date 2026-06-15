@@ -1219,4 +1219,10 @@
     white-space: nowrap;
     text-overflow: ellipsis;
   }
+
+  /* Icono del bloque HERO en el preview: tope de ancho y alto proporcional */
+  .bloque-preview-icono {
+    max-width: 64px;
+    height: auto;
+  }
 }

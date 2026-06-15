@@ -86,6 +86,7 @@ return [
         'tipos' => [
             'titulo' => 'Título',
             'titulo_subtitulo' => 'Título con subtítulo',
+            'titulo_subtitulo_imagen' => 'Título con subtítulo e imagen',
             'bloque_texto' => 'Bloque de texto',
             'hero' => 'Hero',
             'boton' => 'Botón',

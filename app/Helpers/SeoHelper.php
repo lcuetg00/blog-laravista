@@ -2,8 +2,21 @@
 
 namespace App\Helpers;
 
+use App\Models\Pagina;
+
 class SeoHelper
 {
+    /**
+     * Construye el array de SEO de una página de bloques a partir de su título traducido y su descripción para el SEO.
+     */
+    public static function desdePagina(Pagina $pagina): array
+    {
+        return [
+            'title' => $pagina->getTranslation('titulo', app()->getLocale()),
+            'description' => $pagina->getTranslation('descripcion', app()->getLocale()),
+        ];
+    }
+
     /**
      * Genera un array con los metadatos SEO (título, descripción, imagen, URL, etc.) para una página.
      */

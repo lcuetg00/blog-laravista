@@ -1,61 +1,63 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="public/images/laravistaLogo.png" width="180" alt="Logo de Laravista">
 </p>
 
-## About Laravel
+<h1 align="center">Laravista</h1>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Sitio web personal multilingüe (español / inglés / japonés) con un panel de
+administración desde el que se gestiona todo el contenido público sin tocar código.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ¿Qué puede hacer este proyecto?
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+El proyecto tiene dos caras: la **web pública** que ven los visitantes y el
+**panel** privado desde el que se administra todo.
 
-## Learning Laravel
+### Público
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Páginas compuestas por bloques** — cada página (inicio, créditos,
+  tecnologías, proyectos, contacto) se monta con bloques de contenido: textos,
+  imágenes, carruseles, tablas, botones… Ver [docs/paginas.md](docs/paginas.md).
+- **Multilingüe (es / en / ja)** — todo el contenido y las URLs se muestran en
+  los tres idiomas según el que elija el visitante.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Panel
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Acceso protegido** — autenticación con roles y permisos por acción.
+- **Edición de páginas y bloques** — se cambian los textos e imágenes de cada
+  bloque, se activan/desactivan páginas y se previsualiza el resultado en vivo.
+  Ver [docs/paginas.md](docs/paginas.md).
+- **Gestión de usuarios** — listado con búsqueda, filtros, ordenación,
+  exportación a Excel y borrado recuperable.
+- **Gestión de archivos e imágenes** — subida de imágenes asociadas a los
+  bloques (carruseles, iconos, fotos) almacenadas de forma ordenada.
 
-## Laravel Sponsors
+## Documentación detallada
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Cada funcionalidad se explica en su propio documento dentro de `docs/`:
 
-### Premium Partners
+### Público
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- [Páginas](docs/paginas.md)
 
-## Contributing
+### Panel
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- [Páginas](docs/paginas.md)
 
-## Code of Conduct
+## Stack
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+PHP 8.3+ · Laravel 13 · Livewire 4 · Bootstrap 5.3 + Tailwind 4 · Vite ·
+MySQL/MariaDB · PHPUnit 12.
 
-## Security Vulnerabilities
+## Puesta en marcha
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+composer install
+npm install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate:fresh --seed   # crea tablas y datos de ejemplo
+composer dev                       # servidor + colas + logs + Vite
+```
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+El entorno de desarrollo (`composer dev`) levanta el servidor, la cola, el visor
+de logs (Pail) y Vite a la vez.

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Translatable\Attributes\Translatable;
 use Spatie\Translatable\HasTranslations;
 
@@ -89,6 +90,29 @@ class Bloque extends Model implements HasMedia
     public function itemsCarrusel(): MediaCollection
     {
         return $this->getMedia(self::MEDIA_COLLECTION_CARRUSEL);
+    }
+
+    /**
+     * Devuelve el valor de un campo del bloque en el idioma activo (Translatable resuelve el fallback de idioma a nivel de columna).
+     */
+    public function campo(string $clave, mixed $defecto = null): mixed
+    {
+        return $this->getTranslation('campos', app()->getLocale())[$clave] ?? $defecto;
+    }
+
+    /**
+     * Resuelve una custom property traducible ({es,en,ja}) de un media al idioma activo, con fallback al idioma de respaldo.
+     */
+    public function textoMedia(Media $media, string $propiedad): string
+    {
+        $valor = $media->getCustomProperty($propiedad);
+
+        // Las custom properties no traducibles llegan como string plano; las traducibles como mapa por idioma
+        if (!is_array($valor)) {
+            return (string) ($valor ?? '');
+        }
+
+        return $valor[app()->getLocale()] ?? $valor[config('app.fallback_locale')] ?? '';
     }
 
     /**

@@ -107,19 +107,47 @@ if (window.matchMedia) {
     });
 }
 
+// Número de slides a partir del cual el loop del coverflow funciona sin huecos (ver duplicarSlides)
+const SLIDES_MINIMO_LOOP = 8;
+
 /**
- * Inicializa el carrusel 3D con Swiper
+ * Duplica el set de imágenes hasta llegar al mínimo para sortear un bug de Swiper en modo loop con el efecto coverflow.
+ *
+ * Con `loop: true`, `centeredSlides` y `slidesPerView: 'auto'` se muestran 3 imágenes a la vez (vecina-central-vecina),
+ * pero Swiper necesita más slides activas de las visibles para generar los clones del bucle; con pocas no los crea
+ * (avisa "number of slides is not enough for loop mode") y deja huecos al cargar. Por eso, si hay menos de 8 imágenes,
+ * repetimos el set entero hasta alcanzarlas (1 2 3 4 → 1 2 3 4 1 2 3 4; 1 2 → 1 2 1 2 1 2 1 2) para que el loop
+ * renderice bien. Con 8 o más ya hay material de sobra y no se duplica.
+ */
+function duplicarSlides(wrapper) {
+    const slidesOriginales = Array.from(wrapper.querySelectorAll('.swiper-slide'));
+    if (slidesOriginales.length === 0) {
+        return;
+    }
+
+    // Repetimos el set completo (no slide a slide) para que las imágenes queden equilibradas en el bucle
+    while (wrapper.querySelectorAll('.swiper-slide').length < SLIDES_MINIMO_LOOP) {
+        slidesOriginales.forEach((slide) => wrapper.appendChild(slide.cloneNode(true)));
+    }
+}
+
+/**
+ * Inicializa el carrusel 3D con Swiper como loop continuo (siempre muestra 3 imágenes y se repiten)
  */
 function initCarousel() {
     const swiperContainer = document.querySelector('.swiper-carousel');
     if (!swiperContainer) return;
 
+    duplicarSlides(swiperContainer.querySelector('.swiper-wrapper'));
+
     new Swiper('.swiper-carousel', {
-        modules: [Navigation, Pagination, Autoplay, EffectCoverflow],
+        modules: [Navigation, Autoplay, EffectCoverflow],
         effect: 'coverflow',
         grabCursor: true,
         centeredSlides: true,
         slidesPerView: 'auto',
+        // Siempre arranca en la segunda imagen
+        initialSlide: 1,
         loop: true,
         speed: 1200,
         autoplay: {
@@ -133,10 +161,6 @@ function initCarousel() {
             depth: 100,
             modifier: 1,
             slideShadows: false,
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
         },
         navigation: {
             nextEl: '.swiper-button-next',

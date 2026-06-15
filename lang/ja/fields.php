@@ -86,6 +86,7 @@ return [
         'tipos' => [
             'titulo' => 'タイトル',
             'titulo_subtitulo' => 'サブタイトル付きタイトル',
+            'titulo_subtitulo_imagen' => 'サブタイトルと画像付きタイトル',
             'bloque_texto' => 'テキストブロック',
             'hero' => 'ヒーロー',
             'boton' => 'ボタン',

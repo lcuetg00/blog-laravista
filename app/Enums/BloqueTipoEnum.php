@@ -29,6 +29,8 @@ enum BloqueTipoEnum: int
 
     case TABLA = 8;
 
+    case TITULO_SUBTITULO_IMAGEN = 9;
+
     /**
      * Devuelve la metadata de cada campo del tipo (tipo lógico, si es traducible, si es requerido, longitud máxima y, en repetidores, el esquema de cada elemento).
      */
@@ -64,6 +66,12 @@ enum BloqueTipoEnum: int
             self::TABLA => [
                 'columnas' => ['tipo' => 'repetidor_traducible', 'traducible' => true, 'requerido' => true],
                 'filas' => ['tipo' => 'matriz_traducible', 'traducible' => true, 'requerido' => true],
+            ],
+            self::TITULO_SUBTITULO_IMAGEN => [
+                'titulo' => ['tipo' => 'string', 'traducible' => true, 'requerido' => true, 'max' => 255],
+                'subtitulo' => ['tipo' => 'text', 'traducible' => true, 'requerido' => false],
+                'icono' => ['tipo' => 'imagen', 'coleccion' => Bloque::MEDIA_COLLECTION_ICONO, 'traducible' => false, 'requerido' => false],
+                'imagen' => ['tipo' => 'imagen', 'coleccion' => Bloque::MEDIA_COLLECTION_IMAGEN, 'traducible' => false, 'requerido' => false],
             ],
         };
     }

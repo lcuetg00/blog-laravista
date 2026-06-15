@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SeoHelper;
+use App\Models\Pagina;
 use App\Services\ConfiguracionService;
 use Illuminate\Contracts\Support\Renderable;
 
@@ -12,12 +14,9 @@ class HomeController extends Controller
      */
     public function index(): Renderable
     {
-        $seo = [
-            'title' => trans('public.home.title'),
-            'description' => trans('public.home.description'),
-        ];
+        $pagina = $this->paginaConBloques('home');
 
-        return view('public.home.home', compact('seo'));
+        return view('public.home.home', ['pagina' => $pagina, 'seo' => SeoHelper::desdePagina($pagina)]);
     }
 
     /**
@@ -28,7 +27,9 @@ class HomeController extends Controller
         // Si la página está desactivada en el panel, no se puede acceder ni con URL directa
         abort_unless(ConfiguracionService::estaActiva('creditos'), 404);
 
-        return view('public.home.creditos');
+        $pagina = $this->paginaConBloques('creditos');
+
+        return view('public.home.creditos', ['pagina' => $pagina, 'seo' => SeoHelper::desdePagina($pagina)]);
     }
 
     /**
@@ -38,12 +39,9 @@ class HomeController extends Controller
     {
         abort_unless(ConfiguracionService::estaActiva('tecnologias'), 404);
 
-        $seo = [
-            'title' => trans('public.tecnologias.titulo'),
-            'description' => trans('public.tecnologias.descripcion'),
-        ];
+        $pagina = $this->paginaConBloques('tecnologias');
 
-        return view('public.home.tecnologias', compact('seo'));
+        return view('public.home.tecnologias', ['pagina' => $pagina, 'seo' => SeoHelper::desdePagina($pagina)]);
     }
 
     /**
@@ -53,12 +51,9 @@ class HomeController extends Controller
     {
         abort_unless(ConfiguracionService::estaActiva('proyectos'), 404);
 
-        $seo = [
-            'title' => trans('public.proyectos.titulo'),
-            'description' => trans('public.proyectos.descripcion'),
-        ];
+        $pagina = $this->paginaConBloques('proyectos');
 
-        return view('public.home.proyectos', compact('seo'));
+        return view('public.home.proyectos', ['pagina' => $pagina, 'seo' => SeoHelper::desdePagina($pagina)]);
     }
 
     /**
@@ -68,12 +63,9 @@ class HomeController extends Controller
     {
         abort_unless(ConfiguracionService::estaActiva('contacto'), 404);
 
-        $seo = [
-            'title' => trans('public.contacto.titulo'),
-            'description' => trans('public.contacto.descripcion'),
-        ];
+        $pagina = $this->paginaConBloques('contacto');
 
-        return view('public.home.contacto', compact('seo'));
+        return view('public.home.contacto', ['pagina' => $pagina, 'seo' => SeoHelper::desdePagina($pagina)]);
     }
 
     /**
@@ -104,5 +96,13 @@ class HomeController extends Controller
         ];
 
         return view('public.home.terminos-condiciones', compact('seo'));
+    }
+
+    /**
+     * Carga una página por su clave con sus bloques y los media de cada bloque (eager load para evitar N+1 al renderizar).
+     */
+    private function paginaConBloques(string $clave): Pagina
+    {
+        return Pagina::with(['bloques.media'])->where('clave', $clave)->firstOrFail();
     }
 }
