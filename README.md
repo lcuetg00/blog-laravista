@@ -53,6 +53,27 @@ El proyecto tiene dos caras: la **web pública** que ven los visitantes y el
 - **Gestión de archivos e imágenes** — subida de imágenes asociadas a los
   bloques (carruseles, iconos, fotos) almacenadas de forma ordenada.
 
+## Seguridad
+
+- **Exportación a Excel securizada** — los valores exportados se sanean para
+  evitar la inyección y ejecución de fórmulas (CSV/Formula injection).
+- **Subida de imágenes securizada** — se valida el tipo real del archivo
+  comprobando su MIME type, no solo la extensión.
+
+## Mejoras futuras
+
+- **Revisar la accesibilidad de la web** — auditar la parte pública y el panel
+  para garantizar el cumplimiento de WCAG 2.1 AA (HTML semántico, jerarquía de
+  headings, atributos ARIA, contraste, foco visible y navegación por teclado).
+- **Mejorar la velocidad de carga de la web** — optimizar tiempos de carga
+  (imágenes, assets, caché y consultas) para reducir el peso de las páginas y
+  acelerar la respuesta tanto en el público como en el panel.
+- **Convertir las imágenes subidas a WebP** — transformar a formato WebP las
+  imágenes que se guardan para reducir su tamaño en el servidor y acelerar la
+  carga de la web.
+- **Implementar CI/CD con Git** — configurar despliegues automáticos al servidor
+  donde se alojará la web (actualmente el proyecto no está subido a ningún sitio).
+
 ## Documentación detallada
 
 Cada funcionalidad se explica en su propio documento dentro de `docs/`:
@@ -67,8 +88,12 @@ Cada funcionalidad se explica en su propio documento dentro de `docs/`:
 
 ## Laravel
 
-El proyecto está construido sobre **Laravel 13** (PHP 8.3+). Además del propio
-framework, utiliza las siguientes librerías que **no son propias de Laravel**:
+El proyecto está construido sobre **Laravel 13** (PHP 8.3+). El stack completo
+es: PHP 8.3+ · Laravel 13 · Livewire 4 · Bootstrap 5.3 + Tailwind 4 · Vite ·
+MySQL/MariaDB · PHPUnit 12.
+
+Además del propio framework, utiliza las siguientes librerías que **no son
+propias de Laravel**:
 
 - **livewire/livewire** — componentes reactivos sin escribir JavaScript.
 - **mcamara/laravel-localization** — rutas y contenido multilingües (es / en / ja).
@@ -87,11 +112,6 @@ Y en el frontend (npm):
 - **tailwindcss** — utilidades CSS.
 - **@fortawesome/fontawesome-free** — iconos.
 
-## Stack
-
-PHP 8.3+ · Laravel 13 · Livewire 4 · Bootstrap 5.3 + Tailwind 4 · Vite ·
-MySQL/MariaDB · PHPUnit 12.
-
 ## Puesta en marcha
 
 ```bash
@@ -100,8 +120,5 @@ npm install
 cp .env.example .env
 php artisan key:generate
 php artisan migrate:fresh --seed   # crea tablas y datos de ejemplo
-composer dev                       # servidor + colas + logs + Vite
+php artisan test                   # prueba en entorno de desarrollo
 ```
-
-El entorno de desarrollo (`composer dev`) levanta el servidor, la cola, el visor
-de logs (Pail) y Vite a la vez.
