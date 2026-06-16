@@ -42,7 +42,8 @@ El proyecto tiene dos caras: la **web pública** que ven los visitantes y el
   <img src="public/images/imagenDemoPanel.png" width="450" alt="Demostración del panel de administración">
 </p>
 
-- **Acceso protegido** — autenticación con roles y permisos por acción.
+- **Acceso protegido** — los usuarios del panel se autentican en la ruta
+  `administracion-login`, con roles y permisos por acción.
 - **Edición de páginas y bloques** — se cambian los textos e imágenes de cada
   bloque, se activan/desactivan páginas y se previsualiza el resultado en vivo.
   Ver [docs/paginas.md](docs/paginas.md).
@@ -73,6 +74,14 @@ El proyecto tiene dos caras: la **web pública** que ven los visitantes y el
   carga de la web.
 - **Implementar CI/CD con Git** — configurar despliegues automáticos al servidor
   donde se alojará la web (actualmente el proyecto no está subido a ningún sitio).
+- **Traducción de rutas** — traducir los segmentos de las URLs según el idioma
+  (es / en / ja).
+- **Selectores de permisos en el panel** — añadir un selector de permisos por
+  usuario en el CRUD de usuarios y un selector de permisos por rol en el CRUD de
+  roles, para asignar permisos de forma visual.
+- **Banner de cookies en la parte pública** — mostrar un banner que detalle que
+  no se usan cookies analíticas, y añadir en la página de política de privacidad
+  una tabla con las cookies utilizadas y su caducidad.
 
 ## Documentación detallada
 
