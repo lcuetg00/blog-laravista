@@ -77,18 +77,27 @@
                             <div class="h-100 d-flex flex-column gap-2">
                                 {{-- Tarjeta de la imagen con su franja de borrado (abre el modal compartido del bloque) --}}
                                 @include('livewire.partials.bloque-imagen-card', ['media' => $media, 'modalBorrar' => $modalBorrar])
-                                @foreach ($idiomas as $idioma => $nombreIdioma)
-                                    <div>
-                                        <label class="form-label small mb-0"
-                                            for="alt_{{ $bloque->ulid }}_{{ $media->uuid }}_{{ $idioma }}">
-                                            {{ trans('fields.bloques.imagenes.alt') }} ({{ $nombreIdioma }})
-                                        </label>
-                                        <input type="text" maxlength="255"
-                                            id="alt_{{ $bloque->ulid }}_{{ $media->uuid }}_{{ $idioma }}"
-                                            class="form-control form-control-sm"
-                                            wire:model="alts.{{ $media->uuid }}.{{ $idioma }}">
+                                {{-- Alt traducible con selector de idioma a la izquierda: solo queda visible el input del idioma elegido --}}
+                                <div x-data="{ idiomaAlt: '{{ array_key_first($idiomas) }}' }">
+                                    <p class="form-label small mb-0">{{ trans('fields.bloques.imagenes.alt') }}</p>
+                                    <div class="input-group input-group-sm">
+                                        <select class="form-select flex-grow-0 w-auto" x-model="idiomaAlt"
+                                            aria-label="{{ trans('fields.bloques.imagenes.alt_idioma') }}">
+                                            @foreach ($idiomas as $idioma => $nombreIdioma)
+                                                <option value="{{ $idioma }}">{{ $nombreIdioma }}</option>
+                                            @endforeach
+                                        </select>
+                                        @foreach ($idiomas as $idioma => $nombreIdioma)
+                                            <input type="text" maxlength="255" x-cloak
+                                                x-show="idiomaAlt === '{{ $idioma }}'"
+                                                :class="{ 'rounded-end': idiomaAlt === '{{ $idioma }}' }"
+                                                id="alt_{{ $bloque->ulid }}_{{ $media->uuid }}_{{ $idioma }}"
+                                                class="form-control"
+                                                wire:model="alts.{{ $media->uuid }}.{{ $idioma }}"
+                                                aria-label="{{ trans('fields.bloques.imagenes.alt') }} ({{ $nombreIdioma }})">
+                                        @endforeach
                                     </div>
-                                @endforeach
+                                </div>
                             </div>
                         </div>
                     @endforeach

@@ -124,6 +124,7 @@ return [
             'borrar_confirmar' => 'The image will be permanently deleted. This action cannot be undone.',
             'borrada' => 'Image deleted successfully.',
             'alt' => 'Description (alternative text)',
+            'alt_idioma' => 'Alternative text language',
             'alt_ayuda' => 'Briefly describe the image; it is used as alternative text for accessibility.',
             'formatos_ayuda' => 'Allowed formats: :formatos. Maximum size per image: :max MB.',
         ],

@@ -124,6 +124,7 @@ return [
             'borrar_confirmar' => 'La imagen se eliminará de forma permanente. Esta acción no se puede deshacer.',
             'borrada' => 'Imagen eliminada correctamente.',
             'alt' => 'Descripción (texto alternativo)',
+            'alt_idioma' => 'Idioma del texto alternativo',
             'alt_ayuda' => 'Describa brevemente la imagen; se usa como texto alternativo para accesibilidad.',
             'formatos_ayuda' => 'Formatos permitidos: :formatos. Tamaño máximo por imagen: :max MB.',
         ],
