@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UsuarioSeeder::class,
             PaginaSeeder::class,
             PaginaBloqueSeeder::class,
+            ConfiguracionSeeder::class,
         ]);
     }
 }

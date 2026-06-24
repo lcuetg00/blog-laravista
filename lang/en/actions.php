@@ -41,4 +41,11 @@ return [
 
     // Generic error flash when an operation fails
     'generic_error' => 'An error occurred while processing the operation. Please try again.',
+
+    // Configuration section flashes
+    'settings_saved' => 'The settings have been saved successfully.',
+    'cache_cleared' => 'The cache has been cleared successfully.',
+    'views_cleared' => 'The compiled views have been removed successfully.',
+    'maintenance_on' => 'The application is now in maintenance mode. You keep access to the panel.',
+    'maintenance_off' => 'The application is up and running again.',
 ];

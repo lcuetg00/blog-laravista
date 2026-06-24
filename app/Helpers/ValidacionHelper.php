@@ -25,9 +25,19 @@ class ValidacionHelper
     public const REGEX_EMAIL = '/^(?!.*--)[\p{L}\p{N}\-.@+]+$/u';
 
     /**
-     * Campos numéricos formateados (teléfonos, documentos de identidad, códigos postales): dígitos, espacios y - . + ( ). Prohíbe "--" consecutivos.
+     * Campos numéricos formateados (documentos de identidad, códigos postales): dígitos, espacios y - . + ( ). Prohíbe "--" consecutivos.
      */
     public const REGEX_NUMERICO = '/^(?!.*--)[\p{N}\s\-.+()]+$/u';
+
+    /**
+     * Números de teléfono (dígitos, espacios y los símbolos "+ - ( )") Prohíbe "--" consecutivos.
+     */
+    public const REGEX_TELEFONO = '/^(?!.*--)[\p{N}\s\-+()]+$/u';
+
+    /**
+     * Validación para parte de URL (letras ASCII, dígitos y guión, sin espacios ni guión bajo)
+     */
+    public const REGEX_SLUG = '/^[A-Za-z0-9-]+$/';
 
     /**
      * MIME types de imagen aceptados al subir ficheros, indexados por extensión (fuente de la regla App\Rules\MimeTypeImagenValido).

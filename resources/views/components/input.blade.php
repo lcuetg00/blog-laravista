@@ -19,6 +19,8 @@
     'invalid' => false,
     // Si está activo, el input se enlaza a Livewire con wire:model usando el name; deja de aplicar value/old.
     'wire' => false,
+    // Clase de icono FontAwesome opcional; si se indica, el input se envuelve en un input-group con el icono como prefijo.
+    'icon' => null,
 ])
 
 @php
@@ -32,6 +34,11 @@
 
 <label for="{{ $inputId }}"
     class="form-label @if ($required) required @endif">{{ $label }}</label>
+@if ($icon)
+    {{-- Icono al principio del input --}}
+    <div class="input-group @if ($isInvalid) has-validation @endif">
+        <span class="input-group-text"><i class="{{ $icon }}" aria-hidden="true"></i></span>
+@endif
 <input type="{{ $type }}" id="{{ $inputId }}"
     @if ($name) name="{{ $name }}" @endif
     @if ($wire) wire:model="{{ $name }}" @else value="{{ $inputValue }}" @endif
@@ -44,4 +51,9 @@
     @error($claveError)
         <div id="{{ $errorId }}" class="invalid-feedback d-block">{{ $message }}</div>
     @enderror
+@endif
+
+@if ($icon)
+    {{-- Cierra el div del icono al principio --}}
+    </div>
 @endif

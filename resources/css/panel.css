@@ -744,6 +744,34 @@
     font-size: 1.1em;
   }
 
+  /* Submenú en línea (acordeón) del sidebar: subapartados indentados bajo su sección */
+  /* flex-wrap nowrap evita que durante la animación de collapse los items envuelvan a otra columna y se agrupen en una sola línea */
+  .sidebar-submenu {
+    flex-wrap: nowrap;
+    gap: 0.25rem;
+  }
+
+  /* Subapartado: icono indentado respecto a la sección padre y texto algo menor */
+  .sidebar-suboption {
+    font-size: 1em;
+    padding-left: 1.75rem;
+  }
+
+  /* Subapartado activo o en hover: solo resaltamos el texto, sin fondo */
+  .sidebar .nav-link.sidebar-suboption.active,
+  .sidebar .nav-link.sidebar-suboption:hover {
+    background: transparent;
+  }
+
+  /* Flecha del acordeón gira hacia arriba cuando la sección está desplegada (Bootstrap quita .collapsed) */
+  .sidebar-chevron {
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar-option:not(.collapsed) .sidebar-chevron {
+    transform: rotate(180deg);
+  }
+
   /* Título de la cabecera del sidebar reducido para que quepa el botón */
   .sidebar-menu-title {
     font-size: var(--panel-title-size);
@@ -943,6 +971,21 @@
       transform: none;
     }
 
+    /* Subapartados en modo colapsado: sin indentación, icono perfectamente centrado como el resto */
+    body.sidebar-collapsed .sidebar .sidebar-suboption {
+      justify-content: center;
+      padding: 0.6rem 0;
+    }
+
+    /* En sidebar colapsado, delimitamos el bloque del submenú abierto para agrupar visualmente sus iconos */
+    body.sidebar-collapsed .sidebar .sidebar-submenu {
+      margin: 0.25rem 0.25rem 0;
+      padding-block: 0.25rem;
+      border: 1px solid rgba(var(--secondary-rgb), 0.25);
+      border-radius: 10px;
+      background: rgba(var(--secondary-rgb), 0.06);
+    }
+
     /* Centrar la cabecera del sidebar para que el botón quede en el medio */
     body.sidebar-collapsed .sidebar .offcanvas-header {
       justify-content: center;
@@ -1122,7 +1165,7 @@
   /* Con el panel minimizado solo dejamos la cabecera y el botón de restaurar: ocultamos cuerpo, redimensionador y toda acción que no sea el propio minimizar/restaurar */
   .pagina-preview.is-minimized .pagina-preview-body,
   .pagina-preview.is-minimized .pagina-preview-resizer,
-  .pagina-preview.is-minimized .pagina-preview-actions > :not([data-preview-minimize]) {
+  .pagina-preview.is-minimized .pagina-preview-actions> :not([data-preview-minimize]) {
     display: none;
   }
 

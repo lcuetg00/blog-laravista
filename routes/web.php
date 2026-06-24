@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaginaController;
 use App\Http\Controllers\PanelController;
@@ -62,6 +63,21 @@ Route::group([
     // Rutas del panel
     Route::middleware('auth')->prefix('panel')->name('panel.')->group(function () {
         Route::get('/', [PanelController::class, 'index'])->name('index');
+
+        // Sección de configuración: solo los superadmins pueden acceder a esta zona (reforzado también en el controller)
+        Route::controller(ConfiguracionController::class)->middleware('role:superadmin')->prefix('configuracion')->name('configuracion.')->group(function () {
+            Route::redirect('/', 'configuracion/informacion');
+
+            Route::get('informacion', 'informacion')->name('informacion');
+
+            Route::get('parametros', 'parametros')->name('parametros');
+            Route::put('parametros', 'actualizarParametros')->name('parametros.update');
+
+            Route::get('mantenimiento', 'mantenimiento')->name('mantenimiento');
+            Route::post('mantenimiento/cache', 'limpiarCache')->name('cache');
+            Route::post('mantenimiento/vistas/limpiar', 'limpiarVistas')->name('vistas.limpiar');
+            Route::post('mantenimiento/modo', 'cambiarMantenimiento')->name('modo');
+        });
 
         // CRUDs. Las urls con parámetros se resuelven por el ulid
         Route::get('usuarios/export', [UsuarioController::class, 'exportExcel'])->name('usuarios.export');

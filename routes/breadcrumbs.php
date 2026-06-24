@@ -12,6 +12,27 @@ Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
     $trail->push(trans('breadcrumbs.home'), route('panel.index'));
 });
 
+// Inicio > Ajustes > Información del sitio
+Breadcrumbs::for('panel.configuracion.informacion', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(trans('sidebar.settings'), route('panel.configuracion.informacion'));
+    $trail->push(trans('configuracion.menu.informacion'), route('panel.configuracion.informacion'));
+});
+
+// Inicio > Ajustes > Parámetros
+Breadcrumbs::for('panel.configuracion.parametros', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(trans('sidebar.settings'), route('panel.configuracion.informacion'));
+    $trail->push(trans('configuracion.menu.parametros'), route('panel.configuracion.parametros'));
+});
+
+// Inicio > Ajustes > Mantenimiento
+Breadcrumbs::for('panel.configuracion.mantenimiento', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(trans('sidebar.settings'), route('panel.configuracion.informacion'));
+    $trail->push(trans('configuracion.menu.mantenimiento'), route('panel.configuracion.mantenimiento'));
+});
+
 // Inicio > Usuarios
 Breadcrumbs::for('panel.usuarios.index', function (BreadcrumbTrail $trail) {
     $trail->parent('home');

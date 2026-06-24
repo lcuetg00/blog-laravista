@@ -24,8 +24,7 @@
                 <li class="nav-item mb-2">
                     <a class="nav-link sidebar-option popup-sidebar d-flex align-items-center gap-2 {{ request()->routeIs('panel.index') ? 'active' : '' }}"
                         aria-current="{{ request()->routeIs('panel.index') ? 'page' : 'false' }}"
-                        href="{{ route('panel.index') }}"
-                        aria-label="{{ trans('sidebar.dashboard') }}"
+                        href="{{ route('panel.index') }}" aria-label="{{ trans('sidebar.dashboard') }}"
                         data-popup-sidebar="{{ trans('sidebar.dashboard') }}">
                         <i class="fa-solid fa-house-chimney" aria-hidden="true"></i>
                         <span class="sidebar-label">{{ trans('sidebar.dashboard') }}</span>
@@ -36,8 +35,7 @@
                     <li class="nav-item mb-2">
                         <a class="nav-link sidebar-option popup-sidebar d-flex align-items-center gap-2 {{ request()->routeIs('panel.usuarios.*') ? 'active' : '' }}"
                             aria-current="{{ request()->routeIs('panel.usuarios.*') ? 'page' : 'false' }}"
-                            href="{{ route('panel.usuarios.index') }}"
-                            aria-label="{{ trans('sidebar.usuarios') }}"
+                            href="{{ route('panel.usuarios.index') }}" aria-label="{{ trans('sidebar.usuarios') }}"
                             data-popup-sidebar="{{ trans('sidebar.usuarios') }}">
                             <i class="fa-solid fa-user" aria-hidden="true"></i>
                             <span class="sidebar-label">{{ trans('sidebar.usuarios') }}</span>
@@ -49,8 +47,7 @@
                     <li class="nav-item mb-2">
                         <a class="nav-link sidebar-option popup-sidebar d-flex align-items-center gap-2 {{ request()->routeIs('panel.roles.*') ? 'active' : '' }}"
                             aria-current="{{ request()->routeIs('panel.roles.*') ? 'page' : 'false' }}"
-                            href="{{ route('panel.roles.index') }}"
-                            aria-label="{{ trans('sidebar.roles') }}"
+                            href="{{ route('panel.roles.index') }}" aria-label="{{ trans('sidebar.roles') }}"
                             data-popup-sidebar="{{ trans('sidebar.roles') }}">
                             <i class="fa-solid fa-user-shield" aria-hidden="true"></i>
                             <span class="sidebar-label">{{ trans('sidebar.roles') }}</span>
@@ -62,8 +59,7 @@
                     <li class="nav-item mb-2">
                         <a class="nav-link sidebar-option popup-sidebar d-flex align-items-center gap-2 {{ request()->routeIs('panel.paginas.*') ? 'active' : '' }}"
                             aria-current="{{ request()->routeIs('panel.paginas.*') ? 'page' : 'false' }}"
-                            href="{{ route('panel.paginas.index') }}"
-                            aria-label="{{ trans('sidebar.paginas') }}"
+                            href="{{ route('panel.paginas.index') }}" aria-label="{{ trans('sidebar.paginas') }}"
                             data-popup-sidebar="{{ trans('sidebar.paginas') }}">
                             <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
                             <span class="sidebar-label">{{ trans('sidebar.paginas') }}</span>
@@ -74,16 +70,56 @@
 
             <hr class="my-2 mx-2">
 
-            <ul class="nav flex-column px-2 pb-2 mb-auto">
-                <li class="nav-item mb-2">
-                    <a class="nav-link sidebar-option popup-sidebar d-flex align-items-center gap-2" href="#"
-                        aria-label="{{ trans('sidebar.settings') }}"
-                        data-popup-sidebar="{{ trans('sidebar.settings') }}">
-                        <i class="fa-solid fa-gear" aria-hidden="true"></i>
-                        <span class="sidebar-label">{{ trans('sidebar.settings') }}</span>
-                    </a>
-                </li>
-            </ul>
+            @if (\App\Helpers\RoleHelper::tieneRolSuperadmin(auth()->user()))
+                @php $enApartadoConfiguracion = request()->routeIs('panel.configuracion.*'); @endphp
+                <ul class="nav flex-column px-2 pb-2 mb-auto">
+                    <li class="nav-item mb-2">
+                        {{-- Accordion --}}
+                        <a class="nav-link sidebar-option popup-sidebar d-flex align-items-center gap-2 {{ $enApartadoConfiguracion ? 'active' : 'collapsed' }}"
+                            href="#submenuConfiguracion" role="button" data-bs-toggle="collapse"
+                            aria-expanded="{{ $enApartadoConfiguracion ? 'true' : 'false' }}"
+                            aria-controls="submenuConfiguracion"
+                            aria-current="{{ $enApartadoConfiguracion ? 'page' : 'false' }}"
+                            aria-label="{{ trans('sidebar.settings') }}"
+                            data-popup-sidebar="{{ trans('sidebar.settings') }}">
+                            <i class="fa-solid fa-gear" aria-hidden="true"></i>
+                            <span class="sidebar-label">{{ trans('sidebar.settings') }}</span>
+                            <i class="fa-solid fa-chevron-down ms-auto sidebar-label sidebar-chevron"
+                                aria-hidden="true"></i>
+                        </a>
+                        <ul class="nav flex-column sidebar-submenu collapse {{ $enApartadoConfiguracion ? 'show' : '' }}"
+                            id="submenuConfiguracion">
+                            <li class="nav-item">
+                                <a class="nav-link sidebar-option sidebar-suboption popup-sidebar d-flex align-items-center gap-2 {{ request()->routeIs('panel.configuracion.informacion') ? 'active' : '' }}"
+                                    aria-current="{{ request()->routeIs('panel.configuracion.informacion') ? 'page' : 'false' }}"
+                                    href="{{ route('panel.configuracion.informacion') }}"
+                                    data-popup-sidebar="{{ trans('configuracion.menu.informacion') }}">
+                                    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                                    <span class="sidebar-label">{{ trans('configuracion.menu.informacion') }}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link sidebar-option sidebar-suboption popup-sidebar d-flex align-items-center gap-2 {{ request()->routeIs('panel.configuracion.parametros') ? 'active' : '' }}"
+                                    aria-current="{{ request()->routeIs('panel.configuracion.parametros') ? 'page' : 'false' }}"
+                                    href="{{ route('panel.configuracion.parametros') }}"
+                                    data-popup-sidebar="{{ trans('configuracion.menu.parametros') }}">
+                                    <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+                                    <span class="sidebar-label">{{ trans('configuracion.menu.parametros') }}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link sidebar-option sidebar-suboption popup-sidebar d-flex align-items-center gap-2 {{ request()->routeIs('panel.configuracion.mantenimiento') ? 'active' : '' }}"
+                                    aria-current="{{ request()->routeIs('panel.configuracion.mantenimiento') ? 'page' : 'false' }}"
+                                    href="{{ route('panel.configuracion.mantenimiento') }}"
+                                    data-popup-sidebar="{{ trans('configuracion.menu.mantenimiento') }}">
+                                    <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
+                                    <span class="sidebar-label">{{ trans('configuracion.menu.mantenimiento') }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            @endif
         </div>
     </div>
 </nav>

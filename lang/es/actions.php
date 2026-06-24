@@ -41,4 +41,11 @@ return [
 
     // Flash genérico de error cuando una operación falla
     'generic_error' => 'Ha ocurrido un error al procesar la operación. Por favor, inténtalo de nuevo.',
+
+    // Flash de la sección de configuración
+    'settings_saved' => 'Los ajustes se han guardado correctamente.',
+    'cache_cleared' => 'La caché se ha limpiado correctamente.',
+    'views_cleared' => 'Las vistas compiladas se han eliminado correctamente.',
+    'maintenance_on' => 'La aplicación está ahora en modo mantenimiento. Usted conserva el acceso al panel.',
+    'maintenance_off' => 'La aplicación vuelve a estar operativa.',
 ];
