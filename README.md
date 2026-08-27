@@ -4,7 +4,7 @@
 
 <h1 align="center">Laravista Blog</h1>
 
-Sitio web personal multilingüe (español / inglés / japonés) con un panel de
+Sitio web personal multilingüe con un panel de
 administración desde el que se gestiona todo el contenido público sin tocar código.
 Está diseñado para ser **responsive**, de modo que se puede usar en cualquier
 dispositivo (escritorio, móvil y tablet).
@@ -131,3 +131,9 @@ php artisan key:generate
 php artisan migrate:fresh --seed   # crea tablas y datos de ejemplo
 php artisan test                   # prueba en entorno de desarrollo
 ```
+
+## Integración continua
+
+Workflow de GitHub Actions
+([`.github/workflows/laravel-tests.yml`](.github/workflows/laravel-tests.yml)) que ejecuta la
+suite de PHPUnit en cada `push`/`pull request` a `main`.

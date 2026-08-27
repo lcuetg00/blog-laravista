@@ -6,7 +6,7 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
         "diglactic/laravel-breadcrumbs": "^10.1",
         "fortawesome/font-awesome": "^7.0",
         "laravel/fortify": "^1.36",
@@ -67,7 +67,9 @@
         "test": [
             "@php artisan config:clear --ansi @no_additional_args",
             "@php artisan test"
-        ]
+        ],
+        "pint": "@php vendor/bin/pint",
+        "pint-test": "@php vendor/bin/pint --test"
     },
     "extra": {
         "laravel": {
