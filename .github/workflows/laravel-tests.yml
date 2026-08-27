@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -20,11 +20,25 @@ jobs:
           extensions: mbstring, dom, fileinfo, bcmath, gd, zip, pdo_sqlite, sqlite3
           coverage: none
 
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v6
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
       - name: Copy .env
         run: cp .env.example .env
 
       - name: Install Composer dependencies
         run: composer install -q --no-ansi --no-interaction --no-progress --prefer-dist
+
+      - name: Check code style (Pint)
+        run: composer pint-test
 
       - name: Generate application key
         run: php artisan key:generate
@@ -33,9 +47,9 @@ jobs:
         run: chmod -R 777 storage bootstrap/cache
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
 
       - name: Install npm dependencies
