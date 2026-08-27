@@ -570,31 +570,6 @@
     animation: fadeInUp 0.6s ease;
   }
 
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Animación para que floten lo que sea necesario */
-  @keyframes float {
-
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
   /* Hero Secciones */
   .section-main-hero {
     position: relative;
@@ -691,5 +666,31 @@
   .tabla-encabezado {
     font-size: 1.3rem;
     text-align: center;
+  }
+}
+
+/* Animación de entrada para secciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animación para que floten lo que sea necesario */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
   }
 }
