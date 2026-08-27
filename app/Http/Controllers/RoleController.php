@@ -84,7 +84,7 @@ class RoleController extends Controller implements HasMiddleware
             Role::create($datos);
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al crear el rol', ['exception' => $e]);
 
@@ -135,7 +135,7 @@ class RoleController extends Controller implements HasMiddleware
             $rol->update($datos);
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al actualizar el rol', ['exception' => $e]);
 
@@ -165,7 +165,7 @@ class RoleController extends Controller implements HasMiddleware
             $rol->delete();
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al eliminar el rol', ['exception' => $e]);
 

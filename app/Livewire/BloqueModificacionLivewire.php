@@ -186,7 +186,7 @@ class BloqueModificacionLivewire extends Component
             $this->bloque->media()->where('uuid', $mediaUuid)->first()?->delete();
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al borrar la imagen del bloque', ['exception' => $e]);
 
@@ -245,7 +245,7 @@ class BloqueModificacionLivewire extends Component
             $this->guardarImagenes();
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al actualizar el bloque', ['exception' => $e]);
 

@@ -67,7 +67,7 @@ class Usuario extends Authenticatable
             return $query;
         }
 
-        $busqueda = '%'.trim($valor).'%';
+        $busqueda = '%' . trim($valor) . '%';
 
         // Utilizado ese whereRaw para poder hacer la búsqueda con los 3 campos juntos
         // Eloquent con whereRaw previene de inyección y además tiene la consulta parametrizada
@@ -88,7 +88,7 @@ class Usuario extends Authenticatable
             return $query;
         }
 
-        return $query->where('email', 'like', '%'.trim($valor).'%');
+        return $query->where('email', 'like', '%' . trim($valor) . '%');
     }
 
     /**

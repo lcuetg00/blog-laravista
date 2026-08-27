@@ -43,9 +43,9 @@ class GenerateSitemap extends Command
             ['path' => 'contacto', 'priority' => '0.7', 'changefreq' => 'monthly'],
         ];
 
-        $xml = '<?xml version="1.0" encoding="UTF-8"?>'.PHP_EOL;
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
         $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"';
-        $xml .= ' xmlns:xhtml="http://www.w3.org/1999/xhtml">'.PHP_EOL;
+        $xml .= ' xmlns:xhtml="http://www.w3.org/1999/xhtml">' . PHP_EOL;
 
         foreach ($routes as $route) {
             foreach ($locales as $localeCode => $properties) {
@@ -53,24 +53,24 @@ class GenerateSitemap extends Command
                     ? "{$baseUrl}/{$localeCode}"
                     : "{$baseUrl}/{$localeCode}/{$route['path']}";
 
-                $xml .= '  <url>'.PHP_EOL;
-                $xml .= "    <loc>{$url}</loc>".PHP_EOL;
-                $xml .= "    <changefreq>{$route['changefreq']}</changefreq>".PHP_EOL;
-                $xml .= "    <priority>{$route['priority']}</priority>".PHP_EOL;
+                $xml .= '  <url>' . PHP_EOL;
+                $xml .= "    <loc>{$url}</loc>" . PHP_EOL;
+                $xml .= "    <changefreq>{$route['changefreq']}</changefreq>" . PHP_EOL;
+                $xml .= "    <priority>{$route['priority']}</priority>" . PHP_EOL;
 
                 foreach ($locales as $altLocaleCode => $altProperties) {
                     $altUrl = $route['path'] === ''
                         ? "{$baseUrl}/{$altLocaleCode}"
                         : "{$baseUrl}/{$altLocaleCode}/{$route['path']}";
 
-                    $xml .= "    <xhtml:link rel=\"alternate\" hreflang=\"{$altLocaleCode}\" href=\"{$altUrl}\" />".PHP_EOL;
+                    $xml .= "    <xhtml:link rel=\"alternate\" hreflang=\"{$altLocaleCode}\" href=\"{$altUrl}\" />" . PHP_EOL;
                 }
 
-                $xml .= '  </url>'.PHP_EOL;
+                $xml .= '  </url>' . PHP_EOL;
             }
         }
 
-        $xml .= '</urlset>'.PHP_EOL;
+        $xml .= '</urlset>' . PHP_EOL;
 
         return $xml;
     }

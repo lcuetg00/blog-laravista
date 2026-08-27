@@ -25,8 +25,8 @@ class StoreRoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:125', 'regex:'.ValidacionHelper::REGEX_TEXTO, 'unique:'.config('permission.table_names.roles').',name'],
-            'descripcion' => ['nullable', 'string', 'max:255', 'regex:'.ValidacionHelper::REGEX_TEXTO],
+            'name' => ['required', 'string', 'max:125', 'regex:' . ValidacionHelper::REGEX_TEXTO, 'unique:' . config('permission.table_names.roles') . ',name'],
+            'descripcion' => ['nullable', 'string', 'max:255', 'regex:' . ValidacionHelper::REGEX_TEXTO],
         ];
     }
 

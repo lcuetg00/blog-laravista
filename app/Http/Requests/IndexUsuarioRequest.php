@@ -45,8 +45,8 @@ class IndexUsuarioRequest extends FormRequest
     public function rules(): array
     {
         return array_merge($this->reglasOrdenacion(), [
-            'nombre_completo' => ['nullable', 'string', 'max:255', 'regex:'.ValidacionHelper::REGEX_TEXTO],
-            'email' => ['nullable', 'string', 'max:255', 'regex:'.ValidacionHelper::REGEX_EMAIL],
+            'nombre_completo' => ['nullable', 'string', 'max:255', 'regex:' . ValidacionHelper::REGEX_TEXTO],
+            'email' => ['nullable', 'string', 'max:255', 'regex:' . ValidacionHelper::REGEX_EMAIL],
         ]);
     }
 

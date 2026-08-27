@@ -119,7 +119,7 @@ class PaginaModificacionLivewire extends Component
             $this->pagina->update($datos);
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al actualizar la página', ['exception' => $e]);
 

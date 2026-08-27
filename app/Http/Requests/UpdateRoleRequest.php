@@ -35,10 +35,10 @@ class UpdateRoleRequest extends FormRequest
                 'required',
                 'string',
                 'max:125',
-                'regex:'.ValidacionHelper::REGEX_TEXTO,
+                'regex:' . ValidacionHelper::REGEX_TEXTO,
                 Rule::unique(config('permission.table_names.roles'), 'name')->ignore($rol?->getKey()),
             ],
-            'descripcion' => ['nullable', 'string', 'max:255', 'regex:'.ValidacionHelper::REGEX_TEXTO],
+            'descripcion' => ['nullable', 'string', 'max:255', 'regex:' . ValidacionHelper::REGEX_TEXTO],
         ];
     }
 

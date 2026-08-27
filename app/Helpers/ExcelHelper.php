@@ -30,7 +30,7 @@ class ExcelHelper
 
         // Si el primer carácter es uno de los que Excel interpreta como fórmula, lo neutralizamos con un apóstrofo inicial
         if (in_array($valor[0], ['=', '+', '-', '@'], true)) {
-            return "'".$valor;
+            return "'" . $valor;
         }
 
         return $valor;

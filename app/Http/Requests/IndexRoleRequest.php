@@ -45,7 +45,7 @@ class IndexRoleRequest extends FormRequest
     public function rules(): array
     {
         return array_merge($this->reglasOrdenacion(), [
-            'busqueda' => ['nullable', 'string', 'max:255', 'regex:'.ValidacionHelper::REGEX_TEXTO],
+            'busqueda' => ['nullable', 'string', 'max:255', 'regex:' . ValidacionHelper::REGEX_TEXTO],
         ]);
     }
 
