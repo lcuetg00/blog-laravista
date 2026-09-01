@@ -54,6 +54,9 @@ return [
         'imagen_sin_imagen' => 'Todavía no se ha subido ninguna imagen.',
         'imagen_formatos_ayuda' => 'Formatos permitidos: :formatos. Tamaño máximo: :max MB.',
     ],
+    'usuarios_cvs' => [
+        'titulo' => 'Currículums',
+    ],
     'roles' => [
         'titulo' => 'Roles',
         'detalle' => 'Detalle del rol',

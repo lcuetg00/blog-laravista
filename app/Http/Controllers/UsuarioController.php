@@ -96,7 +96,7 @@ class UsuarioController extends Controller implements HasMiddleware
             }
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al crear el usuario', ['exception' => $e]);
 
@@ -117,6 +117,20 @@ class UsuarioController extends Controller implements HasMiddleware
     public function show(Usuario $usuario): View
     {
         return view('panel.usuarios.show', [
+            'usuario' => $usuario,
+        ]);
+    }
+
+    /**
+     * Muestra la pantalla de gestión de los CVs del usuario (CVs y sus secciones), resuelto por su ulid público.
+     */
+    #[Middleware('can:' . PermissionHelper::USUARIOS_CVS_LISTADO_PERMISSION)]
+    public function listadoCvs(Usuario $usuario): View
+    {
+        // Precargamos los CVs del usuario junto con sus secciones para evitar N+1 al pintar la pantalla
+        $usuario->loadMissing('usuariosCvs.secciones');
+
+        return view('panel.usuarios.listado-cvs', [
             'usuario' => $usuario,
         ]);
     }
@@ -161,7 +175,7 @@ class UsuarioController extends Controller implements HasMiddleware
             }
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al actualizar el usuario', ['exception' => $e]);
 
@@ -191,7 +205,7 @@ class UsuarioController extends Controller implements HasMiddleware
             $usuario->delete();
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al eliminar el usuario', ['exception' => $e]);
 
@@ -220,7 +234,7 @@ class UsuarioController extends Controller implements HasMiddleware
             }
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al restaurar el usuario', ['exception' => $e]);
 

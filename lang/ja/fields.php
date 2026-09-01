@@ -54,6 +54,9 @@ return [
         'imagen_sin_imagen' => 'まだ画像がアップロードされていません。',
         'imagen_formatos_ayuda' => '許可されている形式：:formatos。最大サイズ：:max MB。',
     ],
+    'usuarios_cvs' => [
+        'titulo' => '履歴書',
+    ],
     'roles' => [
         'titulo' => 'ロール',
         'detalle' => 'ロールの詳細',

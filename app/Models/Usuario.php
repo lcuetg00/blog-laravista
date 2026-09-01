@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -49,6 +50,14 @@ class Usuario extends Authenticatable implements HasMedia
     public function avatarUrl(): ?string
     {
         return $this->getFirstMediaUrl(self::MEDIA_COLLECTION_AVATAR) ?: null;
+    }
+
+    /**
+     * Relación con los CVs del usuario, los más recientes primero.
+     */
+    public function usuariosCvs(): HasMany
+    {
+        return $this->hasMany(UsuarioCv::class)->orderByDesc('id');
     }
 
     /**

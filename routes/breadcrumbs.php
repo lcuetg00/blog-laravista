@@ -57,6 +57,12 @@ Breadcrumbs::for('panel.usuarios.edit', function (BreadcrumbTrail $trail, $usuar
     $trail->push(trans('actions.edit'), route('panel.usuarios.edit', $usuario));
 });
 
+// Inicio > Usuarios > [Nombre completo] > CVs
+Breadcrumbs::for('panel.usuarios.cvs', function (BreadcrumbTrail $trail, $usuario) {
+    $trail->parent('panel.usuarios.show', $usuario);
+    $trail->push(trans('fields.usuarios_cvs.titulo'), route('panel.usuarios.cvs', $usuario));
+});
+
 // Inicio > Roles
 Breadcrumbs::for('panel.roles.index', function (BreadcrumbTrail $trail) {
     $trail->parent('home');

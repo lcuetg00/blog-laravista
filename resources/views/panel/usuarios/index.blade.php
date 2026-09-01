@@ -57,6 +57,12 @@
                                 aria-label="{{ trans('actions.show') }}" data-popup="{{ trans('actions.show') }}">
                                 <i class="fa-solid fa-eye" aria-hidden="true"></i>
                             </a>
+                            @can(\App\Helpers\PermissionHelper::USUARIOS_CVS_LISTADO_PERMISSION)
+                                <a href="{{ route('panel.usuarios.cvs', $usuario) }}" class="action-item text-green popup me-2"
+                                    aria-label="{{ trans('actions.manage_cvs') }}" data-popup="{{ trans('actions.manage_cvs') }}">
+                                    <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+                                </a>
+                            @endcan
                             @if (UsuarioHelper::puedeModificarUsuario(auth()->user(), $usuario))
                                 <a href="{{ route('panel.usuarios.edit', $usuario) }}"
                                     class="action-item text-yellow popup me-2" aria-label="{{ trans('actions.edit') }}"

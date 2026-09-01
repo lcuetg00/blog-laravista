@@ -19,6 +19,7 @@ return [
     'edit' => '編集',
     'show' => '表示',
     'delete' => '削除',
+    'manage_cvs' => '履歴書を管理',
     'save' => '保存',
     'accept' => '承諾',
     'cancel' => 'キャンセル',

@@ -19,6 +19,7 @@ return [
     'edit' => 'Edit',
     'show' => 'View',
     'delete' => 'Delete',
+    'manage_cvs' => 'Manage résumés',
     'save' => 'Save',
     'accept' => 'Accept',
     'cancel' => 'Cancel',

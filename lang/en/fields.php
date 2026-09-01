@@ -54,6 +54,9 @@ return [
         'imagen_sin_imagen' => 'No image has been uploaded yet.',
         'imagen_formatos_ayuda' => 'Allowed formats: :formatos. Maximum size: :max MB.',
     ],
+    'usuarios_cvs' => [
+        'titulo' => 'Résumés',
+    ],
     'roles' => [
         'titulo' => 'Roles',
         'detalle' => 'Role details',

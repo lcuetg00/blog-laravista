@@ -19,6 +19,7 @@ return [
     'edit' => 'Editar',
     'show' => 'Ver',
     'delete' => 'Eliminar',
+    'manage_cvs' => 'Gestionar CVs',
     'save' => 'Guardar',
     'accept' => 'Aceptar',
     'cancel' => 'Cancelar',
