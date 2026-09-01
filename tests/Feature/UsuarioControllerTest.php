@@ -10,7 +10,9 @@ use App\Models\Usuario;
 use Database\Seeders\PermissionSeeder;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter;
 use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
@@ -170,6 +172,43 @@ class UsuarioControllerTest extends TestCase
     }
 
     #[Test]
+    public function crea_un_usuario_con_una_imagen_valida_y_la_guarda_como_avatar(): void
+    {
+        Storage::fake('public');
+        $usuario = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CREAR_PERMISSION);
+
+        $this->actingAs($usuario)
+            ->post(route('panel.usuarios.store'), [
+                'nombre' => 'Con',
+                'primer_apellido' => 'Imagen',
+                'email' => 'conimagen@ejemplo.test',
+                'imagen' => UploadedFile::fake()->image('avatar.jpg'),
+            ])
+            ->assertRedirect(route('panel.usuarios.index'))
+            ->assertSessionHas('success');
+
+        $nuevo = Usuario::where('email', 'conimagen@ejemplo.test')->first();
+        $this->assertNotNull($nuevo->avatarUrl());
+    }
+
+    #[Test]
+    public function no_crea_un_usuario_con_una_imagen_de_formato_no_permitido(): void
+    {
+        $usuario = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CREAR_PERMISSION);
+
+        $this->actingAs($usuario)
+            ->post(route('panel.usuarios.store'), [
+                'nombre' => 'Sin',
+                'primer_apellido' => 'Formato',
+                'email' => 'malaimagen@ejemplo.test',
+                'imagen' => UploadedFile::fake()->create('documento.pdf', 10, 'application/pdf'),
+            ])
+            ->assertSessionHasErrors('imagen');
+
+        $this->assertDatabaseMissing('usuarios', ['email' => 'malaimagen@ejemplo.test']);
+    }
+
+    #[Test]
     public function no_crea_un_usuario_sin_email(): void
     {
         $usuario = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CREAR_PERMISSION);
@@ -287,6 +326,26 @@ class UsuarioControllerTest extends TestCase
             'nombre' => 'Nombre nuevo',
             'email' => 'actualizado@ejemplo.test',
         ]);
+    }
+
+    #[Test]
+    public function un_admin_actualiza_la_imagen_de_un_usuario_gestionable(): void
+    {
+        Storage::fake('public');
+        $admin = $this->usuarioConRol(RoleEnum::ADMIN);
+        $objetivo = $this->usuarioConRol(RoleEnum::USUARIO);
+
+        $this->actingAs($admin)
+            ->put(route('panel.usuarios.update', $objetivo), [
+                'nombre' => $objetivo->nombre,
+                'primer_apellido' => $objetivo->primer_apellido,
+                'email' => $objetivo->email,
+                'imagen' => UploadedFile::fake()->image('avatar.png'),
+            ])
+            ->assertRedirect(route('panel.usuarios.index'))
+            ->assertSessionHas('success');
+
+        $this->assertNotNull($objetivo->fresh()->avatarUrl());
     }
 
     #[Test]

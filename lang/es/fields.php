@@ -17,6 +17,7 @@ return [
         'clave' => 'Clave',
         'titulo' => 'Título',
         'activo' => 'Activa',
+        'imagen' => 'Imagen',
     ],
     'password_rules' => [
         'min_length' => 'Mínimo 8 caracteres',
@@ -49,6 +50,9 @@ return [
         'datos' => 'Datos del usuario',
         'cambio_password' => 'Cambio de contraseña',
         'password_opcional_aviso' => 'Si no introduce una contraseña, se generará una aleatoria. El usuario tendrá que cambiar la contraseña con un mensaje al correo electrónico en la opción de «He olvidado mi contraseña».',
+        'imagen_actual' => 'Imagen actual',
+        'imagen_sin_imagen' => 'Todavía no se ha subido ninguna imagen.',
+        'imagen_formatos_ayuda' => 'Formatos permitidos: :formatos. Tamaño máximo: :max MB.',
     ],
     'roles' => [
         'titulo' => 'Roles',

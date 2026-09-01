@@ -17,18 +17,39 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasRoles;
 
 #[Table('usuarios')]
 #[Hidden(['password', 'remember_token'])]
 #[Fillable(['nombre', 'primer_apellido', 'segundo_apellido', 'email', 'password'])]
-class Usuario extends Authenticatable
+class Usuario extends Authenticatable implements HasMedia
 {
     /** @use HasFactory<UsuarioFactory> */
-    use HasFactory, HasPublicUlid, HasRoles, Notifiable, SoftDeletes;
+    use HasFactory, HasPublicUlid, HasRoles, InteractsWithMedia, Notifiable, SoftDeletes;
 
     // Usado por trans_choice en mensajes con :modelo
     public const ChoiceEnum CHOICE = ChoiceEnum::MASCULINO;
+
+    /** Colección de medialibrary para la imagen de perfil (avatar) del usuario */
+    public const MEDIA_COLLECTION_AVATAR = 'avatar';
+
+    /**
+     * Registra la colección de medialibrary del avatar, único fichero que reemplaza al anterior al subir uno nuevo.
+     */
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection(self::MEDIA_COLLECTION_AVATAR)->singleFile();
+    }
+
+    /**
+     * Devuelve la URL del avatar del usuario, o null si todavía no ha subido ninguno.
+     */
+    public function avatarUrl(): ?string
+    {
+        return $this->getFirstMediaUrl(self::MEDIA_COLLECTION_AVATAR) ?: null;
+    }
 
     /**
      * Get the attributes that should be cast.

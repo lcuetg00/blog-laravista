@@ -17,6 +17,7 @@ return [
         'clave' => 'キー',
         'titulo' => 'タイトル',
         'activo' => '有効',
+        'imagen' => '画像',
     ],
     'password_rules' => [
         'min_length' => '8文字以上',
@@ -49,6 +50,9 @@ return [
         'datos' => 'ユーザー情報',
         'cambio_password' => 'パスワードの変更',
         'password_opcional_aviso' => 'パスワードを入力しない場合、ランダムなパスワードが生成されます。ユーザーは「パスワードをお忘れですか」から届くメールのメッセージでパスワードを変更する必要があります。',
+        'imagen_actual' => '現在の画像',
+        'imagen_sin_imagen' => 'まだ画像がアップロードされていません。',
+        'imagen_formatos_ayuda' => '許可されている形式：:formatos。最大サイズ：:max MB。',
     ],
     'roles' => [
         'titulo' => 'ロール',

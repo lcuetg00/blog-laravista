@@ -76,6 +76,7 @@ class UsuarioController extends Controller implements HasMiddleware
     public function store(StoreUsuarioRequest $request): RedirectResponse
     {
         $datos = $request->validated();
+        unset($datos['imagen']);
 
         // Si no llega contraseña generamos una aleatoria fuerte; el usuario deberá usar el flujo de recuperación
         if (empty($datos['password'])) {
@@ -87,10 +88,15 @@ class UsuarioController extends Controller implements HasMiddleware
 
             // Creamos el usuario; el trait HasPublicUlid genera automáticamente el ulid
             // y el cast "hashed" del modelo se encarga de hashear la contraseña
-            Usuario::create($datos);
+            $nuevoUsuario = Usuario::create($datos);
+
+            // Si se ha subido una imagen la guardamos como avatar (colección singleFile: sustituye a cualquier anterior)
+            if ($request->hasFile('imagen')) {
+                $nuevoUsuario->addMediaFromRequest('imagen')->toMediaCollection(Usuario::MEDIA_COLLECTION_AVATAR);
+            }
 
             DB::commit();
-        } catch (\Exception|\Error $e) {
+        } catch (\Exception | \Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al crear el usuario', ['exception' => $e]);
 
@@ -136,6 +142,7 @@ class UsuarioController extends Controller implements HasMiddleware
     public function update(UpdateUsuarioRequest $request, Usuario $usuario): RedirectResponse
     {
         $datos = $request->validated();
+        unset($datos['imagen']);
 
         // Si no llega contraseña nueva, la quitamos del array para no sobrescribirla con vacío
         if (empty($datos['password'])) {
@@ -148,8 +155,13 @@ class UsuarioController extends Controller implements HasMiddleware
             // Actualizamos el usuario con los datos válidos
             $usuario->update($datos);
 
+            // Si se ha subido una imagen nueva, sustituye a la anterior (colección singleFile)
+            if ($request->hasFile('imagen')) {
+                $usuario->addMediaFromRequest('imagen')->toMediaCollection(Usuario::MEDIA_COLLECTION_AVATAR);
+            }
+
             DB::commit();
-        } catch (\Exception|\Error $e) {
+        } catch (\Exception | \Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al actualizar el usuario', ['exception' => $e]);
 
@@ -179,7 +191,7 @@ class UsuarioController extends Controller implements HasMiddleware
             $usuario->delete();
 
             DB::commit();
-        } catch (\Exception|\Error $e) {
+        } catch (\Exception | \Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al eliminar el usuario', ['exception' => $e]);
 
@@ -208,7 +220,7 @@ class UsuarioController extends Controller implements HasMiddleware
             }
 
             DB::commit();
-        } catch (\Exception|\Error $e) {
+        } catch (\Exception | \Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al restaurar el usuario', ['exception' => $e]);
 

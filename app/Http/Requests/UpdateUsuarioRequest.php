@@ -6,7 +6,9 @@ namespace App\Http\Requests;
 
 use App\Helpers\PermissionHelper;
 use App\Helpers\UsuarioHelper;
+use App\Helpers\ValidacionHelper;
 use App\Models\Usuario;
+use App\Rules\MimeTypeImagenValido;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -46,6 +48,13 @@ class UpdateUsuarioRequest extends FormRequest
                 Rule::unique('usuarios', 'email')->ignore($usuario?->getKey()),
             ],
             'password' => ['nullable', 'confirmed', Password::defaults()],
+            'imagen' => [
+                'nullable',
+                'file',
+                'mimes:' . implode(',', array_keys(ValidacionHelper::MIME_TYPES_IMAGEN)),
+                new MimeTypeImagenValido,
+                'max:' . ValidacionHelper::MAX_KB_IMAGEN,
+            ],
         ];
     }
 
@@ -60,6 +69,7 @@ class UpdateUsuarioRequest extends FormRequest
             'segundo_apellido' => trans('fields.input.segundo_apellido'),
             'email' => trans('fields.input.email'),
             'password' => trans('fields.input.password'),
+            'imagen' => trans('fields.input.imagen'),
         ];
     }
 }

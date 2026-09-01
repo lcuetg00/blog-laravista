@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use App\Helpers\PermissionHelper;
+use App\Helpers\ValidacionHelper;
+use App\Rules\MimeTypeImagenValido;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
@@ -30,6 +32,13 @@ class StoreUsuarioRequest extends FormRequest
             'segundo_apellido' => ['nullable', 'string', 'max:70'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:usuarios,email'],
             'password' => ['nullable', 'confirmed', Password::defaults()],
+            'imagen' => [
+                'nullable',
+                'file',
+                'mimes:' . implode(',', array_keys(ValidacionHelper::MIME_TYPES_IMAGEN)),
+                new MimeTypeImagenValido,
+                'max:' . ValidacionHelper::MAX_KB_IMAGEN,
+            ],
         ];
     }
 
@@ -44,6 +53,7 @@ class StoreUsuarioRequest extends FormRequest
             'segundo_apellido' => trans('fields.input.segundo_apellido'),
             'email' => trans('fields.input.email'),
             'password' => trans('fields.input.password'),
+            'imagen' => trans('fields.input.imagen'),
         ];
     }
 }

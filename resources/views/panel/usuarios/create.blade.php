@@ -5,7 +5,7 @@
 @section('breadcrumbs', Breadcrumbs::render('panel.usuarios.create'))
 
 @section('content')
-    <form method="POST" action="{{ route('panel.usuarios.store') }}">
+    <form method="POST" action="{{ route('panel.usuarios.store') }}" enctype="multipart/form-data">
         @csrf
 
         <div class="card shadow">
@@ -45,6 +45,21 @@
                 <p class="small text-muted mb-0 mt-2">
                     {{ trans('fields.usuarios.password_opcional_aviso') }}
                 </p>
+
+                <div class="row g-3 mt-1">
+                    <div class="col-12 col-md-4">
+                        <label for="imagen" class="form-label">{{ trans('fields.input.imagen') }}</label>
+                        <input type="file" accept="image/*" id="imagen" name="imagen"
+                            class="form-control @error('imagen') is-invalid @enderror"
+                            @error('imagen') aria-describedby="imagen-error" @enderror>
+                        @error('imagen')
+                            <div id="imagen-error" class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                        <div class="form-text">
+                            {{ trans('fields.usuarios.imagen_formatos_ayuda', ['formatos' => implode(', ', array_keys(\App\Helpers\ValidacionHelper::MIME_TYPES_IMAGEN)), 'max' => \App\Helpers\ValidacionHelper::MAX_KB_IMAGEN / 1024]) }}
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="card-footer d-flex justify-content-end">

@@ -1266,6 +1266,33 @@
     text-overflow: ellipsis;
   }
 
+  /* Columna del avatar en tablas: ancho fijo pequeño, igual que col-acciones pero para la miniatura circular */
+  .col-avatar {
+    width: 76px;
+    min-width: 76px;
+    max-width: 76px;
+  }
+
+  /* Avatar redondo del listado de usuarios (o el logo de la aplicación cuando no hay imagen subida) */
+  .avatar-tabla {
+    display: block;
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    transition: all 0.3s ease;
+  }
+
+  .avatar-tabla:hover {
+    transform: scale(1.3);
+  }
+
+  /* Vista previa redonda del avatar actual en el formulario de edición de usuario */
+  .avatar-preview {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+  }
+
   /* Icono del bloque HERO en el preview: tope de ancho y alto proporcional */
   .bloque-preview-icono {
     max-width: 64px;
