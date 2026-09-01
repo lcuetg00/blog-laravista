@@ -1,5 +1,8 @@
-@extends('errors::minimal')
+@extends('public.layouts.app')
 
-@section('title', __('Forbidden'))
-@section('code', '403')
-@section('message', __($exception->getMessage() ?: 'Forbidden'))
+@section('content')
+    @include('errors.partials.content', [
+        'titulo' => trans('public.errores.403.titulo'),
+        'descripcion' => trans('public.errores.403.descripcion'),
+    ])
+@endsection

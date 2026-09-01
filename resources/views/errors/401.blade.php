@@ -1,5 +1,8 @@
-@extends('errors::minimal')
+@extends('public.layouts.app')
 
-@section('title', __('Unauthorized'))
-@section('code', '401')
-@section('message', __('Unauthorized'))
+@section('content')
+    @include('errors.partials.content', [
+        'titulo' => trans('public.errores.401.titulo'),
+        'descripcion' => trans('public.errores.401.descripcion'),
+    ])
+@endsection

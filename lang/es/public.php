@@ -53,4 +53,38 @@ return [
         'descripcion' => 'Condiciones de uso que regulan el acceso y la navegación por este sitio web.',
         'contenido' => 'El acceso a este sitio implica la aceptación de estas condiciones de uso. El contenido se ofrece con fines informativos y puede modificarse en cualquier momento sin previo aviso. No se garantiza la disponibilidad continuada del sitio ni la ausencia de errores en su contenido.',
     ],
+    'errores' => [
+        '401' => [
+            'titulo' => 'Acceso no autorizado',
+            'descripcion' => 'Necesita iniciar sesión para acceder a esta página.',
+        ],
+        '402' => [
+            'titulo' => 'Pago requerido',
+            'descripcion' => 'Se requiere completar un pago para acceder a este contenido.',
+        ],
+        '403' => [
+            'titulo' => 'Acceso prohibido',
+            'descripcion' => 'No tiene permisos para acceder a esta página.',
+        ],
+        '404' => [
+            'titulo' => 'Página no encontrada',
+            'descripcion' => 'La página que busca no existe o ha sido movida.',
+        ],
+        '419' => [
+            'titulo' => 'Página expirada',
+            'descripcion' => 'Su sesión ha expirado. Por favor, recargue la página e inténtelo de nuevo.',
+        ],
+        '429' => [
+            'titulo' => 'Demasiadas peticiones',
+            'descripcion' => 'Ha realizado demasiadas peticiones en poco tiempo. Por favor, espere unos instantes e inténtelo de nuevo.',
+        ],
+        '500' => [
+            'titulo' => 'Error del servidor',
+            'descripcion' => 'Se ha producido un error inesperado. Estamos trabajando para solucionarlo.',
+        ],
+        '503' => [
+            'titulo' => 'Servicio no disponible',
+            'descripcion' => 'El sitio se encuentra en mantenimiento. Vuelva a intentarlo en unos minutos.',
+        ],
+    ],
 ];

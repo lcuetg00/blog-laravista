@@ -1,5 +1,8 @@
-@extends('errors::minimal')
+@extends('public.layouts.app')
 
-@section('title', __('Page Expired'))
-@section('code', '419')
-@section('message', __('Page Expired'))
+@section('content')
+    @include('errors.partials.content', [
+        'titulo' => trans('public.errores.419.titulo'),
+        'descripcion' => trans('public.errores.419.descripcion'),
+    ])
+@endsection

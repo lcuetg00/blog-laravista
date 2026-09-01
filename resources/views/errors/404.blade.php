@@ -1,5 +1,8 @@
-@extends('errors::minimal')
+@extends('public.layouts.app')
 
-@section('title', __('Not Found'))
-@section('code', '404')
-@section('message', __('Not Found'))
+@section('content')
+    @include('errors.partials.content', [
+        'titulo' => trans('public.errores.404.titulo'),
+        'descripcion' => trans('public.errores.404.descripcion'),
+    ])
+@endsection

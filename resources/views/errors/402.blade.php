@@ -1,5 +1,8 @@
-@extends('errors::minimal')
+@extends('public.layouts.app')
 
-@section('title', __('Payment Required'))
-@section('code', '402')
-@section('message', __('Payment Required'))
+@section('content')
+    @include('errors.partials.content', [
+        'titulo' => trans('public.errores.402.titulo'),
+        'descripcion' => trans('public.errores.402.descripcion'),
+    ])
+@endsection

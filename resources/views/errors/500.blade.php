@@ -1,5 +1,8 @@
-@extends('errors::minimal')
+@extends('public.layouts.app')
 
-@section('title', __('Server Error'))
-@section('code', '500')
-@section('message', __('Server Error'))
+@section('content')
+    @include('errors.partials.content', [
+        'titulo' => trans('public.errores.500.titulo'),
+        'descripcion' => trans('public.errores.500.descripcion'),
+    ])
+@endsection

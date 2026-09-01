@@ -53,4 +53,38 @@ return [
         'descripcion' => 'Terms of use that govern access to and browsing of this website.',
         'contenido' => 'Accessing this site implies acceptance of these terms of use. The content is provided for informational purposes and may be changed at any time without prior notice. The continued availability of the site and the absence of errors in its content are not guaranteed.',
     ],
+    'errores' => [
+        '401' => [
+            'titulo' => 'Unauthorized access',
+            'descripcion' => 'You need to sign in to access this page.',
+        ],
+        '402' => [
+            'titulo' => 'Payment required',
+            'descripcion' => 'A payment is required to access this content.',
+        ],
+        '403' => [
+            'titulo' => 'Forbidden',
+            'descripcion' => 'You do not have permission to access this page.',
+        ],
+        '404' => [
+            'titulo' => 'Page not found',
+            'descripcion' => 'The page you are looking for does not exist or has been moved.',
+        ],
+        '419' => [
+            'titulo' => 'Page expired',
+            'descripcion' => 'Your session has expired. Please reload the page and try again.',
+        ],
+        '429' => [
+            'titulo' => 'Too many requests',
+            'descripcion' => 'You have made too many requests in a short time. Please wait a moment and try again.',
+        ],
+        '500' => [
+            'titulo' => 'Server error',
+            'descripcion' => 'An unexpected error has occurred. We are working to fix it.',
+        ],
+        '503' => [
+            'titulo' => 'Service unavailable',
+            'descripcion' => 'The site is currently under maintenance. Please try again in a few minutes.',
+        ],
+    ],
 ];
