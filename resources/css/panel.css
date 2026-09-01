@@ -1,3 +1,6 @@
+/* Fuentes (Bebas Neue, Montserrat, Noto Sans JP) autoalojadas: ver resources/css/fonts.css para las URLs de origen */
+@import './fonts.css';
+
 @import './panel-light-theme.css';
 @import './panel-dark-theme.css';
 

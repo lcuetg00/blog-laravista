@@ -1,0 +1,70 @@
+/*
+    Fuentes autoalojadas (descargadas de Google Fonts, licencia SIL Open Font License 1.1 para las tres).
+    Página de origen de cada familia:
+    - Bebas Neue: https://fonts.google.com/specimen/Bebas+Neue
+    - Montserrat: https://fonts.google.com/specimen/Montserrat
+    - Noto Sans JP (caracteres japoneses: kanji, hiragana, katakana): https://fonts.google.com/noto/specimen/Noto+Sans+JP
+*/
+
+/* Origen: https://fonts.gstatic.com/s/bebasneue/v16/JTUSjIg69CK48gW7PXooxW0.woff */
+@font-face {
+    font-family: 'Bebas Neue';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/bebas-neue/BebasNeue-400.woff') format('woff');
+}
+
+/* Origen: https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew9.woff */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/montserrat/Montserrat-400.woff') format('woff');
+}
+
+/* Origen: https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtZ6Ew9.woff */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/montserrat/Montserrat-500.woff') format('woff');
+}
+
+/* Origen: https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w9.woff */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../fonts/montserrat/Montserrat-600.woff') format('woff');
+}
+
+/* Origen: https://fonts.gstatic.com/s/montserrat/v31/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCuM70w9.woff */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/montserrat/Montserrat-700.woff') format('woff');
+}
+
+/* Origen: https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400&display=swap (peso 400, sin subdividir por rango unicode) */
+@font-face {
+    font-family: 'Noto Sans JP';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/noto-sans-jp/NotoSansJP-400.woff') format('woff');
+}
+
+/* Origen: https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&display=swap (peso 700, sin subdividir por rango unicode) */
+@font-face {
+    font-family: 'Noto Sans JP';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/noto-sans-jp/NotoSansJP-700.woff') format('woff');
+}
