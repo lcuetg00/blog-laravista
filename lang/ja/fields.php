@@ -18,6 +18,8 @@ return [
         'titulo' => 'タイトル',
         'activo' => '有効',
         'imagen' => '画像',
+        'creado_en' => '作成日',
+        'actualizado_en' => '最終更新日',
     ],
     'password_rules' => [
         'min_length' => '8文字以上',
@@ -29,6 +31,8 @@ return [
         'usuario' => 'ユーザー',
         'rol' => 'ロール',
         'pagina' => 'ページ',
+        'usuario_cv' => '履歴書',
+        'usuario_cv_seccion' => 'セクション',
     ],
     'placeholders' => [
         'seleccione_opcion' => 'オプションを選択してください',
@@ -56,6 +60,38 @@ return [
     ],
     'usuarios_cvs' => [
         'titulo' => '履歴書',
+        'singular' => '履歴書',
+        'nombre' => '履歴書の名前',
+        'crear_cv' => '新しい履歴書',
+        'sin_cvs' => 'このユーザーにはまだ履歴書がありません。',
+        'modal' => [
+            'eliminar_confirm_title' => 'この履歴書を削除しますか？',
+            'eliminar_confirm_description' => 'そのすべてのセクションも削除されます。',
+            'eliminar_confirm_registro_label' => '削除するレコード：',
+            'descartar_cambios_titulo' => '保存せずに続けますか？',
+            'descartar_cambios_descripcion' => '続行すると、行った変更は失われます。',
+        ],
+        'secciones' => [
+            'titulo' => 'セクション',
+            'singular' => 'セクション',
+            'sin_secciones' => 'この履歴書にはまだセクションがありません。',
+            'seleccione_seccion' => 'リストからセクションを選択すると、内容を確認・編集できます。',
+            'no_hay_secciones' => '作成されたセクションはありません',
+            'sin_titulo' => 'タイトルのないセクション',
+            'modal' => [
+                'eliminar_titulo' => 'セクションを削除',
+                'eliminar_confirm' => 'このセクションを削除しますか？',
+            ],
+            'imagenes' => [
+                'titulo' => '画像ギャラリー',
+                'sin_imagen' => 'まだ画像がアップロードされていません。',
+                'borrar' => '画像を削除',
+                'borrada' => '画像を削除しました。',
+                'modal' => [
+                    'borrar_confirmar' => 'この画像を削除しますか？',
+                ],
+            ],
+        ],
     ],
     'roles' => [
         'titulo' => 'ロール',

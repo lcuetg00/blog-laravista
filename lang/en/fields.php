@@ -18,6 +18,8 @@ return [
         'titulo' => 'Title',
         'activo' => 'Active',
         'imagen' => 'Image',
+        'creado_en' => 'Creation date',
+        'actualizado_en' => 'Last modified',
     ],
     'password_rules' => [
         'min_length' => 'At least 8 characters',
@@ -29,6 +31,8 @@ return [
         'usuario' => 'User',
         'rol' => 'Role',
         'pagina' => 'Page',
+        'usuario_cv' => 'Résumé',
+        'usuario_cv_seccion' => 'Section',
     ],
     'placeholders' => [
         'seleccione_opcion' => 'Select an option',
@@ -56,6 +60,38 @@ return [
     ],
     'usuarios_cvs' => [
         'titulo' => 'Résumés',
+        'singular' => 'résumé',
+        'nombre' => 'Résumé name',
+        'crear_cv' => 'New résumé',
+        'sin_cvs' => 'This user does not have any résumé yet.',
+        'modal' => [
+            'eliminar_confirm_title' => 'Do you want to delete this résumé?',
+            'eliminar_confirm_description' => 'All of its sections will also be deleted.',
+            'eliminar_confirm_registro_label' => 'Record to be deleted:',
+            'descartar_cambios_titulo' => 'Continue without saving?',
+            'descartar_cambios_descripcion' => 'The changes you made will be lost if you continue.',
+        ],
+        'secciones' => [
+            'titulo' => 'Sections',
+            'singular' => 'section',
+            'sin_secciones' => 'This résumé does not have any section yet.',
+            'seleccione_seccion' => 'Select a section from the list to view and edit its details.',
+            'no_hay_secciones' => 'No sections created',
+            'sin_titulo' => 'Untitled section',
+            'modal' => [
+                'eliminar_titulo' => 'Delete section',
+                'eliminar_confirm' => 'Do you want to delete this section?',
+            ],
+            'imagenes' => [
+                'titulo' => 'Image gallery',
+                'sin_imagen' => 'No image has been uploaded yet.',
+                'borrar' => 'Delete image',
+                'borrada' => 'Image deleted successfully.',
+                'modal' => [
+                    'borrar_confirmar' => 'Do you want to delete this image?',
+                ],
+            ],
+        ],
     ],
     'roles' => [
         'titulo' => 'Roles',

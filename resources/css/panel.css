@@ -426,12 +426,18 @@
     display: none !important;
   }
 
-  /* Columna de acciones de las tablas: ancho fijo independientemente del contenido del resto */
+  /* Columna de acciones de las tablas: ancho fijo independientemente del contenido del resto (160px: hasta 4 iconos, como en el listado de usuarios) */
   .col-acciones {
-    width: 120px;
-    min-width: 120px;
-    max-width: 120px;
+    width: 160px;
+    min-width: 160px;
+    max-width: 160px;
     white-space: nowrap;
+  }
+
+  /* Fila seleccionada en una barra lateral tipo list-group (p. ej. secciones del CV): color secundario del panel en vez del azul por defecto de Bootstrap */
+  .list-group-item.active {
+    --bs-list-group-active-bg: var(--secondary);
+    --bs-list-group-active-border-color: var(--secondary-strong);
   }
 
   /* Icono de acción en tablas: sombra al pasar el cursor para dar feedback al usuario */
@@ -923,6 +929,11 @@
 
   /* Escritorio (≥768px): sidebar sticky, cabecera visible, modo colapsado y popup-sidebar */
   @media (min-width: 768px) {
+    /* Fila maestro-detalle del modal de secciones del CV: alto fijo solo en escritorio, en móvil fluye con su contenido */
+    .secciones-modal-row {
+      height: 40vh;
+    }
+
     .sidebar {
       position: sticky;
       top: 0;
@@ -1050,6 +1061,11 @@
 
     .offcanvas-md:not(.show) {
       display: none;
+    }
+
+    /* Listado de secciones del CV: alto máximo con scroll propio en vez de ocupar toda la pantalla */
+    .secciones-modal-lista {
+      max-height: 300px;
     }
   }
 

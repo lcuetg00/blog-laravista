@@ -19,6 +19,7 @@ return [
     'edit' => 'Edit',
     'show' => 'View',
     'delete' => 'Delete',
+    'discard_changes' => 'Discard changes',
     'manage_cvs' => 'Manage résumés',
     'save' => 'Save',
     'accept' => 'Accept',
@@ -29,6 +30,7 @@ return [
     'filter_submit' => 'Search',
     'clear_filters' => 'Clear filters',
     'clear_ordenacion' => 'Clear sort',
+    'drag_reorder' => 'Press and drag to reorder',
 
     // Generic delete confirmation modal
     'delete_confirm_title' => 'Do you want to delete this record?',

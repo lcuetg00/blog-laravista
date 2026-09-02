@@ -8,6 +8,7 @@ use App\Enums\ChoiceEnum;
 use App\Traits\HasPublicUlid;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,6 +28,14 @@ class UsuarioCvSeccion extends Model implements HasMedia
 
     /** Colección de medialibrary para la galería de imágenes de la sección (varias imágenes, sin singleFile) */
     public const MEDIA_COLLECTION_GALLERY = 'gallery';
+
+    /**
+     * Ordena por id descendente por defecto en todas las queries del modelo (desempate cuando no se ordena explícitamente por 'orden').
+     */
+    protected static function booted(): void
+    {
+        static::addGlobalScope('ordenPorId', fn (Builder $query) => $query->orderByDesc('id'));
+    }
 
     /**
      * Registra la colección de medialibrary de la galería, admite varias imágenes por sección.

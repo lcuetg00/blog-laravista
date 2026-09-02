@@ -37,9 +37,9 @@ class UpdateUsuarioRequest extends FormRequest
         $usuario = $this->route('usuario');
 
         return [
-            'nombre' => ['required', 'string', 'max:70'],
-            'primer_apellido' => ['required', 'string', 'max:70'],
-            'segundo_apellido' => ['nullable', 'string', 'max:70'],
+            'nombre' => ['required', 'string', 'max:70', 'regex:' . ValidacionHelper::REGEX_TEXTO],
+            'primer_apellido' => ['required', 'string', 'max:70', 'regex:' . ValidacionHelper::REGEX_TEXTO],
+            'segundo_apellido' => ['nullable', 'string', 'max:70', 'regex:' . ValidacionHelper::REGEX_TEXTO],
             'email' => [
                 'required',
                 'string',

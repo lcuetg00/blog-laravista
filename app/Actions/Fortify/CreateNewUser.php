@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Helpers\ValidacionHelper;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -23,9 +24,9 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input): Usuario
     {
         Validator::make($input, [
-            'nombre' => ['required', 'string', 'max:70'],
-            'primer_apellido' => ['required', 'string', 'max:70'],
-            'segundo_apellido' => ['nullable', 'string', 'max:70'],
+            'nombre' => ['required', 'string', 'max:70', 'regex:' . ValidacionHelper::REGEX_TEXTO],
+            'primer_apellido' => ['required', 'string', 'max:70', 'regex:' . ValidacionHelper::REGEX_TEXTO],
+            'segundo_apellido' => ['nullable', 'string', 'max:70', 'regex:' . ValidacionHelper::REGEX_TEXTO],
             'email' => [
                 'required',
                 'string',

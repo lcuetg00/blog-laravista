@@ -18,6 +18,8 @@ return [
         'titulo' => 'Título',
         'activo' => 'Activa',
         'imagen' => 'Imagen',
+        'creado_en' => 'Fecha de creación',
+        'actualizado_en' => 'Última modificación',
     ],
     'password_rules' => [
         'min_length' => 'Mínimo 8 caracteres',
@@ -29,6 +31,8 @@ return [
         'usuario' => 'Usuario',
         'rol' => 'Rol',
         'pagina' => 'Página',
+        'usuario_cv' => 'Currículum',
+        'usuario_cv_seccion' => 'Sección',
     ],
     'placeholders' => [
         'seleccione_opcion' => 'Seleccione una opción',
@@ -56,6 +60,38 @@ return [
     ],
     'usuarios_cvs' => [
         'titulo' => 'Currículums',
+        'singular' => 'currículum',
+        'nombre' => 'Nombre del CV',
+        'crear_cv' => 'Nuevo CV',
+        'sin_cvs' => 'Este usuario todavía no tiene ningún CV.',
+        'modal' => [
+            'eliminar_confirm_title' => '¿Desea eliminar este CV?',
+            'eliminar_confirm_description' => 'Se eliminarán también todas sus secciones.',
+            'eliminar_confirm_registro_label' => 'Registro que se procederá a eliminar:',
+            'descartar_cambios_titulo' => '¿Continuar sin guardar?',
+            'descartar_cambios_descripcion' => 'Los cambios que ha realizado se perderán si continúa.',
+        ],
+        'secciones' => [
+            'titulo' => 'Secciones',
+            'singular' => 'sección',
+            'sin_secciones' => 'Este CV todavía no tiene secciones.',
+            'seleccione_seccion' => 'Seleccione una sección de la lista para ver y editar sus datos.',
+            'no_hay_secciones' => 'No hay secciones creadas',
+            'sin_titulo' => 'Sección sin título',
+            'modal' => [
+                'eliminar_titulo' => 'Eliminar sección',
+                'eliminar_confirm' => '¿Desea eliminar esta sección?',
+            ],
+            'imagenes' => [
+                'titulo' => 'Galería de imágenes',
+                'sin_imagen' => 'Todavía no se ha subido ninguna imagen.',
+                'borrar' => 'Borrar imagen',
+                'borrada' => 'Imagen eliminada correctamente.',
+                'modal' => [
+                    'borrar_confirmar' => '¿Desea borrar esta imagen?',
+                ],
+            ],
+        ],
     ],
     'roles' => [
         'titulo' => 'Roles',

@@ -27,9 +27,9 @@ class StoreUsuarioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre' => ['required', 'string', 'max:70'],
-            'primer_apellido' => ['required', 'string', 'max:70'],
-            'segundo_apellido' => ['nullable', 'string', 'max:70'],
+            'nombre' => ['required', 'string', 'max:70', 'regex:' . ValidacionHelper::REGEX_TEXTO],
+            'primer_apellido' => ['required', 'string', 'max:70', 'regex:' . ValidacionHelper::REGEX_TEXTO],
+            'segundo_apellido' => ['nullable', 'string', 'max:70', 'regex:' . ValidacionHelper::REGEX_TEXTO],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:usuarios,email'],
             'password' => ['nullable', 'confirmed', Password::defaults()],
             'imagen' => [

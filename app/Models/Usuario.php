@@ -57,7 +57,7 @@ class Usuario extends Authenticatable implements HasMedia
      */
     public function usuariosCvs(): HasMany
     {
-        return $this->hasMany(UsuarioCv::class)->orderByDesc('id');
+        return $this->hasMany(UsuarioCv::class);
     }
 
     /**

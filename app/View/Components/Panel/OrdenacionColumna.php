@@ -49,23 +49,12 @@ class OrdenacionColumna extends Component
         $clave = $this->columna->value;
         $this->dirActual = $this->actual[$clave] ?? null;
 
-        $this->posicionOrden = $this->calcularPosicionOrden($clave);
+        $this->posicionOrden = OrdenacionHelper::calcularPosicionOrden($this->actual, $clave);
         $this->url = $this->calcularUrlSiguiente($clave);
 
-        $this->calcularEstadoVisual();
-    }
-
-    /**
-     * Devuelve la posición de la columna dentro del orden global según la URL (primero, segundo, ...), o null si no está ordenada.
-     */
-    private function calcularPosicionOrden(string $clave): ?int
-    {
-        if ($this->dirActual === null) {
-            return null;
-        }
-
-        // Devuelvo la posición más 1 (el primero será 1, el segundo 2, ...)
-        return array_search($clave, array_keys($this->actual), true) + 1;
+        // El helper calcula icono, clase, aria-sort y aria-label a partir de la dirección actual (compartido con OrdenacionColumnaLivewire)
+        ['icono' => $this->icono, 'iconoClase' => $this->iconoClase, 'ariaSort' => $this->ariaSort, 'ariaLabel' => $this->ariaLabel]
+            = OrdenacionHelper::calcularEstadoVisual($this->dirActual, $this->etiqueta);
     }
 
     /**
@@ -98,36 +87,6 @@ class OrdenacionColumna extends Component
         }
 
         return request()->url() . ($partes !== [] ? '?' . implode('&', $partes) : '');
-    }
-
-    /**
-     * Asigna icono, claseIcono, ariaSort y ariaLabel según la dirección actual de ordenación.
-     */
-    private function calcularEstadoVisual(): void
-    {
-        if ($this->dirActual === 'asc') {
-            $this->icono = 'fa-arrow-up';
-            $this->iconoClase = 'ordenacion-columna-icon-activo text-secondary';
-            $this->ariaSort = 'ascending';
-            $this->ariaLabel = trans('fields.ordenacion.ordenar_descendente', ['columna' => $this->etiqueta]);
-
-            return;
-        }
-
-        if ($this->dirActual === 'desc') {
-            $this->icono = 'fa-arrow-down';
-            $this->iconoClase = 'ordenacion-columna-icon-activo text-secondary';
-            $this->ariaSort = 'descending';
-            $this->ariaLabel = trans('fields.ordenacion.quitar_ordenacion', ['columna' => $this->etiqueta]);
-
-            return;
-        }
-
-        // Sin orden: mostramos un icono de flechas arriba/abajo como indicador de que la columna es ordenable
-        $this->icono = 'fa-up-down';
-        $this->iconoClase = 'ordenacion-columna-icon-inactivo';
-        $this->ariaSort = 'none';
-        $this->ariaLabel = trans('fields.ordenacion.ordenar_ascendente', ['columna' => $this->etiqueta]);
     }
 
     /**

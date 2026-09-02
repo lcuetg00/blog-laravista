@@ -22,4 +22,20 @@ export function initLivewireBridge() {
         const datos = Array.isArray(evento) ? evento[0] : evento;
         mostrarToast(datos.tipo, datos.mensaje);
     });
+
+    // Cierra el modal de creación/edición del nombre de un CV tras guardarlo correctamente
+    window.Livewire.on('cv-guardado', () => {
+        const modalEl = document.getElementById('modalCv');
+        if (modalEl) {
+            window.bootstrap.Modal.getOrCreateInstance(modalEl).hide();
+        }
+    });
+
+    // Cierra el modal de confirmación de borrado de un CV tras eliminarlo correctamente
+    window.Livewire.on('cv-eliminado', () => {
+        const modalEl = document.getElementById('modalEliminarCv');
+        if (modalEl) {
+            window.bootstrap.Modal.getOrCreateInstance(modalEl).hide();
+        }
+    });
 }

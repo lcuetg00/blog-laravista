@@ -24,7 +24,7 @@
 
 <div class="modal fade" id="confirmModal-{{ $id }}" tabindex="-1"
     aria-labelledby="confirmModalLabel-{{ $id }}" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title h5" id="confirmModalLabel-{{ $id }}">

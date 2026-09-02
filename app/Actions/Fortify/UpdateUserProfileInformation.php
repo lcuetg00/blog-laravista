@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Helpers\ValidacionHelper;
 use App\Models\Usuario;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Validator;
@@ -21,9 +22,9 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     public function update(Usuario $user, array $input): void
     {
         Validator::make($input, [
-            'nombre' => ['required', 'string', 'max:70'],
-            'primer_apellido' => ['required', 'string', 'max:70'],
-            'segundo_apellido' => ['nullable', 'string', 'max:70'],
+            'nombre' => ['required', 'string', 'max:70', 'regex:' . ValidacionHelper::REGEX_TEXTO],
+            'primer_apellido' => ['required', 'string', 'max:70', 'regex:' . ValidacionHelper::REGEX_TEXTO],
+            'segundo_apellido' => ['nullable', 'string', 'max:70', 'regex:' . ValidacionHelper::REGEX_TEXTO],
 
             'email' => [
                 'required',
