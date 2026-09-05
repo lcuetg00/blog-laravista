@@ -236,6 +236,46 @@ class UsuarioCvSeccionesModalLivewireTest extends TestCase
     }
 
     #[Test]
+    public function sanea_el_html_peligroso_de_la_descripcion_al_guardar(): void
+    {
+        $usuarioActivo = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CVS_EDITAR_PERMISSION);
+        $seccion = $this->crearSeccion();
+        $cv = $seccion->usuarioCv;
+
+        Livewire::actingAs($usuarioActivo)
+            ->test(UsuarioCvSeccionesModalLivewire::class, ['usuario' => $cv->usuario])
+            ->call('abrir', $cv->ulid)
+            ->set('titulo', 'Experiencia laboral')
+            ->set('descripcion', '<script>alert(1)</script><p onclick="alert(2)">Hola</p>')
+            ->call('guardar')
+            ->assertHasNoErrors();
+
+        $seccion->refresh();
+        self::assertStringNotContainsString('<script', $seccion->descripcion);
+        self::assertStringNotContainsString('onclick', $seccion->descripcion);
+        self::assertStringContainsString('Hola', $seccion->descripcion);
+    }
+
+    #[Test]
+    public function conserva_el_atributo_style_de_la_descripcion_al_guardar(): void
+    {
+        $usuarioActivo = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CVS_EDITAR_PERMISSION);
+        $seccion = $this->crearSeccion();
+        $cv = $seccion->usuarioCv;
+
+        Livewire::actingAs($usuarioActivo)
+            ->test(UsuarioCvSeccionesModalLivewire::class, ['usuario' => $cv->usuario])
+            ->call('abrir', $cv->ulid)
+            ->set('titulo', 'Experiencia laboral')
+            ->set('descripcion', '<p style="color: red; font-weight: bold;">Hola</p>')
+            ->call('guardar')
+            ->assertHasNoErrors();
+
+        $seccion->refresh();
+        self::assertStringContainsString('style="color: red; font-weight: bold;"', $seccion->descripcion);
+    }
+
+    #[Test]
     public function no_guarda_sin_titulo(): void
     {
         $usuarioActivo = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CVS_EDITAR_PERMISSION);

@@ -19,14 +19,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="descripcion-{{ $sid }}" class="form-label">
-                {{ trans('fields.input.descripcion') }}
-            </label>
-            <textarea id="descripcion-{{ $sid }}" wire:model.blur="descripcion" rows="4"
-                class="form-control @error('descripcion') is-invalid @enderror"></textarea>
-            @error('descripcion')
-                <div class="invalid-feedback d-block">{{ $message }}</div>
-            @enderror
+            <x-input name="descripcion" :wire="true" rich-text :label="trans('fields.input.descripcion')" />
         </div>
 
         <div class="mb-3">
@@ -68,8 +61,10 @@
                 </button>
             @endcan
 
-            <button type="submit" class="btn btn-primary btn-sm ms-auto" wire:loading.attr="disabled" wire:target="guardar">
-                <span class="spinner-border spinner-border-sm me-1" wire:loading wire:target="guardar" aria-hidden="true"></span>
+            <button type="submit" class="btn btn-primary btn-sm ms-auto" wire:loading.attr="disabled"
+                wire:target="guardar">
+                <span class="spinner-border spinner-border-sm me-1" wire:loading wire:target="guardar"
+                    aria-hidden="true"></span>
                 {{ trans('actions.save') }}
             </button>
         </div>
@@ -105,7 +100,8 @@
 
     {{-- Modal de confirmación de borrado de la sección --}}
     <div class="modal fade" id="modal-eliminar-seccion-{{ $sid }}" tabindex="-1"
-        aria-labelledby="modal-eliminar-seccion-{{ $sid }}-titulo" aria-hidden="true" data-bs-backdrop="false">
+        aria-labelledby="modal-eliminar-seccion-{{ $sid }}-titulo" aria-hidden="true"
+        data-bs-backdrop="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">

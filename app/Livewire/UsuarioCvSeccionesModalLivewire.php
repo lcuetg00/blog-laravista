@@ -23,6 +23,7 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
+use voku\helper\AntiXSS;
 
 class UsuarioCvSeccionesModalLivewire extends Component
 {
@@ -49,6 +50,9 @@ class UsuarioCvSeccionesModalLivewire extends Component
 
     /** Imágenes nuevas pendientes de subir a la galería de la sección seleccionada */
     public array $galeriaNuevas = [];
+
+    /** Si la sección se muestra en el PDF con una barra vertical y el contenido sangrado a la derecha */
+    public bool $sangria = false;
 
     /** Si hay cambios en el formulario de la sección seleccionada que aún no se han guardado */
     #[Locked]
@@ -92,6 +96,8 @@ class UsuarioCvSeccionesModalLivewire extends Component
 
         $this->resetAccionPendiente();
         $this->cargarSeccionEnFormulario($this->seccionSeleccionada);
+
+        $this->dispatchRecargarPreview();
     }
 
     /**
@@ -114,6 +120,14 @@ class UsuarioCvSeccionesModalLivewire extends Component
      * Marca que hay cambios sin guardar en cuanto se seleccionan imágenes nuevas para la galería.
      */
     public function updatedGaleriaNuevas(): void
+    {
+        $this->hayCambiosSinGuardar = true;
+    }
+
+    /**
+     * Marca que hay cambios sin guardar al activar/desactivar la sangría.
+     */
+    public function updatedSangria(): void
     {
         $this->hayCambiosSinGuardar = true;
     }
@@ -179,6 +193,20 @@ class UsuarioCvSeccionesModalLivewire extends Component
     }
 
     /**
+     * Notifica al panel de vista previa del PDF la URL y el título vigentes del CV en edición.
+     */
+    private function dispatchRecargarPreview(): void
+    {
+        $cv = $this->cv;
+
+        $this->dispatch(
+            'recargar-preview-cv',
+            url: $cv !== null ? route('panel.usuarios.cvs.pdf', [$this->usuario, $cv]) : null,
+            titulo: $cv?->nombre,
+        );
+    }
+
+    /**
      * Invalida la caché de secciones/sección seleccionada para que se recalcule desde BD, limpiando además la selección si se indica.
      */
     private function invalidarSecciones(bool $limpiarSeleccion = false): void
@@ -197,6 +225,7 @@ class UsuarioCvSeccionesModalLivewire extends Component
     {
         $this->titulo = $seccion?->titulo ?? '';
         $this->descripcion = (string) ($seccion?->descripcion ?? '');
+        $this->sangria = (bool) ($seccion?->sangria ?? false);
         $this->reset('galeriaNuevas');
         $this->resetValidation();
         $this->hayCambiosSinGuardar = false;
@@ -281,6 +310,7 @@ class UsuarioCvSeccionesModalLivewire extends Component
         $this->cargarSeccionEnFormulario($this->seccionSeleccionada);
 
         $this->dispatch('secciones-actualizadas');
+        $this->dispatchRecargarPreview();
     }
 
     /**
@@ -324,6 +354,7 @@ class UsuarioCvSeccionesModalLivewire extends Component
         }
 
         unset($this->secciones);
+        $this->dispatchRecargarPreview();
     }
 
     /**
@@ -334,6 +365,7 @@ class UsuarioCvSeccionesModalLivewire extends Component
         return [
             'titulo' => ['required', 'string', 'max:255', 'regex:' . ValidacionHelper::REGEX_TEXTO],
             'descripcion' => ['nullable', 'string', 'max:20000'],
+            'sangria' => ['required', 'boolean'],
             'galeriaNuevas.*' => [
                 'nullable',
                 'file',
@@ -358,12 +390,20 @@ class UsuarioCvSeccionesModalLivewire extends Component
 
         $datos = $this->validate();
 
+        // Saneamos el HTML generado por el editor enriquecido justo antes de guardarlo en base de datos, para evitar XSS.
+        // Permitimos el atributo style (por defecto AntiXSS lo elimina entero) para conservar el formato al copiar y pegar;
+        // los navegadores actuales ya no ejecutan JavaScript a través de CSS (expression()/behavior: eran solo de IE antiguo).
+        if ($datos['descripcion'] !== null) {
+            $datos['descripcion'] = (new AntiXSS)->removeEvilAttributes(['style'])->xss_clean($datos['descripcion']);
+        }
+
         try {
             DB::beginTransaction();
 
             $seccion->update([
                 'titulo' => $datos['titulo'],
                 'descripcion' => $datos['descripcion'],
+                'sangria' => $datos['sangria'],
             ]);
 
             foreach ($this->galeriaNuevas as $fichero) {
@@ -390,6 +430,7 @@ class UsuarioCvSeccionesModalLivewire extends Component
 
         $this->messageSuccess(trans_choice('actions.updated', UsuarioCvSeccion::CHOICE->value, ['modelo' => trans('fields.models.usuario_cv_seccion')]));
         $this->dispatch('secciones-actualizadas');
+        $this->dispatchRecargarPreview();
     }
 
     /**
@@ -421,6 +462,7 @@ class UsuarioCvSeccionesModalLivewire extends Component
         }
 
         $this->invalidarSecciones();
+        $this->dispatchRecargarPreview();
 
         $this->messageSuccess(trans('fields.usuarios_cvs.secciones.imagenes.borrada'));
     }
@@ -457,5 +499,6 @@ class UsuarioCvSeccionesModalLivewire extends Component
 
         $this->messageSuccess(trans_choice('actions.deleted', UsuarioCvSeccion::CHOICE->value, ['modelo' => trans('fields.models.usuario_cv_seccion')]));
         $this->dispatch('secciones-actualizadas');
+        $this->dispatchRecargarPreview();
     }
 }

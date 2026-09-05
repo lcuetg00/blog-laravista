@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('usuario_cv_id');
             $table->foreign('usuario_cv_id')->references('id')->on('usuarios_cvs')->cascadeOnDelete();
             $table->string('titulo', 500);
-            // Admite HTML escrito a mano (preparado para un futuro editor Summernote); sin sanitizar todavía
+            // Texto con etiquetas html, se sanitiza antes de guardar
             $table->text('descripcion')->nullable();
             // Posición dentro del CV. unsignedSmallInteger (no tinyint) para dar margen al algoritmo de reordenación por desplazamiento
             $table->unsignedSmallInteger('orden');

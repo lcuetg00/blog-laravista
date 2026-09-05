@@ -465,6 +465,58 @@
     FIN INPUTS DEL PANEL
   */
 
+  /*
+    SUMMERNOTE (editor enriquecido de la descripción de secciones del CV)
+  */
+  /* Marco exterior: mismo lenguaje visual que .form-control (borde, radio, fondo) */
+  .note-editor.note-frame {
+    border: 2px solid var(--summernote-border);
+    border-radius: 8px;
+    background-color: var(--input-bg);
+    overflow: hidden;
+  }
+
+  /* Barra de herramientas: mismo fondo que el resto del editor, separada por un borde inferior */
+  .note-toolbar {
+    background-color: var(--input-bg);
+    border-bottom: 1px solid var(--summernote-border);
+    padding: 0.4rem;
+  }
+
+  /* Botones de la barra: color del texto del input, sin fondo hasta el hover */
+  .note-toolbar .note-btn {
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--input-color);
+  }
+
+  .note-toolbar .note-btn:hover,
+  .note-toolbar .note-btn:focus {
+    background-color: var(--input-hover-bg);
+    border-color: var(--input-hover-border);
+    color: var(--input-color);
+  }
+
+  .note-toolbar .note-btn.active {
+    background-color: var(--input-focus-bg);
+    border-color: var(--secondary);
+    color: var(--input-color);
+  }
+
+  /* Área editable y vista de código: mismo fondo/color/caret que un input normal del panel */
+  .note-editing-area .note-editable,
+  .note-editing-area .note-codable {
+    background-color: var(--input-bg);
+    color: var(--input-color);
+    caret-color: var(--secondary);
+  }
+
+  /* Barra de estado (asa de redimensionado): mismo fondo que el resto del editor */
+  .note-statusbar {
+    background-color: var(--input-bg);
+    border-top: 1px solid var(--summernote-border);
+  }
+
   /* Tooltip solo con CSS */
   .popup {
     position: relative;
