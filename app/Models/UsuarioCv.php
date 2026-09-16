@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\ChoiceEnum;
+use App\Enums\FontSizeEnum;
 use App\Enums\OrdenacionColumnaEnum;
 use App\Enums\UsuarioCvOrdenacionEnum;
 use App\Traits\HasPublicUlid;
@@ -18,13 +19,26 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[Table('usuarios_cvs')]
-#[Fillable(['usuario_id', 'nombre'])]
+#[Fillable(['usuario_id', 'nombre', 'nombre_archivo', 'color_primario', 'color_secundario', 'font_size_cabecera', 'font_size_contenido'])]
 class UsuarioCv extends Model
 {
     use HasFactory, HasPublicUlid, SoftDeletes;
 
     // Usado por trans_choice en mensajes con :modelo (el CV → "creado")
     public const ChoiceEnum CHOICE = ChoiceEnum::MASCULINO;
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'font_size_cabecera' => FontSizeEnum::class,
+            'font_size_contenido' => FontSizeEnum::class,
+        ];
+    }
 
     /**
      * Ordena por id descendente por defecto en todas las queries del modelo (los CVs más recientes primero).

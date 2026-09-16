@@ -1,13 +1,13 @@
 /**
- * Refresca las partes dinámicas de la vista previa tras guardar (título del panel si llega en el evento y el iframe).
+ * Refresca las partes dinámicas de la vista previa tras guardar (título del panel, URL del iframe si cambia, y recarga del iframe).
  */
-export function actualizarPreview(datos) {
-    const panel = document.getElementById('paginaPreview');
+export function actualizarPreview(panelId, datos) {
+    const panel = document.getElementById(panelId);
     if (!panel) {
         return;
     }
 
-    // Actualizamos el título del panel cuando la página ha cambiado de título (los cambios de bloque no lo envían)
+    // Actualizamos el título del panel cuando ha cambiado (los cambios que no afectan al título no lo envían)
     if (datos && datos.titulo != null) {
         const tituloEl = panel.querySelector('[data-preview-title]');
         if (tituloEl) {
@@ -15,9 +15,18 @@ export function actualizarPreview(datos) {
         }
     }
 
-    // Recargamos el iframe solo si ya se había cargado (panel abierto al menos una vez), con un parámetro variable para saltarse la caché
     const iframe = panel.querySelector('iframe');
-    if (iframe && iframe.src && iframe.dataset.src) {
+    if (!iframe) {
+        return;
+    }
+
+    // Si llega una URL nueva (p. ej. el CV en edición ha cambiado), actualizamos el data-src antes de recargar
+    if (datos && datos.url != null) {
+        iframe.dataset.src = datos.url;
+    }
+
+    // Recargamos el iframe solo si el panel no está minimizado, con un parámetro variable para saltarse la caché
+    if (!panel.classList.contains('is-minimized') && iframe.dataset.src) {
         const base = iframe.dataset.src;
         iframe.src = base + (base.includes('?') ? '&' : '?') + 'v=' + Date.now();
     }
@@ -27,11 +36,17 @@ export function actualizarPreview(datos) {
  * Inicializa el panel flotante de vista previa: anclado abajo a la derecha, arrastrable y redimensionable
  * con Pointer Events (ratón y táctil unificados) y minimizable estilo ventana.
  */
-export function initPreviewModal() {
-    const panel = document.getElementById('paginaPreview');
+export function initPreviewPanel(panelId) {
+    const panel = document.getElementById(panelId);
     if (!panel) {
         return;
     }
+
+    // Evita volver a enganchar los listeners si el panel ya se inicializó (puede llamarse varias veces, p. ej. desde eventos Livewire)
+    if (panel.dataset.previewInitialized === 'true') {
+        return;
+    }
+    panel.dataset.previewInitialized = 'true';
 
     const iframe = panel.querySelector('iframe');
     const dragHandle = panel.querySelector('[data-preview-drag]');
@@ -53,13 +68,12 @@ export function initPreviewModal() {
     };
 
     /**
-     * Mantiene el panel dentro del viewport recolocándolo si se ha salido por los bordes.
+     * Mantiene el panel dentro del viewport por arriba y abajo. 
+     * A los lados (izquierda y derecha) puede salirse sin límite.
      */
     function clampPosition() {
         const rect = panel.getBoundingClientRect();
-        const maxLeft = Math.max(MARGIN, window.innerWidth - rect.width - MARGIN);
         const maxTop = Math.max(MARGIN, window.innerHeight - rect.height - MARGIN);
-        panel.style.left = Math.min(Math.max(MARGIN, rect.left), maxLeft) + 'px';
         panel.style.top = Math.min(Math.max(MARGIN, rect.top), maxTop) + 'px';
     }
 
@@ -146,12 +160,11 @@ export function initPreviewModal() {
     }
 
     /**
-     * Ajusta el panel a un tamaño concreto, limitándolo al viewport, y lo reencuadra dentro de la pantalla.
+     * Ajusta el panel a un tamaño concreto, limitando solo el alto al viewport (el ancho puede salirse por la derecha).
      */
     function aplicarSize(w, h) {
-        const maxW = window.innerWidth - 2 * MARGIN;
         const maxH = window.innerHeight - 2 * MARGIN;
-        panel.style.width = Math.max(MIN_W, Math.min(w, maxW)) + 'px';
+        panel.style.width = Math.max(MIN_W, w) + 'px';
         panel.style.height = Math.max(MIN_H, Math.min(h, maxH)) + 'px';
         clampPosition();
     }
@@ -185,7 +198,7 @@ export function initPreviewModal() {
     let dragStartTop = 0;
 
     dragHandle.addEventListener('pointerdown', (e) => {
-        if (e.target.closest('.pagina-preview-btn')) {
+        if (e.target.closest('.preview-panel-btn')) {
             return;
         }
 
@@ -259,7 +272,8 @@ export function initPreviewModal() {
         const rect = panel.getBoundingClientRect();
         const w = resizeStartW + (e.clientX - resizeStartX);
         const h = resizeStartH + (e.clientY - resizeStartY);
-        panel.style.width = Math.max(MIN_W, Math.min(w, window.innerWidth - rect.left - MARGIN)) + 'px';
+        // Ancho sin tope (puede crecer más allá del borde derecho); alto topa con la ventana para no salirse por abajo
+        panel.style.width = Math.max(MIN_W, w) + 'px';
         panel.style.height = Math.max(MIN_H, Math.min(h, window.innerHeight - rect.top - MARGIN)) + 'px';
     });
 

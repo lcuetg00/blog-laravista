@@ -31,6 +31,9 @@ class StoreUsuarioRequest extends FormRequest
             'primer_apellido' => ['required', 'string', 'max:70', 'regex:' . ValidacionHelper::REGEX_TEXTO],
             'segundo_apellido' => ['nullable', 'string', 'max:70', 'regex:' . ValidacionHelper::REGEX_TEXTO],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:usuarios,email'],
+            'fecha_nacimiento' => ['nullable', 'date', 'before:today'],
+            'direccion' => ['nullable', 'string', 'max:255', 'regex:' . ValidacionHelper::REGEX_TEXTO],
+            'nacionalidad' => ['nullable', 'string', 'max:100', 'regex:' . ValidacionHelper::REGEX_TEXTO],
             'password' => ['nullable', 'confirmed', Password::defaults()],
             'imagen' => [
                 'nullable',
@@ -52,6 +55,9 @@ class StoreUsuarioRequest extends FormRequest
             'primer_apellido' => trans('fields.input.primer_apellido'),
             'segundo_apellido' => trans('fields.input.segundo_apellido'),
             'email' => trans('fields.input.email'),
+            'fecha_nacimiento' => trans('fields.input.fecha_nacimiento'),
+            'direccion' => trans('fields.input.direccion'),
+            'nacionalidad' => trans('fields.input.nacionalidad'),
             'password' => trans('fields.input.password'),
             'imagen' => trans('fields.input.imagen'),
         ];

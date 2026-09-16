@@ -158,4 +158,11 @@ return [
         'no_es_fichero' => 'El campo :attribute debe ser una imagen válida.',
         'formato_no_permitido' => 'El campo :attribute debe ser una imagen en uno de los formatos permitidos: :formatos.',
     ],
+
+    'custom' => [
+        // El parámetro literal de la regla "before:today" se traduce aquí a mano porque Laravel no traduce "today" dentro de :date
+        'fecha_nacimiento' => [
+            'before' => 'El campo :attribute debe ser una fecha anterior a hoy.',
+        ],
+    ],
 ];

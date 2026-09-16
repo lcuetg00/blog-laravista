@@ -983,7 +983,7 @@
   @media (min-width: 768px) {
     /* Fila maestro-detalle del modal de secciones del CV: alto fijo solo en escritorio, en móvil fluye con su contenido */
     .secciones-modal-row {
-      height: 40vh;
+      height: 70vh;
     }
 
     .sidebar {
@@ -1121,17 +1121,18 @@
     }
   }
 
-  /* Panel flotante de vista previa del show de Página: iframe arrastrable y redimensionable (por encima de header/footer del panel) */
+  /* Panel flotante de vista previa (compartido por el show de Página y el PDF del CV): iframe arrastrable y redimensionable (por encima de header/footer del panel) */
   /* overflow visible para que los popups (.popup::after) de la cabecera no queden recortados; el recorte del iframe se hace en el body */
-  .pagina-preview {
+  /* Por encima de .modal (2205, ver escala de z-index junto a .modal-backdrop más arriba): el preview del CV convive con el modal de secciones abierto, y si quedara por debajo el overlay transparente del modal capturaría sus clics en vez del panel. Por debajo de los toasts (2300), que deben verse siempre */
+  .preview-panel {
     position: fixed;
     right: 1rem;
     bottom: 5rem;
-    z-index: 2200;
+    z-index: 2210;
     display: flex;
     flex-direction: column;
-    width: min(380px, 92vw);
-    height: min(520px, 70vh);
+    width: min(520px, 92vw);
+    height: min(720px, 85vh);
     overflow: visible;
     background: var(--popup-bg);
     color: var(--popup-color);
@@ -1140,7 +1141,7 @@
   }
 
   /* Cabecera: asa de arrastre (touch-action none evita el scroll de la página al arrastrar en táctil) */
-  .pagina-preview-header {
+  .preview-panel-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1155,21 +1156,21 @@
     border-top-right-radius: 0.5rem;
   }
 
-  .pagina-preview-title {
+  .preview-panel-title {
     overflow: hidden;
     font-weight: 600;
   }
 
   /* Layout en fila de la barra de acciones y del grupo de presets (en CSS propio, no con .d-flex, cuyo display:flex !important impediría ocultarlos al minimizar) */
-  .pagina-preview-actions,
-  .pagina-preview-sizes {
+  .preview-panel-actions,
+  .preview-panel-sizes {
     display: flex;
     align-items: center;
     gap: 0.25rem;
   }
 
   /* Botones de la cabecera (abrir en pestaña / cerrar) */
-  .pagina-preview-btn {
+  .preview-panel-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1182,19 +1183,19 @@
     transition: background 0.3s ease;
   }
 
-  .pagina-preview-btn:hover,
-  .pagina-preview-btn:focus-visible {
+  .preview-panel-btn:hover,
+  .preview-panel-btn:focus-visible {
     color: var(--bs-white);
     background: rgba(255, 255, 255, 0.2);
   }
 
   /* Preset de dispositivo seleccionado */
-  .pagina-preview-btn.is-active {
+  .preview-panel-btn.is-active {
     background: rgba(255, 255, 255, 0.35);
   }
 
   /* Separador entre los presets de tamaño y las acciones */
-  .pagina-preview-divider {
+  .preview-panel-divider {
     width: 1px;
     height: 1.25rem;
     margin: 0 0.25rem;
@@ -1202,7 +1203,7 @@
   }
 
   /* Cuerpo con el iframe a tamaño completo (aquí se recorta el iframe con las esquinas inferiores redondeadas) */
-  .pagina-preview-body {
+  .preview-panel-body {
     flex: 1;
     min-height: 0;
     overflow: hidden;
@@ -1210,14 +1211,14 @@
     border-bottom-left-radius: 0.5rem;
   }
 
-  .pagina-preview-body iframe {
+  .preview-panel-body iframe {
     width: 100%;
     height: 100%;
     border: 0;
   }
 
   /* Asa de redimensionado en la esquina inferior derecha */
-  .pagina-preview-resizer {
+  .preview-panel-resizer {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -1229,19 +1230,19 @@
   }
 
   /* Panel minimizado (estilo ventana): solo queda visible la cabecera anclada abajo a la derecha */
-  .pagina-preview.is-minimized {
+  .preview-panel.is-minimized {
     height: auto;
   }
 
   /* Con el panel minimizado solo dejamos la cabecera y el botón de restaurar: ocultamos cuerpo, redimensionador y toda acción que no sea el propio minimizar/restaurar */
-  .pagina-preview.is-minimized .pagina-preview-body,
-  .pagina-preview.is-minimized .pagina-preview-resizer,
-  .pagina-preview.is-minimized .pagina-preview-actions> :not([data-preview-minimize]) {
+  .preview-panel.is-minimized .preview-panel-body,
+  .preview-panel.is-minimized .preview-panel-resizer,
+  .preview-panel.is-minimized .preview-panel-actions> :not([data-preview-minimize]) {
     display: none;
   }
 
   /* Sin cuerpo a la vista, la cabecera redondea también las esquinas inferiores */
-  .pagina-preview.is-minimized .pagina-preview-header {
+  .preview-panel.is-minimized .preview-panel-header {
     border-bottom-right-radius: 0.5rem;
     border-bottom-left-radius: 0.5rem;
   }

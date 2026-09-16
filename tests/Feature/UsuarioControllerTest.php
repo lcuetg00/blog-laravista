@@ -153,6 +153,53 @@ class UsuarioControllerTest extends TestCase
     }
 
     #[Test]
+    public function crea_un_usuario_con_fecha_de_nacimiento_direccion_y_nacionalidad(): void
+    {
+        $usuario = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CREAR_PERMISSION);
+
+        $this->actingAs($usuario)
+            ->post(route('panel.usuarios.store'), [
+                'nombre' => 'Ana',
+                'primer_apellido' => 'García',
+                'email' => 'condatos@ejemplo.test',
+                'fecha_nacimiento' => '1990-05-20',
+                'direccion' => 'Calle Mayor, 1',
+                'nacionalidad' => 'Española',
+            ])
+            ->assertRedirect(route('panel.usuarios.index'))
+            ->assertSessionHas('success');
+
+        $nuevo = Usuario::where('email', 'condatos@ejemplo.test')->first();
+        $this->assertNotNull($nuevo);
+        $this->assertSame('1990-05-20', $nuevo->fecha_nacimiento->format('Y-m-d'));
+        $this->assertSame('Calle Mayor, 1', $nuevo->direccion);
+        $this->assertSame('Española', $nuevo->nacionalidad);
+    }
+
+    #[Test]
+    public function no_crea_un_usuario_con_fecha_de_nacimiento_futura(): void
+    {
+        $usuario = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CREAR_PERMISSION);
+
+        $response = $this->actingAs($usuario)
+            ->post(route('panel.usuarios.store'), [
+                'nombre' => 'Ana',
+                'primer_apellido' => 'García',
+                'email' => 'futuro@ejemplo.test',
+                'fecha_nacimiento' => now()->addDay()->format('Y-m-d'),
+            ]);
+
+        $response->assertSessionHasErrors('fecha_nacimiento');
+
+        // El mensaje personalizado evita que aparezca el parámetro literal "today" de la regla sin traducir
+        $errores = $response->baseResponse->getSession()->get('errors');
+        $this->assertSame(
+            trans('validation.custom.fecha_nacimiento.before', ['attribute' => trans('fields.input.fecha_nacimiento')]),
+            $errores->getBag('default')->first('fecha_nacimiento'),
+        );
+    }
+
+    #[Test]
     public function crea_un_usuario_sin_contrasena_generando_una_aleatoria(): void
     {
         $usuario = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CREAR_PERMISSION);
@@ -326,6 +373,30 @@ class UsuarioControllerTest extends TestCase
             'nombre' => 'Nombre nuevo',
             'email' => 'actualizado@ejemplo.test',
         ]);
+    }
+
+    #[Test]
+    public function un_admin_actualiza_la_fecha_de_nacimiento_direccion_y_nacionalidad_de_un_usuario_gestionable(): void
+    {
+        $admin = $this->usuarioConRol(RoleEnum::ADMIN);
+        $objetivo = $this->usuarioConRol(RoleEnum::USUARIO);
+
+        $this->actingAs($admin)
+            ->put(route('panel.usuarios.update', $objetivo), [
+                'nombre' => $objetivo->nombre,
+                'primer_apellido' => $objetivo->primer_apellido,
+                'email' => $objetivo->email,
+                'fecha_nacimiento' => '1985-12-01',
+                'direccion' => 'Avenida Siempre Viva, 742',
+                'nacionalidad' => 'Mexicana',
+            ])
+            ->assertRedirect(route('panel.usuarios.index'))
+            ->assertSessionHas('success');
+
+        $actualizado = $objetivo->fresh();
+        $this->assertSame('1985-12-01', $actualizado->fecha_nacimiento->format('Y-m-d'));
+        $this->assertSame('Avenida Siempre Viva, 742', $actualizado->direccion);
+        $this->assertSame('Mexicana', $actualizado->nacionalidad);
     }
 
     #[Test]

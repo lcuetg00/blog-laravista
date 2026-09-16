@@ -1,12 +1,16 @@
 {{-- Modal maestro-detalle de las secciones de un CV: barra lateral derecha (crear, reordenar arrastrando con x-sort) + detalle central de la sección seleccionada, con confirmación (gestionada en el servidor) antes de perder cambios sin guardar --}}
 @use('App\Helpers\PermissionHelper')
 
+{{-- Estos tres eventos los dispara el servidor con dispatch() desde el componente Livewire, no el HTML. La lógica PHP decide
+cuándo abrir o cerrar cada modal (si hay cambios sin guardar, acción pendiente...) y Alpine solo escucha el evento en window
+y llama a la instancia de Bootstrap a mano, en lugar de usar los atributos data-bs-* --}}
 <div
     x-on:secciones-abrir-confirmar-descarte.window="window.bootstrap.Modal.getOrCreateInstance(document.getElementById('modalSeccionesConfirmarDescarte')).show()"
     x-on:secciones-confirmar-descarte-ocultar.window="window.bootstrap.Modal.getOrCreateInstance(document.getElementById('modalSeccionesConfirmarDescarte')).hide()"
     x-on:secciones-cerrar.window="window.bootstrap.Modal.getOrCreateInstance(document.getElementById('modalSecciones')).hide()">
+    {{-- data-bs-focus="false": desactiva el focus-trap de Bootstrap, que si no le robaría el foco al panel de vista previa del PDF (vive fuera del modal) en cuanto se hiciera clic en sus botones --}}
     <div class="modal fade" id="modalSecciones" tabindex="-1" aria-labelledby="modalSeccionesTitulo" aria-hidden="true"
-        wire:ignore.self data-bs-backdrop="static" data-bs-keyboard="false">
+        wire:ignore.self data-bs-backdrop="static" data-bs-keyboard="false" data-bs-focus="false">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -36,6 +40,8 @@
                             @if ($this->secciones->isEmpty())
                                 <p class="text-muted mb-0">{{ trans('fields.usuarios_cvs.secciones.sin_secciones') }}</p>
                             @else
+                                {{-- Al soltar, x-sort ya ha reordenado el DOM y llama a este callback. Leemos el data-ulid de cada
+                                fila en su nuevo orden visual y lo enviamos a reordenarSecciones() para que el servidor recalcule el orden en BD --}}
                                 <div class="list-group secciones-modal-lista gap-2 overflow-auto flex-grow-1"
                                     x-sort="$wire.reordenarSecciones(Array.from($el.children).map(fila => fila.dataset.ulid))">
                                     @foreach ($this->secciones as $seccion)
@@ -101,4 +107,11 @@
             </div>
         </div>
     </div>
+
+    {{-- Panel de vista previa del PDF: mostrado/ocultado por JS según el estado real del modal de secciones (livewire-bridge.js) --}}
+    @can(PermissionHelper::USUARIOS_CVS_GENERAR_PDF_PERMISSION)
+        @if ($this->cv !== null)
+            @include('livewire.partials.usuario-cv-preview', ['cv' => $this->cv, 'usuario' => $usuario, 'panelId' => 'cvPreviewSecciones'])
+        @endif
+    @endcan
 </div>

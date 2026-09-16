@@ -54,6 +54,23 @@
                                     data-popup="{{ trans('fields.usuarios_cvs.secciones.titulo') }}">
                                     <i class="fa-solid fa-list-ul" aria-hidden="true"></i>
                                 </button>
+
+                                <button type="button"
+                                    class="action-item btn btn-link p-0 border-0 align-baseline text-secondary popup me-2"
+                                    data-bs-toggle="modal" data-bs-target="#modalDuplicarCv"
+                                    wire:click="$dispatch('abrir-modal-duplicar-cv', { ulid: '{{ $cv->ulid }}' })"
+                                    aria-label="{{ trans('fields.usuarios_cvs.duplicar_cv') }}"
+                                    data-popup="{{ trans('fields.usuarios_cvs.duplicar_cv') }}">
+                                    <i class="fa-solid fa-copy" aria-hidden="true"></i>
+                                </button>
+                            @endcan
+                            @can(PermissionHelper::USUARIOS_CVS_GENERAR_PDF_PERMISSION)
+                                <a href="{{ route('panel.usuarios.cvs.pdf', [$usuario, $cv]) }}" target="_blank"
+                                    class="action-item btn btn-link p-0 border-0 align-baseline text-green popup me-2"
+                                    aria-label="{{ trans('fields.usuarios_cvs.exportar_pdf') }}"
+                                    data-popup="{{ trans('fields.usuarios_cvs.exportar_pdf') }}">
+                                    <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
+                                </a>
                             @endcan
                             @can(PermissionHelper::USUARIOS_CVS_ELIMINAR_PERMISSION)
                                 <button type="button"
@@ -88,4 +105,7 @@
 
     {{-- Modal de gestión de las secciones de un CV --}}
     <livewire:usuario-cv-secciones-modal-livewire :usuario="$usuario" />
+
+    {{-- Modal de duplicación de un CV --}}
+    <livewire:usuario-cv-duplicar-modal-livewire :usuario="$usuario" />
 </div>

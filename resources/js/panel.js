@@ -2,7 +2,7 @@
 import './shared/theme.js';
 import { initTheme } from './shared/theme.js';
 import { initSidebar } from './panel/sidebar.js';
-import { initPreviewModal } from './panel/preview.js';
+import { initPreviewPanel } from './panel/preview.js';
 import { initPopups } from './panel/popups.js';
 import { initToasts } from './panel/toasts.js';
 import { initLivewireBridge } from './panel/livewire-bridge.js';
@@ -18,7 +18,7 @@ window.destruirSummernote = destruirSummernote;
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     initSidebar();
-    initPreviewModal();
+    initPreviewPanel('paginaPreview');
     initPopups();
     initToasts();
     initLivewireBridge();

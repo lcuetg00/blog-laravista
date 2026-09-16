@@ -30,6 +30,18 @@
                     <div class="col-12 col-md-4">
                         <x-input name="email" type="email" :label="trans('fields.input.email')" maxlength="255" required />
                     </div>
+
+                    <div class="col-12 col-md-4">
+                        <x-input name="fecha_nacimiento" type="date" :label="trans('fields.input.fecha_nacimiento')" />
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <x-input name="direccion" :label="trans('fields.input.direccion')" maxlength="255" />
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <x-input name="nacionalidad" :label="trans('fields.input.nacionalidad')" maxlength="100" />
+                    </div>
                 </div>
 
                 <div class="row g-3 mt-1">

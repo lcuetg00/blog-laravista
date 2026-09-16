@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Livewire;
 
+use App\Enums\FontSizeEnum;
 use App\Helpers\PermissionHelper;
 use App\Livewire\UsuarioCvFormLivewire;
 use App\Models\Usuario;
@@ -51,6 +52,75 @@ class UsuarioCvFormLivewireTest extends TestCase
     }
 
     #[Test]
+    public function crea_un_cv_con_tamanos_de_fuente_personalizados(): void
+    {
+        $usuarioActivo = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CVS_CREAR_PERMISSION);
+        $usuarioObjetivo = Usuario::factory()->create();
+
+        Livewire::actingAs($usuarioActivo)
+            ->test(UsuarioCvFormLivewire::class, ['usuario' => $usuarioObjetivo])
+            ->call('abrirFormulario', null)
+            ->set('nombre', 'CV con tamaños')
+            ->set('fontSizeCabecera', FontSizeEnum::LARGE)
+            ->set('fontSizeContenido', FontSizeEnum::SMALL)
+            ->call('guardar')
+            ->assertHasNoErrors()
+            ->assertDispatched('cv-guardado');
+
+        $cv = UsuarioCv::where('usuario_id', $usuarioObjetivo->id)->where('nombre', 'CV con tamaños')->first();
+        $this->assertNotNull($cv);
+        $this->assertSame(FontSizeEnum::LARGE, $cv->font_size_cabecera);
+        $this->assertSame(FontSizeEnum::SMALL, $cv->font_size_contenido);
+    }
+
+    #[Test]
+    public function precarga_los_tamanos_de_fuente_de_un_cv_existente(): void
+    {
+        $usuarioActivo = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CVS_EDITAR_PERMISSION);
+        $usuarioObjetivo = Usuario::factory()->create();
+        $cv = UsuarioCv::factory()->for($usuarioObjetivo, 'usuario')->create([
+            'font_size_cabecera' => FontSizeEnum::SMALL,
+            'font_size_contenido' => FontSizeEnum::LARGE,
+        ]);
+
+        Livewire::actingAs($usuarioActivo)
+            ->test(UsuarioCvFormLivewire::class, ['usuario' => $usuarioObjetivo])
+            ->call('abrirFormulario', $cv->ulid)
+            ->assertSet('fontSizeCabecera', FontSizeEnum::SMALL)
+            ->assertSet('fontSizeContenido', FontSizeEnum::LARGE);
+    }
+
+    #[Test]
+    public function al_editar_un_cv_existente_emite_el_evento_de_vista_previa_con_su_url(): void
+    {
+        $usuarioActivo = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CVS_EDITAR_PERMISSION);
+        $usuarioObjetivo = Usuario::factory()->create();
+        $cv = UsuarioCv::factory()->for($usuarioObjetivo, 'usuario')->create(['nombre' => 'CV a previsualizar']);
+
+        Livewire::actingAs($usuarioActivo)
+            ->test(UsuarioCvFormLivewire::class, ['usuario' => $usuarioObjetivo])
+            ->call('abrirFormulario', $cv->ulid)
+            ->assertDispatched('recargar-preview-cv-form', function (string $nombre, array $params) use ($usuarioObjetivo, $cv): bool {
+                return $params['titulo'] === 'CV a previsualizar'
+                    && $params['url'] === route('panel.usuarios.cvs.pdf', [$usuarioObjetivo, $cv]);
+            });
+    }
+
+    #[Test]
+    public function al_crear_un_cv_nuevo_emite_el_evento_de_vista_previa_sin_url(): void
+    {
+        $usuarioActivo = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CVS_CREAR_PERMISSION);
+        $usuarioObjetivo = Usuario::factory()->create();
+
+        Livewire::actingAs($usuarioActivo)
+            ->test(UsuarioCvFormLivewire::class, ['usuario' => $usuarioObjetivo])
+            ->call('abrirFormulario', null)
+            ->assertDispatched('recargar-preview-cv-form', function (string $nombre, array $params): bool {
+                return $params['url'] === null;
+            });
+    }
+
+    #[Test]
     public function no_crea_un_cv_sin_nombre(): void
     {
         $usuarioActivo = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CVS_CREAR_PERMISSION);
@@ -83,6 +153,58 @@ class UsuarioCvFormLivewireTest extends TestCase
             ->assertDispatched('cv-guardado');
 
         self::assertSame('Nombre editado', $cv->fresh()->nombre);
+    }
+
+    #[Test]
+    public function guarda_el_nombre_del_archivo_cuando_se_informa(): void
+    {
+        $usuarioActivo = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CVS_CREAR_PERMISSION);
+        $usuarioObjetivo = Usuario::factory()->create();
+
+        Livewire::actingAs($usuarioActivo)
+            ->test(UsuarioCvFormLivewire::class, ['usuario' => $usuarioObjetivo])
+            ->call('abrirFormulario', null)
+            ->set('nombre', 'CV con nombre de archivo')
+            ->set('nombreArchivo', 'nombre para el pdf')
+            ->call('guardar')
+            ->assertHasNoErrors()
+            ->assertDispatched('cv-guardado');
+
+        $cv = UsuarioCv::where('usuario_id', $usuarioObjetivo->id)->where('nombre', 'CV con nombre de archivo')->first();
+        $this->assertNotNull($cv);
+        self::assertSame('nombre para el pdf', $cv->nombre_archivo);
+    }
+
+    #[Test]
+    public function el_nombre_del_archivo_queda_en_null_si_se_deja_en_blanco(): void
+    {
+        $usuarioActivo = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CVS_CREAR_PERMISSION);
+        $usuarioObjetivo = Usuario::factory()->create();
+
+        Livewire::actingAs($usuarioActivo)
+            ->test(UsuarioCvFormLivewire::class, ['usuario' => $usuarioObjetivo])
+            ->call('abrirFormulario', null)
+            ->set('nombre', 'CV sin nombre de archivo')
+            ->call('guardar')
+            ->assertHasNoErrors()
+            ->assertDispatched('cv-guardado');
+
+        $cv = UsuarioCv::where('usuario_id', $usuarioObjetivo->id)->where('nombre', 'CV sin nombre de archivo')->first();
+        $this->assertNotNull($cv);
+        self::assertNull($cv->nombre_archivo);
+    }
+
+    #[Test]
+    public function precarga_el_nombre_del_archivo_de_un_cv_existente(): void
+    {
+        $usuarioActivo = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CVS_EDITAR_PERMISSION);
+        $usuarioObjetivo = Usuario::factory()->create();
+        $cv = UsuarioCv::factory()->for($usuarioObjetivo, 'usuario')->create(['nombre_archivo' => 'archivo original']);
+
+        Livewire::actingAs($usuarioActivo)
+            ->test(UsuarioCvFormLivewire::class, ['usuario' => $usuarioObjetivo])
+            ->call('abrirFormulario', $cv->ulid)
+            ->assertSet('nombreArchivo', 'archivo original');
     }
 
     #[Test]

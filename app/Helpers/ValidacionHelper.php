@@ -40,6 +40,11 @@ class ValidacionHelper
     public const REGEX_SLUG = '/^[A-Za-z0-9-]+$/';
 
     /**
+     * Color hexadecimal de 6 dígitos con almohadilla (el formato que devuelve el input type="color" del navegador).
+     */
+    public const REGEX_COLOR_HEX = '/^#[0-9A-Fa-f]{6}$/';
+
+    /**
      * MIME types de imagen aceptados al subir ficheros, indexados por extensión (fuente de la regla App\Rules\MimeTypeImagenValido).
      */
     public const MIME_TYPES_IMAGEN = [

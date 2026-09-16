@@ -47,6 +47,9 @@ class UpdateUsuarioRequest extends FormRequest
                 'max:255',
                 Rule::unique('usuarios', 'email')->ignore($usuario?->getKey()),
             ],
+            'fecha_nacimiento' => ['nullable', 'date', 'before:today'],
+            'direccion' => ['nullable', 'string', 'max:255', 'regex:' . ValidacionHelper::REGEX_TEXTO],
+            'nacionalidad' => ['nullable', 'string', 'max:100', 'regex:' . ValidacionHelper::REGEX_TEXTO],
             'password' => ['nullable', 'confirmed', Password::defaults()],
             'imagen' => [
                 'nullable',
@@ -68,6 +71,9 @@ class UpdateUsuarioRequest extends FormRequest
             'primer_apellido' => trans('fields.input.primer_apellido'),
             'segundo_apellido' => trans('fields.input.segundo_apellido'),
             'email' => trans('fields.input.email'),
+            'fecha_nacimiento' => trans('fields.input.fecha_nacimiento'),
+            'direccion' => trans('fields.input.direccion'),
+            'nacionalidad' => trans('fields.input.nacionalidad'),
             'password' => trans('fields.input.password'),
             'imagen' => trans('fields.input.imagen'),
         ];

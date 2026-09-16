@@ -23,6 +23,20 @@
         </div>
 
         <div class="mb-3">
+            <label for="sangria-{{ $sid }}" class="form-label">
+                {{ trans('fields.usuarios_cvs.secciones.sangria') }}
+            </label>
+            <div class="form-check form-switch">
+                <input class="form-check-input @error('sangria') is-invalid @enderror" type="checkbox" role="switch"
+                    id="sangria-{{ $sid }}" wire:model="sangria">
+                @error('sangria')
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-text">{{ trans('fields.usuarios_cvs.secciones.sangria_ayuda') }}</div>
+        </div>
+
+        <div class="mb-3">
             <label class="form-label">{{ trans('fields.usuarios_cvs.secciones.imagenes.titulo') }}</label>
 
             @if ($seccion->galeria()->isEmpty())
@@ -30,12 +44,11 @@
             @else
                 <div class="row g-2 mb-2">
                     @foreach ($seccion->galeria() as $media)
-                        <div class="col-6 col-md-3">
+                        <div class="col-6 col-md-3" wire:key="galeria-imagen-{{ $media->uuid }}">
                             <div class="position-relative">
                                 <img src="{{ $media->getUrl() }}" alt="" class="img-fluid rounded border">
                                 <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1"
-                                    data-bs-toggle="modal" data-bs-target="#modal-borrar-imagen-{{ $sid }}"
-                                    x-on:click="borrarUuid = '{{ $media->uuid }}'; borrarNombre = @js($media->file_name)"
+                                    x-on:click="borrarUuid = '{{ $media->uuid }}'; borrarNombre = @js($media->file_name); window.bootstrap.Modal.getOrCreateInstance(document.getElementById('modal-borrar-imagen-{{ $sid }}')).show()"
                                     aria-label="{{ trans('fields.usuarios_cvs.secciones.imagenes.borrar') }}">
                                     <i class="fa-solid fa-xmark" aria-hidden="true"></i>
                                 </button>
@@ -54,8 +67,8 @@
 
         <div class="d-flex justify-content-between">
             @can(PermissionHelper::USUARIOS_CVS_ELIMINAR_PERMISSION)
-                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#modal-eliminar-seccion-{{ $sid }}">
+                <button type="button" class="btn btn-outline-danger btn-sm"
+                    x-on:click="window.bootstrap.Modal.getOrCreateInstance(document.getElementById('modal-eliminar-seccion-{{ $sid }}')).show()">
                     <i class="fa-solid fa-trash-can me-1" aria-hidden="true"></i>
                     {{ trans('actions.delete') }}
                 </button>
@@ -70,9 +83,12 @@
         </div>
     </form>
 
-    {{-- Modal de confirmación de borrado de imagen de la sección --}}
+    {{-- Modal de confirmación de borrado de imagen de la sección: anidado dentro del modal de secciones, así que se
+         abre a mano con bootstrap.Modal.show() en vez de data-bs-toggle (el data-api de Bootstrap cierra cualquier
+         otro ".modal.show" que encuentre antes de abrir uno nuevo, lo que cerraba el modal de secciones de golpe) y
+         sin backdrop propio (data-bs-backdrop="false"), reutilizando el del modal de secciones --}}
     <div class="modal fade" id="modal-borrar-imagen-{{ $sid }}" tabindex="-1"
-        aria-labelledby="modal-borrar-imagen-{{ $sid }}-titulo" aria-hidden="true">
+        aria-labelledby="modal-borrar-imagen-{{ $sid }}-titulo" aria-hidden="true" data-bs-backdrop="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">

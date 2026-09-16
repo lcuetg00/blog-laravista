@@ -257,6 +257,24 @@ class UsuarioCvSeccionesModalLivewireTest extends TestCase
     }
 
     #[Test]
+    public function guarda_el_campo_sangria(): void
+    {
+        $usuarioActivo = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CVS_EDITAR_PERMISSION);
+        $seccion = $this->crearSeccion();
+        $cv = $seccion->usuarioCv;
+
+        Livewire::actingAs($usuarioActivo)
+            ->test(UsuarioCvSeccionesModalLivewire::class, ['usuario' => $cv->usuario])
+            ->call('abrir', $cv->ulid)
+            ->set('titulo', 'Experiencia laboral')
+            ->set('sangria', true)
+            ->call('guardar')
+            ->assertHasNoErrors();
+
+        self::assertTrue($seccion->fresh()->sangria);
+    }
+
+    #[Test]
     public function conserva_el_atributo_style_de_la_descripcion_al_guardar(): void
     {
         $usuarioActivo = $this->usuarioConPermisos(PermissionHelper::USUARIOS_CVS_EDITAR_PERMISSION);

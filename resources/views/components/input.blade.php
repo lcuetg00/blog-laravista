@@ -21,6 +21,9 @@
     'wire' => false,
     // Clase de icono FontAwesome opcional; si se indica, el input se envuelve en un input-group con el icono como prefijo.
     'icon' => null,
+    // Si está activo, sustituye el input por un editor de texto enriquecido (Summernote). Ignora type/icon/autocomplete.
+    // Funciona con o sin Livewire (wire), pero solo en páginas que cargan panel.js (Summernote es exclusivo del panel).
+    'richText' => false,
 ])
 
 @php
@@ -30,30 +33,56 @@
     $isInvalid = $invalid || $errors->has($claveError);
     $errorId = $inputId . '-error';
     $inputValue = old($name, $value);
+
+    // Contenido inicial del editor enriquecido: entangle con Livewire (dos direcciones) o el valor plano ya escapado para JS
+    $contenidoInicial = $wire ? "\$wire.entangle('{$name}')" : \Illuminate\Support\Js::from((string) $inputValue);
 @endphp
 
 <label for="{{ $inputId }}"
     class="form-label @if ($required) required @endif">{{ $label }}</label>
-@if ($icon)
-    {{-- Icono al principio del input --}}
-    <div class="input-group @if ($isInvalid) has-validation @endif">
-        <span class="input-group-text"><i class="{{ $icon }}" aria-hidden="true"></i></span>
+
+@if ($richText)
+    {{-- wire:ignore si está activado para que no recargue el editor de texto --}}
+    <div @if ($wire) wire:ignore @endif x-data="{ contenido: {!! $contenidoInicial !!} }" x-init="$nextTick(() => {
+        window.initSummernote($refs.richTextEditor, {
+            valorInicial: contenido,
+            lang: @js(app()->getLocale()),
+            @if($wire)
+            onChange: (html) => { contenido = html },
+            @endif
+        });
+        @if($wire)
+        $watch('contenido', (valor) => window.actualizarSummernote($refs.richTextEditor, valor));
+        @endif
+    })">
+        <textarea x-ref="richTextEditor" id="{{ $inputId }}"
+            @if ($name) name="{{ $name }}" @endif
+            class="form-control @if ($isInvalid) is-invalid @endif"
+            @if ($required) required @endif
+            @if ($showError && $errors->has($claveError)) aria-describedby="{{ $errorId }}" @endif></textarea>
+    </div>
+@else
+    @if ($icon)
+        {{-- Icono al principio del input --}}
+        <div class="input-group @if ($isInvalid) has-validation @endif">
+            <span class="input-group-text"><i class="{{ $icon }}" aria-hidden="true"></i></span>
+    @endif
+    <input type="{{ $type }}" id="{{ $inputId }}"
+        @if ($name) name="{{ $name }}" @endif
+        @if ($wire) wire:model="{{ $name }}" @else value="{{ $inputValue }}" @endif
+        class="form-control @if ($type === 'color') form-control-color @endif @if ($isInvalid) is-invalid @endif"
+        @if ($maxlength) maxlength="{{ $maxlength }}" @endif
+        @if ($autocomplete) autocomplete="{{ $autocomplete }}" @endif
+        @if ($autofocus) autofocus @endif @if ($required) required @endif
+        @if ($showError && $errors->has($claveError)) aria-describedby="{{ $errorId }}" @endif>
+    @if ($icon)
+        {{-- Cierra el div del icono al principio --}}
+        </div>
+    @endif
 @endif
-<input type="{{ $type }}" id="{{ $inputId }}"
-    @if ($name) name="{{ $name }}" @endif
-    @if ($wire) wire:model="{{ $name }}" @else value="{{ $inputValue }}" @endif
-    class="form-control @if ($isInvalid) is-invalid @endif"
-    @if ($maxlength) maxlength="{{ $maxlength }}" @endif
-    @if ($autocomplete) autocomplete="{{ $autocomplete }}" @endif
-    @if ($autofocus) autofocus @endif @if ($required) required @endif
-    @if ($showError && $errors->has($claveError)) aria-describedby="{{ $errorId }}" @endif>
+
 @if ($showError)
     @error($claveError)
         <div id="{{ $errorId }}" class="invalid-feedback d-block">{{ $message }}</div>
     @enderror
-@endif
-
-@if ($icon)
-    {{-- Cierra el div del icono al principio --}}
-    </div>
 @endif

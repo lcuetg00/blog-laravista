@@ -1,10 +1,16 @@
 {{-- Modal de creación/edición del nombre de un CV, con confirmación (gestionada en el servidor) antes de cerrar si hay cambios sin guardar --}}
+@use('App\Helpers\PermissionHelper')
+
+{{-- Estos tres eventos los dispara el servidor con dispatch() desde el componente Livewire, no el HTML. La lógica PHP decide
+cuándo abrir o cerrar cada modal (si hay cambios sin guardar, acción pendiente...) y Alpine solo escucha el evento en window
+y llama a la instancia de Bootstrap a mano, en lugar de usar los atributos data-bs-* --}}
 <div
     x-on:cv-abrir-confirmar-descarte.window="window.bootstrap.Modal.getOrCreateInstance(document.getElementById('modalCvConfirmarDescarte')).show()"
     x-on:cv-confirmar-descarte-ocultar.window="window.bootstrap.Modal.getOrCreateInstance(document.getElementById('modalCvConfirmarDescarte')).hide()"
     x-on:cv-cerrar.window="window.bootstrap.Modal.getOrCreateInstance(document.getElementById('modalCv')).hide()">
+    {{-- data-bs-focus="false": desactiva el focus-trap de Bootstrap, que si no le robaría el foco al panel de vista previa del PDF (vive fuera del modal) en cuanto se hiciera clic en sus botones --}}
     <div class="modal fade" id="modalCv" tabindex="-1" aria-labelledby="modalCvTitulo" aria-hidden="true" wire:ignore.self
-        data-bs-backdrop="static" data-bs-keyboard="false">
+        data-bs-backdrop="static" data-bs-keyboard="false" data-bs-focus="false">
         <div class="modal-dialog modal-dialog-centered">
             <form wire:submit.prevent="guardar" class="modal-content">
                 <div class="modal-header">
@@ -16,7 +22,54 @@
                 </div>
 
                 <div class="modal-body text-start">
-                    <x-input name="nombre" :wire="true" :label="trans('fields.usuarios_cvs.nombre')" required />
+                    <div class="mb-3">
+                        <x-input name="nombre" :wire="true" :label="trans('fields.usuarios_cvs.nombre')" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <x-input name="nombreArchivo" :wire="true" :label="trans('fields.usuarios_cvs.nombre_archivo')" />
+                        <div class="form-text">{{ trans('fields.usuarios_cvs.nombre_archivo_ayuda') }}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <x-input name="colorPrimario" :wire="true" type="color" :label="trans('fields.usuarios_cvs.color_primario')" required />
+                            <div class="form-text">{{ trans('fields.usuarios_cvs.color_primario_ayuda') }}</div>
+                        </div>
+                        <div class="col-6">
+                            <x-input name="colorSecundario" :wire="true" type="color" :label="trans('fields.usuarios_cvs.color_secundario')" required />
+                            <div class="form-text">{{ trans('fields.usuarios_cvs.color_secundario_ayuda') }}</div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mt-1">
+                        <div class="col-6">
+                            <label for="fontSizeCabecera" class="form-label required">{{ trans('fields.usuarios_cvs.font_size_cabecera') }}</label>
+                            <select id="fontSizeCabecera" wire:model="fontSizeCabecera"
+                                class="form-select @error('fontSizeCabecera') is-invalid @enderror">
+                                @foreach (\App\Enums\FontSizeEnum::cases() as $tamano)
+                                    <option value="{{ $tamano->value }}">{{ $tamano->etiqueta() }}</option>
+                                @endforeach
+                            </select>
+                            <div class="form-text">{{ trans('fields.usuarios_cvs.font_size_cabecera_ayuda') }}</div>
+                            @error('fontSizeCabecera')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-6">
+                            <label for="fontSizeContenido" class="form-label required">{{ trans('fields.usuarios_cvs.font_size_contenido') }}</label>
+                            <select id="fontSizeContenido" wire:model="fontSizeContenido"
+                                class="form-select @error('fontSizeContenido') is-invalid @enderror">
+                                @foreach (\App\Enums\FontSizeEnum::cases() as $tamano)
+                                    <option value="{{ $tamano->value }}">{{ $tamano->etiqueta() }}</option>
+                                @endforeach
+                            </select>
+                            <div class="form-text">{{ trans('fields.usuarios_cvs.font_size_contenido_ayuda') }}</div>
+                            @error('fontSizeContenido')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
 
                 <div class="modal-footer d-flex justify-content-between">
@@ -79,4 +132,11 @@
             </div>
         </div>
     </div>
+
+    {{-- Panel de vista previa del PDF: mostrado/ocultado por JS según el estado real del modal del formulario (livewire-bridge.js) --}}
+    @can(PermissionHelper::USUARIOS_CVS_GENERAR_PDF_PERMISSION)
+        @if ($this->cv !== null)
+            @include('livewire.partials.usuario-cv-preview', ['cv' => $this->cv, 'usuario' => $usuario, 'panelId' => 'cvPreviewForm'])
+        @endif
+    @endcan
 </div>

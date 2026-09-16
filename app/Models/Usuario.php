@@ -24,7 +24,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 #[Table('usuarios')]
 #[Hidden(['password', 'remember_token'])]
-#[Fillable(['nombre', 'primer_apellido', 'segundo_apellido', 'email', 'password'])]
+#[Fillable(['nombre', 'primer_apellido', 'segundo_apellido', 'email', 'fecha_nacimiento', 'direccion', 'nacionalidad', 'password'])]
 class Usuario extends Authenticatable implements HasMedia
 {
     /** @use HasFactory<UsuarioFactory> */
@@ -53,6 +53,17 @@ class Usuario extends Authenticatable implements HasMedia
     }
 
     /**
+     * Devuelve la ruta local de la imagen de perfil del usuario (logo por defecto si todavía no tiene avatar).
+     */
+    protected function imagenPerfil(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): string => $this->getFirstMedia(self::MEDIA_COLLECTION_AVATAR)?->getPath()
+                ?? public_path('images/laravistaLogoSmaller.png'),
+        );
+    }
+
+    /**
      * Relación con los CVs del usuario, los más recientes primero.
      */
     public function usuariosCvs(): HasMany
@@ -69,6 +80,7 @@ class Usuario extends Authenticatable implements HasMedia
     {
         return [
             'email_verified_at' => 'datetime',
+            'fecha_nacimiento' => 'date',
             'password' => 'hashed',
         ];
     }

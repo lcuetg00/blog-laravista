@@ -41,6 +41,21 @@
                     <div class="fw-bold">{{ trans('fields.input.email') }}</div>
                     <div>{{ $usuario->email }}</div>
                 </div>
+
+                <div class="col-md-4">
+                    <div class="fw-bold">{{ trans('fields.input.fecha_nacimiento') }}</div>
+                    <div>{{ $usuario->fecha_nacimiento?->format('d/m/Y') }}</div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="fw-bold">{{ trans('fields.input.direccion') }}</div>
+                    <div>{{ $usuario->direccion }}</div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="fw-bold">{{ trans('fields.input.nacionalidad') }}</div>
+                    <div>{{ $usuario->nacionalidad }}</div>
+                </div>
             </div>
         </div>
         <div class="card-footer d-flex justify-content-end">
