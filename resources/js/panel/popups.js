@@ -35,6 +35,12 @@ export function initPopups() {
     }
 
     popups.forEach((el) => {
+        // Evita volver a enganchar los listeners si ya se inicializó (initPopups puede llamarse varias veces al insertar el panel de preview del CV)
+        if (el.dataset.popupInitialized === 'true') {
+            return;
+        }
+        el.dataset.popupInitialized = 'true';
+
         el.addEventListener('mouseenter', () => ajustar(el));
         el.addEventListener('focusin', () => ajustar(el));
     });

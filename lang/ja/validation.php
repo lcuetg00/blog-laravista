@@ -116,4 +116,10 @@ return [
         'no_es_fichero' => ':attributeは有効な画像である必要があります。',
         'formato_no_permitido' => ':attributeは次のいずれかの形式の画像である必要があります：:formatos。',
     ],
+
+    'custom' => [
+        'fecha_nacimiento' => [
+            'before' => ':attributeは今日より前の日付である必要があります。',
+        ],
+    ],
 ];

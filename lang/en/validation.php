@@ -181,8 +181,9 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        // The rule's literal "before:today" parameter is translated here by hand because Laravel does not translate "today" inside :date
+        'fecha_nacimiento' => [
+            'before' => 'The :attribute field must be a date before today.',
         ],
     ],
 

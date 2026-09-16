@@ -77,6 +77,9 @@
   --input-hover-border: rgba(var(--secondary-light-rgb), 0.6);
   --input-btn-color: var(--secondary-light);
 
+  /* Borde de Summernote: más blanco que --input-border para que se distinga bien del fondo oscuro del panel */
+  --summernote-border: rgba(255, 255, 255, 0.4);
+
   /* Thumb del switch desactivado: SVG data-URL con relleno secondary-light (#dab2ff) 
   para reemplazar el azul que Bootstrap mete por defecto en :focus en los checks*/
   --switch-thumb-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23dab2ff'/%3e%3c/svg%3e");

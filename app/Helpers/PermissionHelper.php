@@ -44,6 +44,16 @@ class PermissionHelper
 
     public const string PAGINAS_EDITAR_PERMISSION = 'paginas_editar';
 
+    public const string USUARIOS_CVS_LISTADO_PERMISSION = 'usuarios_cvs_listado';
+
+    public const string USUARIOS_CVS_CREAR_PERMISSION = 'usuarios_cvs_crear';
+
+    public const string USUARIOS_CVS_EDITAR_PERMISSION = 'usuarios_cvs_editar';
+
+    public const string USUARIOS_CVS_ELIMINAR_PERMISSION = 'usuarios_cvs_eliminar';
+
+    public const string USUARIOS_CVS_GENERAR_PDF_PERMISSION = 'usuarios_cvs_generar_pdf';
+
     /**
      * Devuelve el mapa completo de permisos de la aplicación indexado por el nombre del permiso y con su descripción asociada (fuente única para el seeder).
      */
@@ -106,7 +116,24 @@ class PermissionHelper
             self::PAGINAS_EDITAR_PERMISSION => [
                 'descripcion' => 'Permite editar los datos de las páginas desde el panel',
             ],
-        /** Fin páginas */
+            /** Fin páginas */
+            /** CVs de usuario */
+            self::USUARIOS_CVS_LISTADO_PERMISSION => [
+                'descripcion' => 'Permite ver los CVs y secciones de un usuario en el panel',
+            ],
+            self::USUARIOS_CVS_CREAR_PERMISSION => [
+                'descripcion' => 'Permite crear CVs y secciones de un usuario desde el panel',
+            ],
+            self::USUARIOS_CVS_EDITAR_PERMISSION => [
+                'descripcion' => 'Permite editar CVs y secciones de un usuario desde el panel, incluida su reordenación',
+            ],
+            self::USUARIOS_CVS_ELIMINAR_PERMISSION => [
+                'descripcion' => 'Permite eliminar CVs y secciones de un usuario desde el panel',
+            ],
+            self::USUARIOS_CVS_GENERAR_PDF_PERMISSION => [
+                'descripcion' => 'Permite generar y descargar el PDF de un CV de usuario desde el panel',
+            ],
+        /** Fin CVs de usuario */
         ];
     }
 }

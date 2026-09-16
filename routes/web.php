@@ -85,6 +85,8 @@ Route::group([
         Route::post('usuarios/{usuario}/restore', [UsuarioController::class, 'restore'])
             ->withTrashed()
             ->name('usuarios.restore');
+        Route::get('usuarios/{usuario}/cvs', [UsuarioController::class, 'listadoCvs'])->name('usuarios.cvs');
+        Route::get('usuarios/{usuario}/cvs/{usuarioCv}/pdf', [UsuarioController::class, 'generarPdfCv'])->name('usuarios.cvs.pdf');
 
         Route::get('roles/export', [RoleController::class, 'exportExcel'])->name('roles.export');
         Route::resource('roles', RoleController::class)->parameters(['roles' => 'rol']);

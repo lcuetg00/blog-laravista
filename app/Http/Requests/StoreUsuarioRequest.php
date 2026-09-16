@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use App\Helpers\PermissionHelper;
+use App\Helpers\ValidacionHelper;
+use App\Rules\MimeTypeImagenValido;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
@@ -25,11 +27,21 @@ class StoreUsuarioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre' => ['required', 'string', 'max:70'],
-            'primer_apellido' => ['required', 'string', 'max:70'],
-            'segundo_apellido' => ['nullable', 'string', 'max:70'],
+            'nombre' => ['required', 'string', 'max:70', 'regex:' . ValidacionHelper::REGEX_TEXTO],
+            'primer_apellido' => ['required', 'string', 'max:70', 'regex:' . ValidacionHelper::REGEX_TEXTO],
+            'segundo_apellido' => ['nullable', 'string', 'max:70', 'regex:' . ValidacionHelper::REGEX_TEXTO],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:usuarios,email'],
+            'fecha_nacimiento' => ['nullable', 'date', 'before:today'],
+            'direccion' => ['nullable', 'string', 'max:255', 'regex:' . ValidacionHelper::REGEX_TEXTO],
+            'nacionalidad' => ['nullable', 'string', 'max:100', 'regex:' . ValidacionHelper::REGEX_TEXTO],
             'password' => ['nullable', 'confirmed', Password::defaults()],
+            'imagen' => [
+                'nullable',
+                'file',
+                'mimes:' . implode(',', array_keys(ValidacionHelper::MIME_TYPES_IMAGEN)),
+                new MimeTypeImagenValido,
+                'max:' . ValidacionHelper::MAX_KB_IMAGEN,
+            ],
         ];
     }
 
@@ -43,7 +55,11 @@ class StoreUsuarioRequest extends FormRequest
             'primer_apellido' => trans('fields.input.primer_apellido'),
             'segundo_apellido' => trans('fields.input.segundo_apellido'),
             'email' => trans('fields.input.email'),
+            'fecha_nacimiento' => trans('fields.input.fecha_nacimiento'),
+            'direccion' => trans('fields.input.direccion'),
+            'nacionalidad' => trans('fields.input.nacionalidad'),
             'password' => trans('fields.input.password'),
+            'imagen' => trans('fields.input.imagen'),
         ];
     }
 }

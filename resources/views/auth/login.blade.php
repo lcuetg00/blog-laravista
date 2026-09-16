@@ -9,6 +9,9 @@
     {{-- Bootstrap + FontAwesome --}}
     @vite('resources/js/app.js')
 
+    {{-- app.css es para Tailwind, por ahora no se utiliza --}}
+    {{-- @vite('resources/css/app.css') --}}
+
     {{-- CSS del panel --}}
     @vite('resources/css/panel.css')
 

@@ -1,3 +1,6 @@
+/* Fuentes (Bebas Neue, Montserrat, Noto Sans JP) autoalojadas: ver resources/css/fonts.css para las URLs de origen */
+@import './fonts.css';
+
 @import './panel-light-theme.css';
 @import './panel-dark-theme.css';
 
@@ -423,12 +426,18 @@
     display: none !important;
   }
 
-  /* Columna de acciones de las tablas: ancho fijo independientemente del contenido del resto */
+  /* Columna de acciones de las tablas: ancho fijo independientemente del contenido del resto (160px: hasta 4 iconos, como en el listado de usuarios) */
   .col-acciones {
-    width: 120px;
-    min-width: 120px;
-    max-width: 120px;
+    width: 160px;
+    min-width: 160px;
+    max-width: 160px;
     white-space: nowrap;
+  }
+
+  /* Fila seleccionada en una barra lateral tipo list-group (p. ej. secciones del CV): color secundario del panel en vez del azul por defecto de Bootstrap */
+  .list-group-item.active {
+    --bs-list-group-active-bg: var(--secondary);
+    --bs-list-group-active-border-color: var(--secondary-strong);
   }
 
   /* Icono de acción en tablas: sombra al pasar el cursor para dar feedback al usuario */
@@ -455,6 +464,58 @@
   /*
     FIN INPUTS DEL PANEL
   */
+
+  /*
+    SUMMERNOTE (editor enriquecido de la descripción de secciones del CV)
+  */
+  /* Marco exterior: mismo lenguaje visual que .form-control (borde, radio, fondo) */
+  .note-editor.note-frame {
+    border: 2px solid var(--summernote-border);
+    border-radius: 8px;
+    background-color: var(--input-bg);
+    overflow: hidden;
+  }
+
+  /* Barra de herramientas: mismo fondo que el resto del editor, separada por un borde inferior */
+  .note-toolbar {
+    background-color: var(--input-bg);
+    border-bottom: 1px solid var(--summernote-border);
+    padding: 0.4rem;
+  }
+
+  /* Botones de la barra: color del texto del input, sin fondo hasta el hover */
+  .note-toolbar .note-btn {
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--input-color);
+  }
+
+  .note-toolbar .note-btn:hover,
+  .note-toolbar .note-btn:focus {
+    background-color: var(--input-hover-bg);
+    border-color: var(--input-hover-border);
+    color: var(--input-color);
+  }
+
+  .note-toolbar .note-btn.active {
+    background-color: var(--input-focus-bg);
+    border-color: var(--secondary);
+    color: var(--input-color);
+  }
+
+  /* Área editable y vista de código: mismo fondo/color/caret que un input normal del panel */
+  .note-editing-area .note-editable,
+  .note-editing-area .note-codable {
+    background-color: var(--input-bg);
+    color: var(--input-color);
+    caret-color: var(--secondary);
+  }
+
+  /* Barra de estado (asa de redimensionado): mismo fondo que el resto del editor */
+  .note-statusbar {
+    background-color: var(--input-bg);
+    border-top: 1px solid var(--summernote-border);
+  }
 
   /* Tooltip solo con CSS */
   .popup {
@@ -520,9 +581,9 @@
 
   h1,
   h2 {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     line-height: 1.2;
-    font-weight: 400;
+    font-weight: 700;
   }
 
   h3,
@@ -920,6 +981,11 @@
 
   /* Escritorio (≥768px): sidebar sticky, cabecera visible, modo colapsado y popup-sidebar */
   @media (min-width: 768px) {
+    /* Fila maestro-detalle del modal de secciones del CV: alto fijo solo en escritorio, en móvil fluye con su contenido */
+    .secciones-modal-row {
+      height: 70vh;
+    }
+
     .sidebar {
       position: sticky;
       top: 0;
@@ -1048,19 +1114,25 @@
     .offcanvas-md:not(.show) {
       display: none;
     }
+
+    /* Listado de secciones del CV: alto máximo con scroll propio en vez de ocupar toda la pantalla */
+    .secciones-modal-lista {
+      max-height: 300px;
+    }
   }
 
-  /* Panel flotante de vista previa del show de Página: iframe arrastrable y redimensionable (por encima de header/footer del panel) */
+  /* Panel flotante de vista previa (compartido por el show de Página y el PDF del CV): iframe arrastrable y redimensionable (por encima de header/footer del panel) */
   /* overflow visible para que los popups (.popup::after) de la cabecera no queden recortados; el recorte del iframe se hace en el body */
-  .pagina-preview {
+  /* Por encima de .modal (2205, ver escala de z-index junto a .modal-backdrop más arriba): el preview del CV convive con el modal de secciones abierto, y si quedara por debajo el overlay transparente del modal capturaría sus clics en vez del panel. Por debajo de los toasts (2300), que deben verse siempre */
+  .preview-panel {
     position: fixed;
     right: 1rem;
     bottom: 5rem;
-    z-index: 2200;
+    z-index: 2210;
     display: flex;
     flex-direction: column;
-    width: min(380px, 92vw);
-    height: min(520px, 70vh);
+    width: min(520px, 92vw);
+    height: min(720px, 85vh);
     overflow: visible;
     background: var(--popup-bg);
     color: var(--popup-color);
@@ -1069,7 +1141,7 @@
   }
 
   /* Cabecera: asa de arrastre (touch-action none evita el scroll de la página al arrastrar en táctil) */
-  .pagina-preview-header {
+  .preview-panel-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1084,21 +1156,21 @@
     border-top-right-radius: 0.5rem;
   }
 
-  .pagina-preview-title {
+  .preview-panel-title {
     overflow: hidden;
     font-weight: 600;
   }
 
   /* Layout en fila de la barra de acciones y del grupo de presets (en CSS propio, no con .d-flex, cuyo display:flex !important impediría ocultarlos al minimizar) */
-  .pagina-preview-actions,
-  .pagina-preview-sizes {
+  .preview-panel-actions,
+  .preview-panel-sizes {
     display: flex;
     align-items: center;
     gap: 0.25rem;
   }
 
   /* Botones de la cabecera (abrir en pestaña / cerrar) */
-  .pagina-preview-btn {
+  .preview-panel-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1111,19 +1183,19 @@
     transition: background 0.3s ease;
   }
 
-  .pagina-preview-btn:hover,
-  .pagina-preview-btn:focus-visible {
+  .preview-panel-btn:hover,
+  .preview-panel-btn:focus-visible {
     color: var(--bs-white);
     background: rgba(255, 255, 255, 0.2);
   }
 
   /* Preset de dispositivo seleccionado */
-  .pagina-preview-btn.is-active {
+  .preview-panel-btn.is-active {
     background: rgba(255, 255, 255, 0.35);
   }
 
   /* Separador entre los presets de tamaño y las acciones */
-  .pagina-preview-divider {
+  .preview-panel-divider {
     width: 1px;
     height: 1.25rem;
     margin: 0 0.25rem;
@@ -1131,7 +1203,7 @@
   }
 
   /* Cuerpo con el iframe a tamaño completo (aquí se recorta el iframe con las esquinas inferiores redondeadas) */
-  .pagina-preview-body {
+  .preview-panel-body {
     flex: 1;
     min-height: 0;
     overflow: hidden;
@@ -1139,14 +1211,14 @@
     border-bottom-left-radius: 0.5rem;
   }
 
-  .pagina-preview-body iframe {
+  .preview-panel-body iframe {
     width: 100%;
     height: 100%;
     border: 0;
   }
 
   /* Asa de redimensionado en la esquina inferior derecha */
-  .pagina-preview-resizer {
+  .preview-panel-resizer {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -1158,19 +1230,19 @@
   }
 
   /* Panel minimizado (estilo ventana): solo queda visible la cabecera anclada abajo a la derecha */
-  .pagina-preview.is-minimized {
+  .preview-panel.is-minimized {
     height: auto;
   }
 
   /* Con el panel minimizado solo dejamos la cabecera y el botón de restaurar: ocultamos cuerpo, redimensionador y toda acción que no sea el propio minimizar/restaurar */
-  .pagina-preview.is-minimized .pagina-preview-body,
-  .pagina-preview.is-minimized .pagina-preview-resizer,
-  .pagina-preview.is-minimized .pagina-preview-actions> :not([data-preview-minimize]) {
+  .preview-panel.is-minimized .preview-panel-body,
+  .preview-panel.is-minimized .preview-panel-resizer,
+  .preview-panel.is-minimized .preview-panel-actions> :not([data-preview-minimize]) {
     display: none;
   }
 
   /* Sin cuerpo a la vista, la cabecera redondea también las esquinas inferiores */
-  .pagina-preview.is-minimized .pagina-preview-header {
+  .preview-panel.is-minimized .preview-panel-header {
     border-bottom-right-radius: 0.5rem;
     border-bottom-left-radius: 0.5rem;
   }
@@ -1261,6 +1333,33 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+  }
+
+  /* Columna del avatar en tablas: ancho fijo pequeño, igual que col-acciones pero para la miniatura circular */
+  .col-avatar {
+    width: 76px;
+    min-width: 76px;
+    max-width: 76px;
+  }
+
+  /* Avatar redondo del listado de usuarios (o el logo de la aplicación cuando no hay imagen subida) */
+  .avatar-tabla {
+    display: block;
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    transition: all 0.3s ease;
+  }
+
+  .avatar-tabla:hover {
+    transform: scale(1.3);
+  }
+
+  /* Vista previa redonda del avatar actual en el formulario de edición de usuario */
+  .avatar-preview {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
   }
 
   /* Icono del bloque HERO en el preview: tope de ancho y alto proporcional */

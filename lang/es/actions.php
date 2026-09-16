@@ -19,6 +19,8 @@ return [
     'edit' => 'Editar',
     'show' => 'Ver',
     'delete' => 'Eliminar',
+    'discard_changes' => 'Descartar cambios',
+    'manage_cvs' => 'Gestionar CVs',
     'save' => 'Guardar',
     'accept' => 'Aceptar',
     'cancel' => 'Cancelar',
@@ -28,6 +30,7 @@ return [
     'filter_submit' => 'Buscar',
     'clear_filters' => 'Borrar filtros',
     'clear_ordenacion' => 'Borrar ordenación',
+    'drag_reorder' => 'Mantenga pulsado y arrastre para reordenar',
 
     // Modal de confirmación de borrado genérico
     'delete_confirm_title' => '¿Desea borrar este registro?',

@@ -25,6 +25,7 @@
             <caption class="visually-hidden">{{ trans('fields.usuarios.titulo') }}</caption>
             <thead>
                 <tr>
+                    <th scope="col" class="align-top col-avatar"><span class="visually-hidden">{{ trans('fields.input.imagen') }}</span></th>
                     <x-panel.ordenacion-columna :columna="UsuarioOrdenacionEnum::NOMBRE" :etiqueta="trans('fields.input.nombre')" />
                     <x-panel.ordenacion-columna :columna="UsuarioOrdenacionEnum::PRIMER_APELLIDO" :etiqueta="trans('fields.input.primer_apellido')" />
                     <x-panel.ordenacion-columna :columna="UsuarioOrdenacionEnum::SEGUNDO_APELLIDO" :etiqueta="trans('fields.input.segundo_apellido')" />
@@ -35,23 +36,33 @@
             <tbody>
                 @forelse ($usuarios as $usuario)
                     <tr>
-                        <td class="align-top">
+                        <td class="align-middle col-avatar">
+                            <img src="{{ $usuario->avatarUrl() ?? asset('images/laravistaLogoSmaller.png') }}" alt=""
+                                class="avatar-tabla rounded-circle">
+                        </td>
+                        <td class="align-middle">
                             <div class="table-row-text">{{ $usuario->nombre }}</div>
                         </td>
-                        <td class="align-top">
+                        <td class="align-middle">
                             <div class="table-row-text">{{ $usuario->primer_apellido }}</div>
                         </td>
-                        <td class="align-top">
+                        <td class="align-middle">
                             <div class="table-row-text">{{ $usuario->segundo_apellido }}</div>
                         </td>
-                        <td class="align-top">
+                        <td class="align-middle">
                             <div class="table-row-text">{{ $usuario->email }}</div>
                         </td>
-                        <td class="align-top text-start col-acciones">
+                        <td class="align-middle text-start col-acciones">
                             <a href="{{ route('panel.usuarios.show', $usuario) }}" class="action-item text-blue popup me-2"
                                 aria-label="{{ trans('actions.show') }}" data-popup="{{ trans('actions.show') }}">
                                 <i class="fa-solid fa-eye" aria-hidden="true"></i>
                             </a>
+                            @can(\App\Helpers\PermissionHelper::USUARIOS_CVS_LISTADO_PERMISSION)
+                                <a href="{{ route('panel.usuarios.cvs', $usuario) }}" class="action-item text-green popup me-2"
+                                    aria-label="{{ trans('actions.manage_cvs') }}" data-popup="{{ trans('actions.manage_cvs') }}">
+                                    <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+                                </a>
+                            @endcan
                             @if (UsuarioHelper::puedeModificarUsuario(auth()->user(), $usuario))
                                 <a href="{{ route('panel.usuarios.edit', $usuario) }}"
                                     class="action-item text-yellow popup me-2" aria-label="{{ trans('actions.edit') }}"
@@ -74,7 +85,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="text-center text-muted py-4">
+                        <td colspan="6" class="text-center text-muted py-4">
                             {{ trans('fields.sin_registros') }}
                         </td>
                     </tr>

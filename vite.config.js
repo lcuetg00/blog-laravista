@@ -28,6 +28,8 @@ export default defineConfig({
         include: [
             'bootstrap', // Solo javascript
             '@fortawesome/fontawesome-free/js/all.js',
+            'jquery',
+            'summernote',
         ],
      },
 });

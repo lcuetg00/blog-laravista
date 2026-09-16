@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Exports\UsuariosExport;
+use App\Helpers\CvHelper;
 use App\Helpers\PermissionHelper;
 use App\Helpers\UsuarioHelper;
 use App\Http\Requests\ExportExcelUsuariosRequest;
@@ -12,8 +13,11 @@ use App\Http\Requests\IndexUsuarioRequest;
 use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Requests\UpdateUsuarioRequest;
 use App\Models\Usuario;
+use App\Models\UsuarioCv;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Attributes\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware as MiddlewareItem;
@@ -76,6 +80,7 @@ class UsuarioController extends Controller implements HasMiddleware
     public function store(StoreUsuarioRequest $request): RedirectResponse
     {
         $datos = $request->validated();
+        unset($datos['imagen']);
 
         // Si no llega contraseña generamos una aleatoria fuerte; el usuario deberá usar el flujo de recuperación
         if (empty($datos['password'])) {
@@ -87,10 +92,15 @@ class UsuarioController extends Controller implements HasMiddleware
 
             // Creamos el usuario; el trait HasPublicUlid genera automáticamente el ulid
             // y el cast "hashed" del modelo se encarga de hashear la contraseña
-            Usuario::create($datos);
+            $nuevoUsuario = Usuario::create($datos);
+
+            // Si se ha subido una imagen la guardamos como avatar (colección singleFile: sustituye a cualquier anterior)
+            if ($request->hasFile('imagen')) {
+                $nuevoUsuario->addMediaFromRequest('imagen')->toMediaCollection(Usuario::MEDIA_COLLECTION_AVATAR);
+            }
 
             DB::commit();
-        } catch (\Exception|\Error $e) {
+        } catch (\Exception | \Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al crear el usuario', ['exception' => $e]);
 
@@ -116,6 +126,69 @@ class UsuarioController extends Controller implements HasMiddleware
     }
 
     /**
+     * Muestra la pantalla de gestión de los CVs del usuario (CVs y sus secciones), resuelto por su ulid público.
+     */
+    #[Middleware('can:' . PermissionHelper::USUARIOS_CVS_LISTADO_PERMISSION)]
+    public function listadoCvs(Usuario $usuario): View
+    {
+        // Precargamos los CVs del usuario junto con sus secciones para evitar N+1 al pintar la pantalla
+        $usuario->loadMissing('usuariosCvs.secciones');
+
+        return view('panel.usuarios.listado-cvs', [
+            'usuario' => $usuario,
+        ]);
+    }
+
+    /**
+     * Genera el PDF del CV indicado y lo devuelve para abrirlo en una pestaña nueva (stream, no descarga forzada).
+     */
+    #[Middleware('can:' . PermissionHelper::USUARIOS_CVS_GENERAR_PDF_PERMISSION)]
+    public function generarPdfCv(Usuario $usuario, UsuarioCv $usuarioCv): Response
+    {
+        // El CV es del usuario autenticado
+        abort_unless($usuarioCv->usuario_id === $usuario->id, 404);
+
+        $usuarioCv->loadMissing('secciones.media');
+
+        // Ruta local del avatar (dompdf no puede cargar por URL http sin enable_remote); si no hay avatar, mismo fallback que el resto del panel
+        $avatarPath = $usuario->imagen_perfil;
+
+        // Se calcula una sola vez y se reutiliza en las dos pasadas: si difiriese entre ellas, la maquetación
+        // (y por tanto el nº de páginas) dejaría de coincidir entre la pasada de conteo y la definitiva
+        $usarNoto = CvHelper::usarFuenteJaponesaEnPdfCv($usuario, $usuarioCv);
+
+        $datosVista = [
+            'usuario' => $usuario,
+            'cv' => $usuarioCv,
+            'avatarPath' => $avatarPath,
+            'usarNoto' => $usarNoto,
+            'altoCabeceraCompleta' => CvHelper::ALTO_CABECERA_PDF_CV,
+            'altoBandaContinuacion' => CvHelper::ALTO_BANDA_CONTINUACION_PDF_CV,
+            'margenInferiorBandaContinuacion' => CvHelper::MARGEN_INFERIOR_BANDA_CONTINUACION_PDF_CV,
+        ];
+
+        // Revisamos si ocupa una sola hoja el cv, de esta forma no mostramos el pie de página
+        $pdf = Pdf::loadView('pdf.usuario-cv', $datosVista + ['mostrarPiePagina' => false]);
+        $pdf->render();
+        $totalPaginas = $pdf->getDomPDF()->getCanvas()->get_page_count();
+
+        // Si hay más de una página, volvemos a generar el documento mostrando el número de página en el pie
+        if ($totalPaginas > 1) {
+            $pdf = Pdf::loadView('pdf.usuario-cv', $datosVista + ['mostrarPiePagina' => true]);
+            CvHelper::dibujarPiePaginaCv($pdf->getDomPDF(), $usuarioCv, $usarNoto);
+        }
+
+        // Cogemos el nombre de archivo a usar para el curriculum. Si no tiene, se hace fallback al nombre
+        $nombreParaArchivo = $usuarioCv->nombre_archivo !== null && $usuarioCv->nombre_archivo !== ''
+            ? $usuarioCv->nombre_archivo
+            : $usuarioCv->nombre;
+
+        $nombreArchivo = Str::slug($usuario->nombre_completo . '-' . $nombreParaArchivo) . '.pdf';
+
+        return $pdf->stream($nombreArchivo);
+    }
+
+    /**
      * Muestra el formulario de edición de un usuario, resuelto por su ulid público.
      */
     #[Middleware('can:' . PermissionHelper::USUARIOS_EDITAR_PERMISSION)]
@@ -136,6 +209,7 @@ class UsuarioController extends Controller implements HasMiddleware
     public function update(UpdateUsuarioRequest $request, Usuario $usuario): RedirectResponse
     {
         $datos = $request->validated();
+        unset($datos['imagen']);
 
         // Si no llega contraseña nueva, la quitamos del array para no sobrescribirla con vacío
         if (empty($datos['password'])) {
@@ -148,8 +222,13 @@ class UsuarioController extends Controller implements HasMiddleware
             // Actualizamos el usuario con los datos válidos
             $usuario->update($datos);
 
+            // Si se ha subido una imagen nueva, sustituye a la anterior (colección singleFile)
+            if ($request->hasFile('imagen')) {
+                $usuario->addMediaFromRequest('imagen')->toMediaCollection(Usuario::MEDIA_COLLECTION_AVATAR);
+            }
+
             DB::commit();
-        } catch (\Exception|\Error $e) {
+        } catch (\Exception | \Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al actualizar el usuario', ['exception' => $e]);
 
@@ -179,7 +258,7 @@ class UsuarioController extends Controller implements HasMiddleware
             $usuario->delete();
 
             DB::commit();
-        } catch (\Exception|\Error $e) {
+        } catch (\Exception | \Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al eliminar el usuario', ['exception' => $e]);
 
@@ -208,7 +287,7 @@ class UsuarioController extends Controller implements HasMiddleware
             }
 
             DB::commit();
-        } catch (\Exception|\Error $e) {
+        } catch (\Exception | \Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al restaurar el usuario', ['exception' => $e]);
 

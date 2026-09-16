@@ -19,6 +19,8 @@ return [
     'edit' => '編集',
     'show' => '表示',
     'delete' => '削除',
+    'discard_changes' => '変更を破棄',
+    'manage_cvs' => '履歴書を管理',
     'save' => '保存',
     'accept' => '承諾',
     'cancel' => 'キャンセル',
@@ -28,6 +30,7 @@ return [
     'filter_submit' => '検索',
     'clear_filters' => 'フィルターをクリア',
     'clear_ordenacion' => '並べ替えをクリア',
+    'drag_reorder' => '長押ししてドラッグすると並び替えできます',
 
     // 汎用の削除確認モーダル
     'delete_confirm_title' => 'このレコードを削除しますか？',

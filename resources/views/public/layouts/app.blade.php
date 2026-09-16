@@ -13,6 +13,9 @@
     {{-- Importo el vite que se genera con lo que tengo instalado (FontAwsome, Bootstrap) --}}
     @vite('resources/js/app.js')
 
+    {{-- app.css es para Tailwind, por ahora no se utiliza --}}
+    {{-- @vite('resources/css/app.css') --}}
+
     {{-- Css público --}}
     @vite('resources/css/public.css')
 
