@@ -21,6 +21,8 @@ class UsuarioCvFactory extends Factory
         return [
             'usuario_id' => Usuario::factory(),
             'nombre' => fake()->jobTitle() . ' CV',
+            'color_primario' => '#6d28d9',
+            'color_secundario' => '#6d28d9',
         ];
     }
 }
