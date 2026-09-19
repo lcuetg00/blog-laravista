@@ -100,7 +100,7 @@ class UsuarioController extends Controller implements HasMiddleware
             }
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al crear el usuario', ['exception' => $e]);
 
@@ -228,7 +228,7 @@ class UsuarioController extends Controller implements HasMiddleware
             }
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al actualizar el usuario', ['exception' => $e]);
 
@@ -258,7 +258,7 @@ class UsuarioController extends Controller implements HasMiddleware
             $usuario->delete();
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al eliminar el usuario', ['exception' => $e]);
 
@@ -287,7 +287,7 @@ class UsuarioController extends Controller implements HasMiddleware
             }
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al restaurar el usuario', ['exception' => $e]);
 

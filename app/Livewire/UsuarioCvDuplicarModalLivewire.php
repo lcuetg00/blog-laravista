@@ -116,7 +116,7 @@ class UsuarioCvDuplicarModalLivewire extends Component
             }
 
             DB::commit();
-        } catch (\Exception | \Error $e) {
+        } catch (\Exception|\Error $e) {
             DB::rollBack();
             Log::error('Ha ocurrido un error al duplicar el CV del usuario', ['exception' => $e]);
 

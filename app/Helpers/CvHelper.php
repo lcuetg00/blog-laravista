@@ -53,7 +53,7 @@ class CvHelper
     }
 
     /**
-     * Registra, vía setCallbacks("end_document"), el pie de página y la banda de continuación de cada página del CV (a diferencia de un <script type="text/php"> 
+     * Registra, vía setCallbacks("end_document"), el pie de página y la banda de continuación de cada página del CV (a diferencia de un <script type="text/php">
      * embebido en la vista, se ejecuta cuando el documento ya está completo, con las coordenadas de la última página ya correctas).
      */
     public static function dibujarPiePaginaCv(Dompdf $dompdf, UsuarioCv $usuarioCv, bool $usarNoto): void
